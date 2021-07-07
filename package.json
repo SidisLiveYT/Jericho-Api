@@ -1,15 +1,16 @@
 {
   "name": "multi-discord-api",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "description": "Multi-API for Nodejs Projects and with no rate-limit using JavaScript &lt;3",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm build run"
+    "start": "npm build run",
+    "semantic-release": "semantic-release"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SidisLiveYT/multi-discord-api.git"
+    "url": "https://github.com/SidisLiveYT/multi-discord-api.git"
   },
   "keywords": [
     "api",
@@ -23,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/SidisLiveYT/multi-discord-api/issues"
   },
-  "homepage": "https://github.com/SidisLiveYT/multi-discord-api#readme"
+  "homepage": "https://github.com/SidisLiveYT/multi-discord-api#readme",
+  "devDependencies": {
+    "semantic-release": "^17.4.4"
+  }
 }
