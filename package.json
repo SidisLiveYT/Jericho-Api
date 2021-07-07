@@ -1,0 +1,26 @@
+{
+  "name": "multi-discord-api",
+  "version": "1.0.0",
+  "description": "Multi-API for Nodejs Projects and with no rate-limit using JavaScript &lt;3",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "npm build run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SidisLiveYT/multi-discord-api.git"
+  },
+  "keywords": [
+    "api",
+    "discord",
+    "multi-api",
+    "discord api",
+    "multi-discord-api"
+  ],
+  "author": "Sid is Live YT",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SidisLiveYT/multi-discord-api/issues"
+  },
+  "homepage": "https://github.com/SidisLiveYT/multi-discord-api#readme"
+}
