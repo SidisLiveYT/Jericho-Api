@@ -4,8 +4,6 @@
   "description": "Multi-API for Nodejs Projects and with no rate-limit using JavaScript &lt;3",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm build run",
     "commit": "git-cz",
     "semantic-release": "semantic-release"
   },
