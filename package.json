@@ -7,7 +7,7 @@
   "scripts": {
     "build": "npm run lint && babel ./src -d ./lib",
     "test": "nyc mocha --require babel-core/register",
-    "lint": "eslint ./src",
+    "lint": "eslint ./src --fix",
     "commit": "git-cz",
     "semantic-release": "semantic-release --branches main"
   },
