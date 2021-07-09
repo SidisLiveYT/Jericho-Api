@@ -3,6 +3,7 @@
   "version": "0.0.0-development",
   "description": "Multi-API for Nodejs Projects and with no rate-limit using JavaScript &lt;3",
   "main": "src/index.js",
+  "type": "module",
   "scripts": {
     "build": "npm run lint && babel ./src -d ./lib",
     "test": "nyc mocha --require babel-core/register",
