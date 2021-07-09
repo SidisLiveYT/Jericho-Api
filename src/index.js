@@ -1,3 +1,3 @@
 module.exports = {
-  EmbedGenerator: require('./distributions/embedgen'),
+  EmbedGenerator: require('./distributions/embedgen.js'),
 };
