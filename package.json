@@ -3,7 +3,6 @@
   "version": "0.0.0-development",
   "description": "Multi-API for Nodejs Projects and with no rate-limit using JavaScript &lt;3",
   "main": "src/index.js",
-  "type": "module",
   "scripts": {
     "build": "npm run lint && babel ./src -d ./lib",
     "test": "nyc mocha --require babel-core/register",
@@ -43,5 +42,12 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "engines": {
+    "node": ">= 14.0.0"
+  },
+  "dependencies": {
+    "discord.js": "^13.0.0-dev.5b6be0c.1625789033",
+    "valid-url": "^1.0.9"
   }
 }
