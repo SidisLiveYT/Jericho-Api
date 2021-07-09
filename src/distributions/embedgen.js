@@ -1,5 +1,5 @@
 import EmbedStructure from '../classes/Embed_Structure';
-import { WebhookFunction } from '../Functions/Discord_Workloads';
+const { WebhookFunction } = require('.././Functions/Discord_Workloads.js');
 
 const EmbedTypes = ['error', 'return', 'show', 'null'];
 
