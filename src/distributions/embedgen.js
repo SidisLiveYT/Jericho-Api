@@ -1,9 +1,9 @@
 const EmbedStructure = require('../classes/Embed_Structure');
-const { WebhookFunction } = require('.././Functions/Discord_Workloads.js');
+const { WebhookFunction } = require('../Functions/Discord_Workloads');
 
 const EmbedTypes = ['error', 'return', 'show', 'null'];
 
-class EmbedGenerator {
+class EmbedGen {
   /**
       * Class meant for Distinguish Clients in Discord.Client
       * @template {Object.<string>} T
@@ -90,4 +90,4 @@ class EmbedGenerator {
     return Option;
   }
 }
-module.exports = EmbedGenerator;
+module.exports = EmbedGen;

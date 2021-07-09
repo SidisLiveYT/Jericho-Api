@@ -26,16 +26,16 @@ class EmbedStructure {
      * @param {Object.<any>} Object Values from Class <Options>.Default
      */
 
-    this.Author = Structure.Author ? typeof Structure.Author.Text === 'string' ? Structure.Author.Text : Default.Author.Text : Default.Author.Text;
-    this.Author_Url = Structure.Author ? typeof Structure.Author.Url === 'string' ? Structure.Author.Url : Default.Author.Url : Default.Author.Url;
-    this.Author_Image = Structure.Author ? typeof Structure.Author.Image === 'string' ? Structure.Author.Image : Default.Author.Image : Default.Author.Image;
-    this.Title = Structure.Title ? typeof Structure.Author.Text === 'string' ? Structure.Author.Text : Default.Author.Text : Default.Author.Text;
-    this.Title_Url = Structure.Title ? typeof Structure.Title.Url === 'string' ? Structure.Author.Image : Default.Title.Url : Default.Title.Url;
-    this.Description = Structure.Description ? typeof Structure.Description === 'string' ? Structure.Description : Default.Description : Default.Description;
+    this.Author = typeof Structure.Author.Text === 'string' ? Structure.Author.Text : Default.Author.Text;
+    this.Author_Url = typeof Structure.Author.Url === 'string' ? Structure.Author.Url : Default.Author.Url;
+    this.Author_Image = typeof Structure.Author.Image === 'string' ? Structure.Author.Image : Default.Author.Image;
+    this.Title = typeof Structure.Author.Text === 'string' ? Structure.Author.Text : Default.Author.Text;
+    this.Title_Url = typeof Structure.Title.Url === 'string' ? Structure.Author.Image : Default.Title.Url;
+    this.Description = typeof Structure.Description === 'string' ? Structure.Description : Default.Description;
     this.Image = typeof Structure.Image === 'string' ? Structure.Image : Default.Image;
     this.Thumbnail = typeof Structure.Thumbnail === 'string' ? Structure.Thumbnail : Default.Thumbnail;
-    this.Footer = Structure.Footer ? typeof Structure.Footer.Text === 'string' ? Structure.Footer.Text : Default.Footer.Text : Default.Footer.Text;
-    this.Footer_Image = Structure.Footer ? typeof Structure.Footer.Url === 'string' ? Structure.Footer.Url : Default.Footer.Url : Default.Footer.Url;
+    this.Footer = typeof Structure.Footer.Text === 'string' ? Structure.Footer.Text : Default.Footer.Text;
+    this.Footer_Image = typeof Structure.Footer.Url === 'string' ? Structure.Footer.Url : Default.Footer.Url;
     this.timestamp = typeof Structure.Timestamp === 'boolean' ? Structure.Timestamp : Default.Timestamp;
     this.Fields = Structure.Fields ? Structure.Fields : Default.Fields;
     this.Color = typeof Structure.Color === 'string' ? Structure.Color : Default.Color;
@@ -55,21 +55,21 @@ class EmbedStructure {
       .setTitle({ title: this.Title })
       .setUrl({ url: this.Title_Url })
       .setDescription({ description: this.Description })
-      .setFooter({ text: this.Footer ? this.Footer.toLowerCase().trim() === 'null' ? null : this.Footer : 'Error has been Detected!', iconURL: this.Footer_Image })
+      .setFooter({ text: this.Footer ? this.Footer : 'Error has been Detected!', iconURL: this.Footer_Image })
       .setColor({ color: this.Color ? this.Color : 'ff0000' })
       .setTimestamp();
 
     if (this.Image) Emboid.setImage({ url: this.Image });
     if (this.Thumbnail) Emboid.setThumbnail({ url: this.Thumbnail });
     if (this.Fields && this.Fields.length >= 1) {
-      for (const field of this.Fields) {
+      this.Fields.forEach((field) => {
         Field = {
           name: typeof field.name === 'string' ? field.name : '** **',
           value: typeof field.value === 'string' ? field.value : '** **',
           inline: typeof field.inline === 'boolean' ? field.inline : false,
         };
         Fieldsarray.push(Field);
-      }
+      });
       Emboid.addFields(Fieldsarray);
     }
     return { Embed: Emboid, Json: Emboid.toJSON };
@@ -89,21 +89,21 @@ class EmbedStructure {
       .setTitle({ title: this.Title })
       .setUrl({ url: this.Title_Url })
       .setDescription({ description: this.Description })
-      .setFooter({ text: this.Footer ? this.Footer.toLowerCase().trim() === 'null' ? null : this.Footer : 'Showing Valuable Data!', iconURL: this.Footer_Image })
+      .setFooter({ text: this.Footer ? this.Footer : 'Showing Valuable Data!', iconURL: this.Footer_Image })
       .setColor({ color: this.Color ? this.Color : '00FF00' })
       .setTimestamp();
 
     if (this.Image) Emboid.setImage({ url: this.Image });
     if (this.Thumbnail) Emboid.setThumbnail({ url: this.Thumbnail });
     if (this.Fields && this.Fields.length >= 1) {
-      for (const field of this.Fields) {
+      this.Fields.forEach((field) => {
         Field = {
           name: typeof field.name === 'string' ? field.name : '** **',
           value: typeof field.value === 'string' ? field.value : '** **',
           inline: typeof field.inline === 'boolean' ? field.inline : false,
         };
         Fieldsarray.push(Field);
-      }
+      });
       Emboid.addFields(Fieldsarray);
     }
     return { Embed: Emboid, Json: Emboid.toJSON };
@@ -123,22 +123,21 @@ class EmbedStructure {
       .setTitle({ title: this.Title })
       .setUrl({ url: this.Title_Url })
       .setDescription({ description: this.Description })
-      .setFooter({ text: this.Footer ? this.Footer.toLowerCase().trim() === 'null' ? null : this.Footer : 'Data has been Retrieved!', iconURL: this.Footer_Image })
+      .setFooter({ text: this.Footer ? this.Footer : 'Data has been Retrieved!', iconURL: this.Footer_Image })
       .setColor({ color: this.Color ? this.Color : '00FF00' })
       .setTimestamp();
 
     if (this.Image) Emboid.setImage({ url: this.Image });
     if (this.Thumbnail) Emboid.setThumbnail({ url: this.Thumbnail });
     if (this.Fields && this.Fields.length >= 1) {
-      for (const field of this.Fields) {
+      this.Fields.forEach((field) => {
         Field = {
           name: typeof field.name === 'string' ? field.name : '** **',
           value: typeof field.value === 'string' ? field.value : '** **',
           inline: typeof field.inline === 'boolean' ? field.inline : false,
         };
         Fieldsarray.push(Field);
-      }
-      Emboid.addFields(Fieldsarray);
+      });
     }
     return { Embed: Emboid, Json: Emboid.toJSON };
   }
@@ -157,21 +156,21 @@ class EmbedStructure {
       .setTitle({ title: this.Title })
       .setUrl({ url: this.Title_Url })
       .setDescription({ description: this.Description })
-      .setFooter({ text: this.Footer ? this.Footer.toLowerCase().trim() === 'null' ? null : this.Footer : 'Data has been Retrieved!', iconURL: this.Footer_Image })
+      .setFooter({ text: this.Footer ? this.Footer : 'Data has been Retrieved!', iconURL: this.Footer_Image })
       .setColor({ color: this.Color ? this.Color : '00FF00' })
       .setTimestamp();
 
     if (this.Image) Emboid.setImage({ url: this.Image });
     if (this.Thumbnail) Emboid.setThumbnail({ url: this.Thumbnail });
     if (this.Fields && this.Fields.length >= 1) {
-      for (const field of this.Fields) {
+      this.Fields.forEach((field) => {
         Field = {
           name: typeof field.name === 'string' ? field.name : '** **',
           value: typeof field.value === 'string' ? field.value : '** **',
           inline: typeof field.inline === 'boolean' ? field.inline : false,
         };
         Fieldsarray.push(Field);
-      }
+      });
       Emboid.addFields(Fieldsarray);
     }
     return { Embed: Emboid, Json: Emboid.toJSON };

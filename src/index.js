@@ -1,3 +1,5 @@
+const EmbedGen = require('./distributions/embedgen');
+
 module.exports = {
-  EmbedGenerator: require('./distributions/embedgen.js'),
+  EmbedGenerator: EmbedGen,
 };
