@@ -1,5 +1,7 @@
 const { WebhookClient } = require('discord.js');
 
+const EmbedTypes = ['error', 'return', 'show', 'null'];
+
 module.exports = {
   WebhookFunction(client, Embed, EmbedOptions) {
     try {
@@ -24,5 +26,5 @@ module.exports = {
       WebhookToken: options.Webhook ? options.Webhook.Token : null,
     };
     return Option;
-  }
+  },
 };
