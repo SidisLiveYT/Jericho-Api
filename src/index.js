@@ -1,6 +1,6 @@
-const { EmbedGen } = require('./Distributions/embedgen');
-const { JokeGenerator } = require('./Distributions/JokesGen');
-const { MemesGenerator } = require('./Distributions/MemesGen');
+const { EmbedGen } = require('./distributions/embedgen');
+const { JokeGenerator } = require('./distributions/JokesGen');
+const { MemesGenerator } = require('./distributions/MemesGen');
 
 module.exports = {
   EmbedGenerator: EmbedGen,
