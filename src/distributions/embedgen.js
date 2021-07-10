@@ -1,10 +1,10 @@
 const EmbedStructure = require('../classes/Embed_Structure');
-const { WebhookFunction } = require('../Functions/Discord_Workloads');
+const { WebhookFunction, setOptions } = require('../Functions/Discord_Workloads');
 
 const EmbedTypes = ['error', 'return', 'show', 'null'];
 
 class EmbedGen {
-  
+
   /**
       * Class meant for Distinguish Clients in Discord.Client
       * @template {Object.<string>} T
@@ -20,7 +20,7 @@ class EmbedGen {
   constructor(client, options) {
     if (!client) throw new SyntaxError('Invalid Discord\'s Client | Take from Disord.Client');
     this.client = client;
-    this.options = this.#setOptions(options);
+    this.options = setOptions(options);
   }
 
   /**
@@ -73,23 +73,6 @@ class EmbedGen {
     if (typeof EmbedOptions.Compilation === 'boolean' && EmbedOptions.Compilation) return message.channel.send({ embeds: [Embed] }).then(() => true).catch((error) => error);
     if (!Number.isNaN(EmbedOptions.Compilation)) return this.client.channels.fetch(`${EmbedOptions.Compilation}`).then((channel) => { channel.send({ embeds: [Embed] }).then(() => true).catch((error) => error); }).catch((error) => error);
     throw SyntaxError('Invalid Options for Compilation or Webhook');
-  }
-
-  #setOptions(options) {
-    /**
-          * @property {function} SetOptions Make the Options filtered with acceptable values
-          * @param {Object} options Package Options for Embed Gen
-          * @returns {Object} options for this.options
-          */
-
-    const Option = {
-      type: EmbedTypes.includes(`${options.type.toLowerCase().trim()}`) ? options.type.toLowerCase().trim() : 'null',
-      Webhook: !!options.Webhook,
-      Compilation: typeof options.Compilation === 'boolean' ? options.Compilation : false,
-      WebhookID: options.Webhook ? options.Webhook.ID : null,
-      WebhookToken: options.Webhook ? options.Webhook.Token : null,
-    };
-    return Option;
   }
 }
 module.exports = { EmbedGen };
