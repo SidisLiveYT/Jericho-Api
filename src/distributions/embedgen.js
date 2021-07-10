@@ -4,14 +4,13 @@ const { WebhookFunction, setOptions } = require('../Functions/Discord_Workloads'
 const EmbedTypes = ['error', 'return', 'show', 'null'];
 
 class EmbedGen {
-
   /**
       * Class meant for Distinguish Clients in Discord.Client
       * @template {Object.<string>} T
       */
 
   /**
-   * @constructor 
+   * @constructor
    * @param {string} client new Disord.Client
    * @param {Object.<any>} options Embed Function Options <Webhook-Integration || Message Options>
    * @return {class} Returns a new Embed Gen Class
