@@ -48,6 +48,7 @@
   },
   "dependencies": {
     "discord.js": "^13.0.0-dev.5b6be0c.1625789033",
+    "node-fetch": "^2.6.1",
     "valid-url": "^1.0.9"
   }
 }

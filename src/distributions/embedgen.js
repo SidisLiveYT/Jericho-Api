@@ -4,21 +4,23 @@ const { WebhookFunction } = require('../Functions/Discord_Workloads');
 const EmbedTypes = ['error', 'return', 'show', 'null'];
 
 class EmbedGen {
+  
   /**
       * Class meant for Distinguish Clients in Discord.Client
       * @template {Object.<string>} T
       */
 
   /**
-     * @param {string} client new Disord.Client
-     * @param {Object.<any>} options Embed Function Options <Webhook-Integration || Message Options>
-     * @return {class} Returns a new Embed Gen Class
-     */
+   * @constructor 
+   * @param {string} client new Disord.Client
+   * @param {Object.<any>} options Embed Function Options <Webhook-Integration || Message Options>
+   * @return {class} Returns a new Embed Gen Class
+   */
 
   constructor(client, options) {
     if (!client) throw new SyntaxError('Invalid Discord\'s Client | Take from Disord.Client');
     this.client = client;
-    this.options = this.setOptions(options);
+    this.options = this.#setOptions(options);
   }
 
   /**
@@ -73,7 +75,7 @@ class EmbedGen {
     throw SyntaxError('Invalid Options for Compilation or Webhook');
   }
 
-  setOptions(options) {
+  #setOptions(options) {
     /**
           * @property {function} SetOptions Make the Options filtered with acceptable values
           * @param {Object} options Package Options for Embed Gen
@@ -90,4 +92,4 @@ class EmbedGen {
     return Option;
   }
 }
-module.exports = EmbedGen;
+module.exports = { EmbedGen };
