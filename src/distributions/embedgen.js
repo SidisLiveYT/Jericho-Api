@@ -1,4 +1,4 @@
-const EmbedStructure = require('../classes/Embed_Structure');
+const EmbedStructure = require('../Classes/Embed_Structure');
 const { WebhookFunction, setOptions } = require('../Functions/Discord_Workloads');
 
 const EmbedTypes = ['error', 'return', 'show', 'null'];
