@@ -26,19 +26,19 @@ class EmbedStructure {
      * @param {Object.<any>} Object Values from Class <Options>.Default
      */
 
-    this.Author = typeof Structure.Author.Text === 'string' ? Structure.Author.Text : Default.Author.Text;
-    this.Author_Url = typeof Structure.Author.Url === 'string' ? Structure.Author.Url : Default.Author.Url;
-    this.Author_Image = typeof Structure.Author.Image === 'string' ? Structure.Author.Image : Default.Author.Image;
-    this.Title = typeof Structure.Author.Text === 'string' ? Structure.Author.Text : Default.Author.Text;
-    this.Title_Url = typeof Structure.Title.Url === 'string' ? Structure.Author.Image : Default.Title.Url;
-    this.Description = typeof Structure.Description === 'string' ? Structure.Description : Default.Description;
-    this.Image = typeof Structure.Image === 'string' ? Structure.Image : Default.Image;
-    this.Thumbnail = typeof Structure.Thumbnail === 'string' ? Structure.Thumbnail : Default.Thumbnail;
-    this.Footer = typeof Structure.Footer.Text === 'string' ? Structure.Footer.Text : Default.Footer.Text;
-    this.Footer_Image = typeof Structure.Footer.Url === 'string' ? Structure.Footer.Url : Default.Footer.Url;
-    this.timestamp = typeof Structure.Timestamp === 'boolean' ? Structure.Timestamp : Default.Timestamp;
-    this.Fields = Structure.Fields ? Structure.Fields : Default.Fields;
-    this.Color = typeof Structure.Color === 'string' ? Structure.Color : Default.Color;
+    this.Author = Structure && Structure.Author && Structure.Author.Text && typeof Structure.Author.Text === 'string' ? Structure.Author.Text : Default.Author.Text;
+    this.Author_Url = Structure && Structure.Author && Structure.Author && Structure.Author.Url && typeof Structure.Author.Url === 'string' ? Structure.Author.Url : Default.Author.Url;
+    this.Author_Image = Structure && Structure.Author && Structure.Author.Image && typeof Structure.Author.Image === 'string' ? Structure.Author.Image : Default.Author.Image;
+    this.Title = Structure && Structure.Title && Structure.Title.Text && typeof Structure.Title.Text === 'string' ? Structure.Title.Text : Default.Title.Text;
+    this.Title_Url = Structure && Structure.Title && Structure.Title.Url && typeof Structure.Title.Url === 'string' ? Structure.Title.Url : Default.Title.Url;
+    this.Description = Structure && Structure.Description && typeof Structure.Description === 'string' ? Structure.Description : Default.Description;
+    this.Image = Structure && Structure.Image && typeof Structure.Image === 'string' ? Structure.Image : Default.Image;
+    this.Thumbnail = Structure && Structure.Thumbnail && typeof Structure.Thumbnail === 'string' ? Structure.Thumbnail : Default.Thumbnail;
+    this.Footer = Structure && Structure.Footer && Structure.Footer.Text && typeof Structure.Footer.Text === 'string' ? Structure.Footer.Text : Default.Footer.Text;
+    this.Footer_Image = Structure && Structure.Footer.Url && typeof Structure.Footer.Url === 'string' ? Structure.Footer.Url : Default.Footer.Url;
+    this.timestamp = Structure && Structure.Timestamp && typeof Structure.Timestamp === 'boolean' ? Structure.Timestamp : Default.Timestamp;
+    this.Fields = Structure && Structure.Fields ? Structure.Fields : Default.Fields;
+    this.Color = Structure && Structure.Color && typeof Structure.Color === 'string' ? Structure.Color : Default.Color;
   }
 
   ErrorEmbed() {

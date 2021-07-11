@@ -3,15 +3,15 @@ const { ShuffleArray } = require('../Functions/Shuffle_Workload');
 
 class MemesGenerator {
   /**
-     * @constructor MemesGen MemesGenerator for a Node.js Application || Discord Bot
-     * @param {Object<string>} Options Amount of Memes to be fetched from API
-     */
+    * @constructor MemesGen MemesGenerator for a Node.js Application || Discord Bot
+    * @param {Object<string>} Options Amount of Memes to be fetched from API
+    */
 
   constructor(Options) {
     /**
-         * @param {number} Amount Meme's Amount to Produce for the Request
-         * @param {boolean} Shuffle Increase Randomize Meme's Allocation || To Ease Developer's Work
-         */
+      * @param {number} Amount Meme's Amount to Produce for the Request
+      * @param {boolean} Shuffle Increase Randomize Meme's Allocation || To Ease Developer's Work
+      */
 
     this.amount = Options && Options.amount && typeof Options.amount === 'number' ? Options.amount : 5; // 5 Memes Array is Default to be Set
     this.shuffe = !!(Options && Options.shuffle && typeof Options.shuffle === 'boolean');
@@ -19,9 +19,9 @@ class MemesGenerator {
 
   create(Options) {
     /**
-         * @property {method} Create Class's property to Create Memes by Options if any
-         * @param {Object.<string>} Options Meme's Generator Custom Options if any!
-         */
+      * @property {method} Create Class's property to Create Memes by Options if any
+      * @param {Object.<string>} Options Meme's Generator Custom Options if any!
+      */
 
     let ShuffledArray = null;
 

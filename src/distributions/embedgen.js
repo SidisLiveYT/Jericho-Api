@@ -11,7 +11,7 @@ class EmbedGen {
 
   /**
    * @constructor
-   * @param {string} client new Disord.Client
+   * @param {Object} client new Disord.Client
    * @param {Object.<any>} options Embed Function Options <Webhook-Integration || Message Options>
    * @return {class} Returns a new Embed Gen Class
    */
@@ -31,12 +31,12 @@ class EmbedGen {
 
   async create(message, RawEmbed, Options) {
     /**
-         * @property {Structure} Options Message Embed Gen <Discord.Client> Options
-         * @param {string} type Embed Type Resolve
-         * @param {boolean} Webhook Webhook Integration <Boolean>
-         * @param {boolean} Compilation Embed to Send by Package <Boolean>
-         * @param {Object.<any>} Default Default Values for Embed if any
-         */
+      * @property {Structure} Options Message Embed Gen <Discord.Client> Options
+      * @param {string} type Embed Type Resolve
+      * @param {boolean} Webhook Webhook Integration <Boolean>
+      * @param {boolean} Compilation Embed to Send by Package <Boolean>
+      * @param {Object.<any>} Default Default Values for Embed if any
+      */
 
     const EmbedConfig = new EmbedStructure(RawEmbed, this.options.Default);
     let Embed = null;
@@ -45,16 +45,16 @@ class EmbedGen {
       EmbedOptions = {
         type: (EmbedTypes.includes(`${Options.type.toLowerCase().trim()}`) ? Options.type.toLowerCase().trim() : 'null'),
         Webhook: Options.Webhook ? Options.Webhook : !!this.options.Webhook,
-        Compilation: typeof Options.Compilation === 'boolean' ? Options.Compilation : this.options.Compilation,
+        Compilation: Options.Compilation && typeof Options.Compilation === 'boolean' ? Options.Compilation : this.options.Compilation,
         WebhookID: Options.Webhook ? Options.Webhook.ID : this.options.Webhook.ID,
         WebhookToken: Options.Webhook.Token ? Options.Webhook.Token : this.options.Webhook.Token,
       };
     }
 
     /**
-         * @param {string} Types Embed Type | Differ in Embed Execution Type
-         * Class Execution from Embed_Structure and with Respective Method of Selected Embed Type
-         */
+      * @param {string} Types Embed Type | Differ in Embed Execution Type
+      * Class Execution from Embed_Structure and with Respective Method of Selected Embed Type
+      */
 
     if (EmbedOptions.type.toLowerCase().trim() === 'error') Embed = EmbedConfig.ErrorEmbed();
     else if (EmbedOptions.type.toLowerCase().trim() === 'show') Embed = EmbedConfig.ShowValueEmbed();
@@ -62,10 +62,10 @@ class EmbedGen {
     else Embed = EmbedConfig.CustomValueEmbed();
 
     /**
-         * @property {boolean} Compilation Package will execute the Embed in the way
-         * @property {Object.<string>} Webhook Package will execute the Embed in a Discord Webhook
-         * @return {Promise || Object} Depends on the Type Requested Package will Return
-         */
+      * @property {boolean} Compilation Package will execute the Embed in the way
+      * @property {Object.<string>} Webhook Package will execute the Embed in a Discord Webhook
+      * @return {Promise || Object} Depends on the Type Requested Package will Return
+      */
 
     if (!EmbedOptions.Compilation && !EmbedOptions.Webhook) return Embed;
     if (EmbedOptions.Webhook) return WebhookFunction(this.client, Embed, EmbedOptions);

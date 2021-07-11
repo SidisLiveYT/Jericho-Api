@@ -1,28 +1,28 @@
 const NodeFetch = require('node-fetch');
 
 /**
- * @property {Class} JokeGenClass Joke Generator Class for Configuration Caches
- * @param {Object.<string>} Options Joke Gen Options and Building Initially
- */
+  * @property {Class} JokeGenClass Joke Generator Class for Configuration Caches
+  * @param {Object.<string>} Options Joke Gen Options and Building Initially
+  */
 
 class JokeGenerator {
   /**
-     * @constructor Class Constructor defining the Options to Respective smaller Options
-     * @param {Object.<any>} Options Jokes Gen Default Options
-     */
+    * @constructor Class Constructor defining the Options to Respective smaller Options
+    * @param {Object.<any>} Options Jokes Gen Default Options
+    */
 
   constructor(Options) {
     /**
-         * @property {Object} Options Jokes Gen options
-         * @param {boolean} nsfw Nsfw should be enabled if
-         * @param {boolean} explicit Explicit Content should be delivered if
-         * @param {boolean} religious Religious Content can be Delivered if
-         * @param {boolean} racist Racist Jokes can be delivered if
-         * @param {boolean} sexist Sexist Jokes can be Delivered if
-         * @param {boolean} political Political Jokes from any Country but Related
-         * @param {number} Amount Amount of Jokes should be Delivered if any
-         * @param {string} Search Related Word from Jokes DB if any
-         */
+      * @property {Object} Options Jokes Gen options
+      * @param {boolean} nsfw Nsfw should be enabled if
+      * @param {boolean} explicit Explicit Content should be delivered if
+      * @param {boolean} religious Religious Content can be Delivered if
+      * @param {boolean} racist Racist Jokes can be delivered if
+      * @param {boolean} sexist Sexist Jokes can be Delivered if
+      * @param {boolean} political Political Jokes from any Country but Related
+      * @param {number} Amount Amount of Jokes should be Delivered if any
+      * @param {string} Search Related Word from Jokes DB if any
+      */
 
     this.nsfw = Options.category.nsfw && typeof Options.category.nsfw === 'boolean' ? 'nsfw' : null;
     this.explicit = Options.category.explicit && typeof Options.category.explicit === 'boolean' ? 'explicit' : null;
@@ -36,16 +36,16 @@ class JokeGenerator {
 
   create(Options) {
     /**
-         * @property {Object} Options Jokes Gen Custom options
-         * @param {boolean} nsfw Nsfw should be enabled if
-         * @param {boolean} explicit Explicit Content should be delivered if
-         * @param {boolean} religious Religious Content can be Delivered if
-         * @param {boolean} racist Racist Jokes can be delivered if
-         * @param {boolean} sexist Sexist Jokes can be Delivered if
-         * @param {boolean} political Political Jokes from any Country but Related
-         * @param {number} Amount Amount of Jokes should be Delivered if any
-         * @param {string} Search Related Word from Jokes DB if any
-         */
+      * @property {Object} Options Jokes Gen Custom options
+      * @param {boolean} nsfw Nsfw should be enabled if
+      * @param {boolean} explicit Explicit Content should be delivered if
+      * @param {boolean} religious Religious Content can be Delivered if
+      * @param {boolean} racist Racist Jokes can be delivered if
+      * @param {boolean} sexist Sexist Jokes can be Delivered if
+      * @param {boolean} political Political Jokes from any Country but Related
+      * @param {number} Amount Amount of Jokes should be Delivered if any
+      * @param {string} Search Related Word from Jokes DB if any
+      */
 
     let Url = 'https://v2.jokeapi.dev/joke/Any';
     const Categories = [];
