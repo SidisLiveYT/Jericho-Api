@@ -8,7 +8,6 @@
     "test": "nyc mocha --require babel-core/register",
     "lint": "eslint ./src --fix",
     "commit": "git-cz",
-    "publish": "npm i && npm audit fix --force",
     "semantic-release": "semantic-release --branches main",
     "push": "git add . && npm run commit && git push"
   },
