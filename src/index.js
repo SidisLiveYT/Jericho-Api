@@ -5,7 +5,6 @@ const { Shortner } = require('./distributions/ShortnerLinks');
 const { CryptoSector } = require('./distributions/CryptoCurrency');
 const { Doggie } = require('./distributions/Doggie');
 
-
 module.exports = {
   EmbedGenerator: EmbedGen,
   Jokes: JokeGenerator,
