@@ -55,7 +55,7 @@ class YoutubePlaylist {
     this.videos = []
     this.videoCount = cookedHtmlData.videos ?? 0
     this.url = this.playlistId
-      ? `https://www.youtube.com/playlist?list=${this.playlistId}`
+      ? `${enumData.HTML_YOUTUBE_PLAYLIST_BASE_URL}${this.playlistId}`
       : null
     this.link = undefined
     this.lastUpdate = undefined

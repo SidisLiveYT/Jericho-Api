@@ -1,21 +1,22 @@
 const YoutubeChannel = require('./channel-element')
 const YoutubeThumbnail = require('./thumbnail-element')
+const { enumData } = require('../../types/interfaces')
 
 class YoutubeVideo {
-  constructor(cookedHtmlData) {
-    this.#__parse(cookedHtmlData)
+  constructor(cookedHtmlData, initialIndex) {
+    this.#__parse(cookedHtmlData, initialIndex)
   }
 
-  #__parse(cookedHtmlData) {
+  #__parse(cookedHtmlData, initialIndex) {
     if (!cookedHtmlData) return undefined
-    this.Id = cookedHtmlData.Id ?? 0
+    this.Id = initialIndex ?? cookedHtmlData.Id ?? 0
     this.videoId = cookedHtmlData.videoId ?? undefined
     this.title = cookedHtmlData.title ?? undefined
     this.description = cookedHtmlData.description ?? undefined
     this.duration_raw = cookedHtmlData.duration_raw ?? '0:00'
     this.duration =
       (cookedHtmlData.duration < 0 ? 0 : cookedHtmlData.duration) ?? 0
-    this.url = `https://www.youtube.com/watch?v=${this.videoId}`
+    this.url = `${enumData.HTML_YOUTUBE_VIDEO_BASE_URL}${this.videoId}`
     this.uploadedAt = cookedHtmlData.uploadedAt ?? undefined
     this.views = parseInt(cookedHtmlData.views) ?? 0
     this.thumbnail = new YoutubeThumbnail(cookedHtmlData.thumbnail ?? undefined)
@@ -30,7 +31,7 @@ class YoutubeVideo {
       !!cookedHtmlData.private ??
       !!cookedHtmlData.Private
     this.tags = cookedHtmlData.tags ?? []
-    this.extravideos = cookedHtmlData?.videos || []
+    this.suggestionVideos = cookedHtmlData?.videos || []
 
     return undefined
   }
@@ -70,7 +71,7 @@ class YoutubeVideo {
       dislikes: this.dislikes,
       islive: this.islive,
       isprivate: this.isprivate,
-      extravideos: this.extravideos,
+      suggestionVideos: this.suggestionVideos,
     }
   }
 

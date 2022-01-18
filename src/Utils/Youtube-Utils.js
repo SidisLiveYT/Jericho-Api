@@ -2,6 +2,7 @@ const Axios = require('axios').default
 const {
   youtubeUrlParseHtmlSearchData,
   enumData,
+  searchOptions,
 } = require('../types/interfaces.js')
 const YoutubeVideo = require('../Structures/Youtube-Elements/video-element')
 const YoutubePlaylist = require('../Structures/Youtube-Elements/playlist-element')
@@ -9,20 +10,23 @@ const YoutubeChannel = require('../Structures/Youtube-Elements/channel-element')
 
 class Utils {
   /**
-   * @method htmlFilterParser() _> parsing filter type for HTML fetch from youtbe Watch page
+   * @method htmlSearchrawFilterParser() _> parsing filter type for HTML fetch from youtbe Watch page
    * @param {string} rawFilter String value of playlist , video , channel Data
    * @returns {string | void} string value for html query search for Youtube Default Watch Page
    */
-  static htmlFilterParser(rawFilter) {
+  static htmlSearchrawFilterParser(rawFilter) {
+    if (!rawFilter) return ''
     switch (rawFilter?.toLowerCase()?.trim()) {
       case 'playlist':
-        return 'EgIQAw%253D%253D'
+        return '&sp=EgIQAw%253D%253D'
       case 'video':
-        return 'EgIQAQ%253D%253D'
+        return '&sp=EgIQAQ%253D%253D'
       case 'query':
-        return 'EgIQAQ%253D%253D'
+        return '&sp=EgIQAQ%253D%253D'
       case 'channel':
-        return 'EgIQAg%253D%253D'
+        return '&sp=EgIQAg%253D%253D'
+      case 'all':
+        return ''
       default:
         throw new TypeError(
           `Invalid Search type is Detected | Value : "${rawFilter}"`,
@@ -36,12 +40,33 @@ class Utils {
    * @returns {youtubeUrlParseHtmlSearchData} Returns Json Format of Parsing of Youtube Url Raw Data
    */
   static youtubeUrlParseHtmlSearch(rawUrl) {
+    if (!(rawUrl && typeof rawUrl === 'string')) return undefined
     let rawMatch = rawUrl.match(
       /^(?:\w+:)?\/\/([^\s\.]+\.\S{2}|localhost[\:?\d]*)\S*$/,
     )
-    if (!rawMatch?.[1])
+    if (!rawMatch?.[1] && /^[a-zA-Z0-9-_]{11}$/.test(rawUrl))
       return {
         parsedData: rawUrl,
+        parsedUrl: enumData.HTML_YOUTUBE_VIDEO_BASE_URL + rawUrl?.trim(),
+        searchQueryUrl: `${
+          enumData.HTML_YOUTUBE_BASE_SEARCH_QUERY_URL +
+          encodeURIComponent(
+            enumData.HTML_YOUTUBE_VIDEO_BASE_URL + rawUrl?.trim(),
+          ).replace(/%20/g, '+')
+        }`,
+        contentType: 'videoId',
+        rawMatchData: rawMatch,
+      }
+    else if (!rawMatch?.[1])
+      return {
+        parsedData: rawUrl,
+        parsedUrl:
+          enumData.HTML_YOUTUBE_BASE_SEARCH_QUERY_URL +
+          encodeURIComponent(rawUrl?.trim()).replace(/%20/g, '+'),
+        searchQueryUrl: `${
+          enumData.HTML_YOUTUBE_BASE_SEARCH_QUERY_URL +
+          encodeURIComponent(rawUrl?.trim()).replace(/%20/g, '+')
+        }`,
         contentType: 'query',
         rawMatchData: rawMatch,
       }
@@ -49,6 +74,15 @@ class Utils {
     if (rawMatch?.[1])
       return {
         parsedData: rawMatch?.[1],
+        parsedUrl:
+          enumData.HTML_YOUTUBE_PLAYLIST_BASE_URL +
+          encodeURIComponent(rawMatch?.[1]?.trim()).replace(/%20/g, '+'),
+        searchQueryUrl: `${
+          enumData.HTML_YOUTUBE_BASE_SEARCH_QUERY_URL +
+          encodeURIComponent(
+            enumData.HTML_YOUTUBE_PLAYLIST_BASE_URL + rawUrl?.trim(),
+          ).replace(/%20/g, '+')
+        }`,
         contentType: 'playlist',
         rawMatchData: rawMatch,
       }
@@ -59,6 +93,15 @@ class Utils {
       return {
         parsedData: rawMatch?.[1],
         contentType: 'video',
+        parsedUrl:
+          enumData.HTML_YOUTUBE_VIDEO_BASE_URL +
+          encodeURIComponent(rawMatch?.[1]?.trim()).replace(/%20/g, '+'),
+        searchQueryUrl: `${
+          enumData.HTML_YOUTUBE_BASE_SEARCH_QUERY_URL +
+          encodeURIComponent(
+            enumData.HTML_YOUTUBE_VIDEO_BASE_URL + rawUrl?.trim(),
+          ).replace(/%20/g, '+')
+        }`,
         rawMatchData: rawMatch,
       }
     rawMatch = rawUrl.match(/\/channel\/([\w-]+)/)
@@ -66,12 +109,30 @@ class Utils {
       return {
         parsedData: rawMatch?.[1],
         contentType: 'channel',
+        parsedUrl:
+          enumData.HTML_YOUTUBE_CHANNEL_BASE_URL +
+          encodeURIComponent(rawMatch?.[1]?.trim()).replace(/%20/g, '+'),
+        searchQueryUrl: `${
+          enumData.HTML_YOUTUBE_BASE_SEARCH_QUERY_URL +
+          encodeURIComponent(
+            enumData.HTML_YOUTUBE_CHANNEL_BASE_URL + rawUrl?.trim(),
+          ).replace(/%20/g, '+')
+        }`,
         rawMatchData: rawMatch,
       }
     rawMatch = rawUrl.match(/\/(?:c|user)\/([\w-]+)/)
     if (rawMatch?.[1])
       return {
         parsedData: rawMatch?.[1],
+        parsedUrl:
+          enumData.HTML_YOUTUBE_USER_BASE_URL +
+          encodeURIComponent(rawMatch?.[1]?.trim()).replace(/%20/g, '+'),
+        searchQueryUrl: `${
+          enumData.HTML_YOUTUBE_BASE_SEARCH_QUERY_URL +
+          encodeURIComponent(
+            enumData.HTML_YOUTUBE_USER_BASE_URL + rawUrl?.trim(),
+          ).replace(/%20/g, '+')
+        }`,
         contentType: 'channel',
         rawMatchData: rawMatch,
       }
@@ -83,37 +144,50 @@ class Utils {
    * @param {string} rawHtmlUrl Raw Youtube Get Request Url "search url query" as Defination
    * @param {Object} htmlRequestOption html get Request Options for Axios get fetch method
    * @param {string | void} method HTTP Request for Axios | Bydefault its GET Request handler
+   * @param {boolean | void} ignoreRejection Ignore the Response.status code !== '200' if possible
    * @returns {Promise<string|void>} returns response.text() as Data for Raw HTML Data of Youtube Watch Page
    */
-  static async getHtmlData(rawHtmlUrl, htmlRequestOption, method = 'GET') {
+  static async getHtmlData(
+    rawHtmlUrl,
+    htmlRequestOption,
+    method = 'GET',
+    ignoreRejection = false,
+  ) {
     return new Promise(async (resolve, reject) => {
       if (method?.toLowerCase()?.trim() === 'get') {
         await Axios.get(rawHtmlUrl, htmlRequestOption)
           .then((response) => {
-            if (!response.ok && response.status !== 200)
+            if (!response.ok && response.status !== 200 && !ignoreRejection)
               throw new Error(
                 `Rejected GET Request with status code: ${response.status}`,
               )
-
-            return response.data ?? response.text()
+            else if (!response.ok && response.status !== 200) return false
+            else return response.data ?? response.text()
           })
           .then((rawHtmlData) => resolve(rawHtmlData))
-          .catch((error) => reject(error))
+          .catch(() => resolve(false))
       } else {
         await Axios.post(rawHtmlUrl, htmlRequestOption)
           .then((response) => {
-            if (!response.ok && response.status !== 200)
+            if (!response.ok && response.status !== 200 && !ignoreRejection)
               throw new Error(
                 `Rejected POST Request with status code: ${response.status}`,
               )
-            return response.data ?? response.text()
+            else if (!response.ok && response.status !== 200) return false
+            else return response.data ?? response.text()
           })
           .then((rawHtmlData) => resolve(rawHtmlData))
-          .catch((error) => reject(error))
+          .catch(() => resolve(false))
       }
     })
   }
 
+  /**
+   * @method parseHtmlSearchResults() -> Parse Raw Html Search Results "Response String Value" | Returns Array of Youtube Video/Playlist/Channel
+   * @param {string} rawHtml String Value of Response.text() or String Value of response.data to Parse in Json and Filter the accurate Data from sections
+   * @param {searchOptions} parsingSearchOptions Parsing Options form Client Side/User Side for Filtering raw json Data
+   * @returns {YoutubeVideo[]|YoutubeChannel[]|YoutubePlaylist[]|void} Returns Array of Youtube Video/Playlist/Channel Data from the Parsing Raw HTML Data
+   */
   static parseHtmlSearchResults(rawHtml, parsingSearchOptions) {
     if (!rawHtml)
       throw new Error('Recevied Invalid Raw HTML Data from Youtube Watch Page')
@@ -178,19 +252,22 @@ class Utils {
       )
         break
       const tempcachedData = cookedHTMLDetails[count]
-      if (parsingSearchOptions.type === 'all') {
-        if (tempcachedData?.videoRenderer) parsingSearchOptions.type = 'video'
-        else if (tempcachedData?.channelRenderer)
-          parsingSearchOptions.type = 'channel'
-        else if (tempcachedData?.playlistRenderer)
-          parsingSearchOptions.type = 'playlist'
+      let tempType
+      if (
+        parsingSearchOptions.type === 'all' ||
+        !parsingSearchOptions?.type ||
+        parsingSearchOptions?.type === 'query'
+      ) {
+        if (tempcachedData?.videoRenderer) tempType = 'video'
+        else if (tempcachedData?.channelRenderer) tempType = 'channel'
+        else if (tempcachedData?.playlistRenderer) tempType = 'playlist'
         else continue
       }
 
       const parsedCookedData =
         Utils.patchCookedHtmlSearchResults(
           tempcachedData,
-          parsingSearchOptions.type,
+          tempType ?? parsingSearchOptions.type ?? 'video',
           resultsCollected.length,
         ) ?? undefined
 
@@ -201,15 +278,23 @@ class Utils {
     return resultsCollected ?? []
   }
 
-  static getHtmlSearchVideos(rawJsonHtmlData, limit = Infinity) {
-    const videos = []
+  /**
+   * @method getHtmlSearchVideos() -> Parsing Suggestion Videos for Video Watch Page from raw Json Data to Youtube Video Array Format
+   * @param {JSON} rawJsonHtmlData raw Json Data fetched from Youtube and Parsed to Json Format
+   * @param {number | void} limit Numerical Value to limit suggestion Datas
+   * @returns {YoutubeVideo[] | void} Returns Array of Youtube Video Data on filtered limit value | or Returns void on failure
+   */
 
+  static getHtmlSearchVideos(rawJsonHtmlData, limit = Infinity) {
+    if (!rawJsonHtmlData) return undefined
+
+    const cookedVideos = []
     for (let count = 0, len = rawJsonHtmlData.length; count < len; count++) {
-      if (limit === videos.length) break
+      if (limit === cookedVideos.length) break
       if (!rawJsonHtmlData[count]?.playlistVideoRenderer?.shortBylineText)
         continue
 
-      videos.push(
+      cookedVideos.push(
         new YoutubeVideo({
           videoId: rawJsonHtmlData[count]?.playlistVideoRenderer?.videoId,
           Id:
@@ -217,7 +302,7 @@ class Utils {
               rawJsonHtmlData[count]?.playlistVideoRenderer?.index?.simpleText,
             ) || 0,
           duration:
-            Utils.parseYoutubeDuration(
+            Utils.parseYoutubeDurationStringTomiliseconds(
               rawJsonHtmlData[count]?.playlistVideoRenderer?.lengthText
                 ?.simpleText,
             ) || 0,
@@ -225,7 +310,7 @@ class Utils {
             rawJsonHtmlData[count]?.playlistVideoRenderer?.lengthText
               ?.simpleText ?? '0:00',
           thumbnail: {
-            id: rawJsonHtmlData[count]?.playlistVideoRenderer?.videoId,
+            thumbnailId: rawJsonHtmlData[count]?.playlistVideoRenderer?.videoId,
             url: rawJsonHtmlData[
               count
             ]?.playlistVideoRenderer?.thumbnail.thumbnails.pop().url,
@@ -240,7 +325,7 @@ class Utils {
             rawJsonHtmlData[count]?.playlistVideoRenderer?.title?.runs?.[0]
               ?.text,
           channel: {
-            id:
+            channelId:
               rawJsonHtmlData[count]?.playlistVideoRenderer?.shortBylineText
                 .runs[0].navigationEndpoint.browseEndpoint.browseId ??
               undefined,
@@ -259,8 +344,16 @@ class Utils {
         }),
       )
     }
-    return videos
+    return cookedVideos
   }
+
+  /**
+   * @method patchCookedHtmlSearchResults() -> Patch raw Search Results Json Data to Seperate Class Type Value like Youtube Video / Playlist / Channel
+   * @param {JSON} rawJson Json raw Data after Parsing the string value of html source code
+   * @param {string} type what type of Parsing to be done | By default -> "video"
+   * @param {number | void} initialIndex To implement Video Index Value for special cases
+   * @returns {YoutubeChannel|YoutubeVideo|YoutubePlaylist|void} Returns switch based on type Value on desired condition
+   */
 
   static patchCookedHtmlSearchResults(
     rawJson,
@@ -270,15 +363,16 @@ class Utils {
     if (!rawJson) return undefined
     switch (type?.toLowerCase()?.trim()) {
       case 'video':
+        if (!rawJson?.videoRenderer) return undefined
         return new YoutubeVideo({
           Id: ++initialIndex,
-          videoId: rawJson.videoRenderer.videoId ?? undefined,
-          url: `https://www.youtube.com/watch?v=${rawJson.videoRenderer.videoId}`,
+          videoId: rawJson?.videoRenderer?.videoId ?? undefined,
+          url: `${enumData.HTML_YOUTUBE_VIDEO_BASE_URL}${rawJson?.videoRenderer?.videoId}`,
           title: rawJson?.videoRenderer?.title?.runs?.[0]?.text ?? undefined,
           description:
             rawJson?.descriptionSnippet?.runs?.[0]?.text ?? undefined,
           duration:
-            Utils.parseYoutubeDuration(
+            Utils.parseYoutubeDurationStringTomiliseconds(
               rawJson?.videoRenderer?.lengthText?.simpleText,
             ) ?? 0,
           duration_raw:
@@ -334,6 +428,7 @@ class Utils {
             ) ?? 0,
         })
       case 'channel':
+        if (!rawJson?.channelRenderer) return undefined
         return new YoutubeChannel({
           channelId: rawJson?.channelRenderer?.channelId,
           name: rawJson?.channelRenderer?.title?.simpleText,
@@ -362,6 +457,7 @@ class Utils {
             rawJson?.channelRenderer?.subscriberCountText?.simpleText,
         })
       case 'playlist':
+        if (!rawJson?.playlistRenderer) return undefined
         return new YoutubePlaylist(
           {
             playlistId: rawJson?.playlistRenderer?.playlistId,
@@ -393,7 +489,13 @@ class Utils {
     }
   }
 
-  static parseYoutubeDuration(rawDuration) {
+  /**
+   * @method parseYoutubeDurationStringTomiliseconds() ->
+   * @param {string} rawDuration raw Duration in String Parsed to Milli-Seconds
+   * @returns {number | void} Returns Milli-Seconds from String Value
+   */
+
+  static parseYoutubeDurationStringTomiliseconds(rawDuration) {
     if (!(rawDuration && typeof rawDuration === 'string')) return undefined
     rawDuration ??= '0:00'
     const rawArgs = rawDuration.split(':')
@@ -417,6 +519,12 @@ class Utils {
     return cookedDuration
   }
 
+  /**
+   * @method getHtmlcontinuationToken() ->
+   * @param {Object} rawObjectData raw Object Data from Playlist Data
+   * @returns {string | void} Returns and Continuation Token for Playlist Videos next() method
+   */
+
   static getHtmlcontinuationToken(rawObjectData) {
     const continuationToken = rawObjectData.find(
       (rawData) => Object.keys(rawData)[0] === 'continuationItemRenderer',
@@ -425,7 +533,15 @@ class Utils {
     return continuationToken ?? undefined
   }
 
-  static async hardHTMLSearchfetch(rawHtmlData, type = 'video', limit = 1) {
+  /**
+   * @method hardHTMLSearchparse() -> Function to Hard or Full parse method of Videos and Playlist from their own watch Page but not from Default search Results
+   * @param {string} rawHtmlData Raw HTML Data from get Request of URL
+   * @param {string | void} type Type Value for Parsing HTML Data for switch case js function
+   * @param {number | void} limit Numerical Value for Playlist Limit if asked in Type
+   * @returns {YoutubeVideo|YoutubePlaylist|void} Returns Youtube Video / Playlist Data after Parsing it from Raw HTML Data
+   */
+
+  static hardHTMLSearchparse(rawHtmlData, type = 'video', limit = 1) {
     if (!rawHtmlData) return undefined
 
     switch (type?.toLowerCase()?.trim()) {
@@ -477,25 +593,25 @@ class Utils {
         cookedJson = {
           ...rawCachedData.primary,
           ...rawCachedData.secondary,
-          cookedJson,
+          ...cookedJson,
         }
-
+        if (!cookedJson?.videoId) return undefined
         return new YoutubeVideo({
-          videoId: cookedJson?.info?.videoId,
-          title: cookedJson?.info?.title,
-          views: parseInt(cookedJson?.info?.viewCount) ?? 0,
-          tags: cookedJson?.info?.keywords,
-          isprivate: cookedJson?.info?.isPrivate,
-          islive: cookedJson?.info?.isLiveContent,
-          duration: parseInt(cookedJson?.info?.lengthSeconds) * 1000,
+          videoId: cookedJson?.videoId,
+          title: cookedJson?.title,
+          views: parseInt(cookedJson?.viewCount) ?? 0,
+          tags: cookedJson?.keywords,
+          isprivate: cookedJson?.isPrivate,
+          islive: cookedJson?.isLiveContent,
+          duration: parseInt(cookedJson?.lengthSeconds) * 1000,
           duration_raw: Utils.parseDurationToString(
-            Utils.parseYoutubeDuration(
-              parseInt(cookedJson?.info?.lengthSeconds) * 1000 ?? 0,
+            Utils.parseYoutubeDurationStringTomiliseconds(
+              parseInt(cookedJson?.lengthSeconds) * 1000 ?? 0,
             ),
           ),
           channel: {
-            name: cookedJson?.info?.author,
-            channelId: cookedJson?.info?.channelId,
+            name: cookedJson?.author,
+            channelId: cookedJson?.channelId,
             url: `https://www.youtube.com${cookedJson?.owner?.videoOwnerRenderer?.title?.runs?.[0]?.navigationEndpoint?.browseEndpoint?.canonicalBaseUrl}`,
             icon:
               cookedJson?.owner?.videoOwnerRenderer?.thumbnail?.thumbnails?.[0],
@@ -504,15 +620,26 @@ class Utils {
               '',
             ),
           },
-          description: cookedJson?.info?.shortDescription,
+          description: cookedJson?.shortDescription,
           thumbnail: {
-            ...cookedJson?.info?.thumbnail?.thumbnails?.pop(),
-            thumbnailId: cookedJson?.info?.videoId,
+            ...cookedJson?.thumbnail?.thumbnails?.pop(),
+            thumbnailId: cookedJson?.videoId,
           },
           uploadedAt: cookedJson?.dateText?.simpleText,
-          likes: Utils.parseHtmllikesCount(cookedJson) || 0,
+          likes:
+            parseInt(
+              cookedJson?.videoActions?.menuRenderer?.topLevelButtons
+                ?.find(
+                  (button) => button?.toggleButtonRenderer?.defaultIcon?.iconType ===
+                    'LIKE',
+                )
+                ?.toggleButtonRenderer?.defaultText?.accessibility?.accessibilityData?.label?.split(
+                  ' ',
+                )?.[0]
+                ?.replace(/,/g, '') ?? 0,
+            ) ?? 0,
           dislikes: 0,
-          videos: Utils.fetchExtraHtmlVideos(nextJsonData ?? {}) || [],
+          videos: Utils.parseExtraHtmlVideos(nextJsonData ?? {}) || [],
         })
 
       case 'playlist':
@@ -561,7 +688,7 @@ class Utils {
                 ?.split('"')[0] ??
               '<some version>',
           },
-          id:
+          playlistId:
             parsedJsonData.title.runs[0].navigationEndpoint.watchEndpoint
               .playlistId,
           title: parsedJsonData.title.runs[0].text,
@@ -618,6 +745,13 @@ class Utils {
     }
   }
 
+  /**
+   * @method fetchPlaylistHtmlVideos() -> fetch Playlist Videos from Raw HTML Video Json Data
+   * @param {JSON} rawVideosData Raw Json Data parsed from Playlists
+   * @param {number | void} limit Limit the Parsing Video content length
+   * @returns {YoutubeVideo[] | void} Returns Array of Youtube Video Same as per Search Result of Type of Video though
+   */
+
   static fetchPlaylistHtmlVideos(rawVideosData, limit = Infinity) {
     const cookedVideos = []
 
@@ -638,7 +772,7 @@ class Utils {
                 rawVideosData[count]?.playlistVideoRenderer?.index?.simpleText,
               ) || 0,
             duration:
-              Utils.parseYoutubeDuration(
+              Utils.parseYoutubeDurationStringTomiliseconds(
                 rawVideosData[count]?.playlistVideoRenderer?.lengthText
                   ?.simpleText,
               ) || 0,
@@ -683,6 +817,12 @@ class Utils {
     return cookedVideos
   }
 
+  /**
+   * @method parseDurationToString() -> Parsing of Milliseconds Duration to String Value of Human Readable Value
+   * @param {number | void} rawDuration Raw Number Value | Milliseconds Value
+   * @returns {string} Returns Human Readable Time/Duration Value
+   */
+
   static parseDurationToString(rawDuration = 0) {
     if (!rawDuration) return undefined
     const rawObjects = Object.keys(rawDuration)
@@ -700,26 +840,20 @@ class Utils {
       : cookedParsed
   }
 
-  static parseHtmllikesCount(rawJson) {
-    const buttons = rawJson?.videoActions?.menuRenderer?.topLevelButtons
-    const button = buttons?.find(
-      (button) => button?.toggleButtonRenderer?.defaultIcon?.iconType === 'LIKE',
-    )
-    if (!button) return 0
+  /**
+   * @method parseExtraHtmlVideos() -> Parsing Suggestive Videos from Background
+   * @param {JSON} rawHTMLJsonData raw HTML Json Data from Parsed Video Watch Pages
+   * @param {boolean | void} parseHomePageBoolean Parsing homepage if
+   * @returns {YoutubeVideo[] | void} Returns Array of Youtube Video Value
+   */
 
-    return parseInt(
-      button?.toggleButtonRenderer?.defaultText?.accessibility?.accessibilityData?.label
-        ?.split(' ')?.[0]
-        ?.replace(/,/g, ''),
-    )
-  }
-
-  static fetchExtraHtmlVideos(rawHtmlbody, parseHomePageBoolean = false) {
+  static parseExtraHtmlVideos(rawHTMLJsonData, parseHomePageBoolean = false) {
     const cookedResults = []
     let garbageCount = 0
-    if (typeof rawHtmlbody[Symbol.iterator] !== 'function') return cookedResults
+    if (typeof rawHTMLJsonData[Symbol.iterator] !== 'function')
+      return cookedResults
 
-    for (const rawbody of rawHtmlbody) {
+    for (const rawbody of rawHTMLJsonData) {
       const rawDetails = parseHomePageBoolean
         ? rawbody
         : rawbody.compactVideoRenderer
@@ -745,8 +879,9 @@ class Utils {
                   rawDetails.lengthText.simpleText ??
                   rawDetails.lengthText.accessibility.accessibilityData.label,
                 duration:
-                  Utils.parseYoutubeDuration(rawDetails.lengthText.simpleText) /
-                  1000,
+                  Utils.parseYoutubeDurationStringTomiliseconds(
+                    rawDetails.lengthText.simpleText,
+                  ) / 1000,
                 channel: {
                   name: rawDetails.shortBylineText.runs[0].text,
                   channelId:

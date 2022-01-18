@@ -1,3 +1,5 @@
+const { enumData } = require('../../types/interfaces')
+
 class YoutubeThumbnail {
   constructor(cookedHtmlData) {
     this.#__parse(cookedHtmlData)
@@ -28,14 +30,14 @@ class YoutubeThumbnail {
     )
       throw new Error(`Invalid Thumbnail Type is Detected: "${thumbnailType}"`)
     if (thumbnailType === 'ultrares') return this.url
-    return `https://i3.ytimg.com/vi/${this.thumbnailId}/${thumbnailType}.jpg`
+    return `${enumData.HTML_YOUTUBE_THUMBNAIL_BASE_URL}${this.thumbnailId}/${thumbnailType}.jpg`
   }
 
   defaultThumbnailURL(thumbnailId = '0') {
     if (!thumbnailId) thumbnailId = '0'
     if (!['0', '1', '2', '3', '4'].includes(thumbnailId))
       throw new Error(`Invalid Thumbnail Id is Detected: "${thumbnailId}"`)
-    return `https://i3.ytimg.com/vi/${this.thumbnailId}/${thumbnailId}.jpg`
+    return `${enumData.HTML_YOUTUBE_THUMBNAIL_BASE_URL}${this.thumbnailId}/${thumbnailId}.jpg`
   }
 
   toString() {

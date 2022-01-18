@@ -1,6 +1,8 @@
 const Utils = require('../Utils/Youtube-Utils.js')
 const { enumData } = require('../types/interfaces.js')
 const YoutubeVideo = require('../Structures/Youtube-Elements/video-element')
+const YoutubeChannel = require('../Structures/Youtube-Elements/channel-element.js')
+const YoutubePlaylist = require('../Structures/Youtube-Elements/playlist-element.js')
 
 class YoutubeAPI {
   constructor(searchOptions, apiOptions) {
@@ -19,7 +21,10 @@ class YoutubeAPI {
         if (!cookedData?.length) return undefined
         return cookedData
       })
-      .catch((error) => undefined)
+      .catch((error) => {
+        console.log(error)
+        return undefined
+      })
   }
 
   async searchOne(query, searchOptions = this.searchOptions) {
@@ -92,26 +97,75 @@ class YoutubeAPI {
   }
 
   async getVideo(rawUrl, searchOptions = this.searchOptions) {
-    let cookedUrl
-    if (rawUrl instanceof YoutubeVideo) cookedUrl = rawUrl.url
-    else if (typeof rawUrl === 'string') cookedUrl = rawUrl
-    else
+    const validationData = await this.validate(
+      rawUrl,
+      searchOptions?.safeSearchMode,
+    )
+    if (
+      validationData?.type !== 'video' ||
+      (validationData?.type === 'video' &&
+        searchOptions?.safeSearchMode &&
+        !validationData?.isSafeCheck)
+    )
       throw TypeError(
         'Invalid rawUrl is Detected for Safe Check: "Only needs Video URls to check"',
       )
 
-    if (Utils.youtubeUrlParseHtmlSearch(cookedUrl)?.contentType !== 'video')
-      throw TypeError(
-        'Invalid rawUrl is Detected for Safe Check: "Only needs Video URls to check"',
-      )
-
-    return Utils.hardHTMLSearchfetch(
+    return Utils.hardHTMLSearchparse(
       await Utils.getHtmlData(
-        `${cookedUrl}&hl=en`,
+        `${validationData.url}&hl=en`,
         searchOptions?.requestOptions,
       ),
       'video',
     )
+  }
+
+  async validate(rawData, safeSearchMode = false) {
+    let cookedUrl
+    if (!rawData) return undefined
+    else if (
+      rawData instanceof YoutubeVideo ||
+      rawData instanceof YoutubeChannel ||
+      rawData instanceof YoutubePlaylist
+    )
+      cookedUrl = rawData.url
+    else if (typeof rawData === 'string') cookedUrl = rawData.trim()
+    else return undefined
+
+    const parsedData = Utils.youtubeUrlParseHtmlSearch(cookedUrl)
+    if (typeof cookedUrl === 'string' && parsedData?.contentType === 'query') {
+      return {
+        Id: cookedUrl,
+        url: parsedData.parsedUrl,
+        type: 'query',
+        isSafeCheck: true,
+      }
+    } else if (
+      (typeof cookedUrl === 'string' &&
+        Utils.youtubeUrlParseHtmlSearch(cookedUrl)?.contentType === 'video') ||
+      Utils.youtubeUrlParseHtmlSearch(cookedUrl)?.contentType === 'videoId'
+    ) {
+      return {
+        Id: Utils.youtubeUrlParseHtmlSearch(cookedUrl)?.parsedData?.trim(),
+        url: parsedData.parsedUrl,
+        type: 'video',
+        isSafeCheck: safeSearchMode
+          ? await this.isSafeCheck(
+            enumData.HTML_YOUTUBE_VIDEO_BASE_URL + cookedUrl,
+          )
+          : undefined,
+      }
+    } else if (
+      typeof cookedUrl === 'string' &&
+      Utils.youtubeUrlParseHtmlSearch(cookedUrl)?.contentType === 'playlist'
+    ) {
+      return {
+        Id: Utils.youtubeUrlParseHtmlSearch(cookedUrl)?.parsedData?.trim(),
+        url: parsedData.parsedUrl,
+        type: 'playlist',
+        isSafeCheck: true,
+      }
+    } else return undefined
   }
 
   async #htmlSearchResultFetch(rawQuery, searchOptions) {
@@ -123,31 +177,24 @@ class YoutubeAPI {
     )
       return undefined
     const cookedQuery = Utils.youtubeUrlParseHtmlSearch(rawQuery)
-    if (!cookedQuery?.parsedData) return undefined
-    const rawFilter =
-      searchOptions?.type?.toLowerCase()?.trim() === 'all'
-        ? ''
-        : `&sp=${Utils.htmlFilterParser(
-          searchOptions?.type?.toLowerCase()?.trim(),
-        )}`
+    if (!cookedQuery?.parsedData || !cookedQuery.searchQueryUrl)
+      return undefined
 
     const htmlgetUrl =
-      `${enumData.HTML_BASE_SEARCH_QUERY_URL}?q=${encodeURIComponent(
-        cookedQuery?.parsedData?.trim(),
-      ).replace(/%20/g, '+')}` +
+      `${cookedQuery?.searchQueryUrl}` +
       '&hl=en' +
-      `${rawFilter}`
+      `${Utils.htmlSearchrawFilterParser(
+        searchOptions?.type?.toLowerCase()?.trim(),
+      )}`
 
     const htmlOptions = searchOptions?.safeSearchMode
       ? {
         ...searchOptions.htmlrequestOptions,
-        headers: { cookie: enumData?.HTML_SAFE_SEARCH_COOKIE },
+        headers: { cookie: enumData?.HTML_SAFE_SEARCH_COOKIE_VALUE },
       }
       : {
-        headers: {
-          'User-Agent':
-              'Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/78.0',
-        },
+        headers: enumData.HTML_YOUTUBE_HEADER_DATA,
+        ...searchOptions.htmlrequestOptions,
       }
     const rawHtmlData = await Utils.getHtmlData(htmlgetUrl, htmlOptions)
     return Utils.parseHtmlSearchResults(rawHtmlData, searchOptions)

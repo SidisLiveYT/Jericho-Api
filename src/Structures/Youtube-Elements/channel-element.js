@@ -1,3 +1,5 @@
+const { enumData } = require('../../types/interfaces')
+
 class YoutubeChannel {
   constructor(cookedHtmlData) {
     this.#__parse(cookedHtmlData)
@@ -18,6 +20,7 @@ class YoutubeChannel {
       }
       : undefined ?? { url: undefined, width: 0, height: 0 }
     this.subscribers = cookedHtmlData?.subscribers ?? undefined
+    this.url = `${enumData.HTML_YOUTUBE_CHANNEL_BASE_URL}${this.channelId}`
 
     return undefined
   }
@@ -44,11 +47,6 @@ class YoutubeChannel {
       type: this.type,
       subscribers: this.subscribers,
     }
-  }
-
-  get url() {
-    if (!this.channelId) return undefined
-    return `https://www.youtube.com/watch?v=${this.videoId}`
   }
 
   get type() {
