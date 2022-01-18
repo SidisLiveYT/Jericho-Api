@@ -41,6 +41,11 @@
     "nonblock-statement-body-position": "off",
     "no-else-return": "off",
     "semi": "off",
-    "no-console": "off"
+    "no-console": "off",
+    "no-await-in-loop": "off",
+    "no-unexpected-multiline": "off",
+    "no-continue": "off",
+    "no-case-declarations": "off",
+    "no-restricted-syntax": "off"
   }
 }
