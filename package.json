@@ -1,7 +1,7 @@
 {
-  "name": "multi-discord-api",
+  "name": "jericho-api",
   "version": "1.0.0",
-  "description": "node-multi-api wrapper for ",
+  "description": "Multi-Node-Api for Jericho Hub Production and a Community Based Projects includes Custom-YoutubeApi and Many More included",
   "main": "./src/index.js",
   "module": "./src/index.mjs",
   "types": "./typings/index.d.ts",
@@ -23,20 +23,21 @@
     "commit": "git-cz",
     "semantic-release": "semantic-release --branches main",
     "commit:push": "git add . && npm run commit && git push",
+    "test": "node test/testing.js",
     "docs": "jsdoc node_modules/.bin/jsdoc --configure .jsdoc.json --verbose"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.16.5",
     "@babel/preset-env": "^7.16.8",
     "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^8.6.0",
+    "eslint": "^8.7.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.25.4",
     "jsdoc": "^3.6.7",
     "jsdoc-babel": "^0.5.0",
     "jsdoc-skyceil": "^2.0.0",
     "nyc": "^15.1.0",
-    "semantic-release": "^18.0.1"
+    "semantic-release": "^19.0.2"
   },
   "config": {
     "commitizen": {
@@ -48,7 +49,7 @@
     "npm": ">=8.0.0"
   },
   "dependencies": {
-    "axios": "^0.24.0"
+    "axios": "^0.25.0"
   },
   "directories": {
     "example": "example"
@@ -72,6 +73,10 @@
     "discord.eris",
     "discord.react",
     "multi-discord-api",
+    "jericho-hub",
+    "jericho api",
+    "jericho-api",
+    "jericho hub api",
     "discord api",
     "discord-api",
     "api"

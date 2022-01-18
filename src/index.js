@@ -1,3 +1,3 @@
-const YoutubeAPI = require('./Classes/Youtube-API.js');
+const YoutubeApiLTE = require('./Classes/Youtube-API.js');
 
-module.exports = { YoutubeAPI };
+module.exports = { YoutubeApiLTE };

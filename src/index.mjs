@@ -1,5 +1,5 @@
 import APIs from './index.js'
 
 export default APIs
-export const YoutubeAPI = APIs.YoutubeAPI
+export const YoutubeApiLTE = APIs.YoutubeApiLTE
 Z

@@ -3,13 +3,13 @@ const YoutubeThumbnail = require('./thumbnail-element')
 const { enumData } = require('../../types/interfaces')
 
 class YoutubeVideo {
-  constructor(cookedHtmlData, initialIndex) {
+  constructor(cookedHtmlData, initialIndex = 0) {
     this.#__parse(cookedHtmlData, initialIndex)
   }
 
   #__parse(cookedHtmlData, initialIndex) {
     if (!cookedHtmlData) return undefined
-    this.Id = initialIndex ?? cookedHtmlData.Id ?? 0
+    this.Id = (initialIndex ?? cookedHtmlData?.Id ?? 0)
     this.videoId = cookedHtmlData.videoId ?? undefined
     this.title = cookedHtmlData.title ?? undefined
     this.description = cookedHtmlData.description ?? undefined
@@ -31,7 +31,8 @@ class YoutubeVideo {
       !!cookedHtmlData.private ??
       !!cookedHtmlData.Private
     this.tags = cookedHtmlData.tags ?? []
-    this.suggestionVideos = cookedHtmlData?.videos || []
+    this.suggestionVideos =
+      cookedHtmlData?.videos ?? cookedHtmlData?.suggestionVideos ?? []
 
     return undefined
   }

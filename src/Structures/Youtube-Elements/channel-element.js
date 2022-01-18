@@ -10,15 +10,22 @@ class YoutubeChannel {
     this.name = cookedHtmlData?.name ?? undefined
     this.verified = !!cookedHtmlData?.verified ?? false
     this.channelId = cookedHtmlData?.channelId ?? undefined
-    this.icon = cookedHtmlData?.icon
+    this.icon = cookedHtmlData?.icon?.url
       ? {
-        url: cookedHtmlData?.icon?.url.startsWith('//')
-          ? cookedHtmlData?.icon?.url.replace('//', 'https://')
+        url: cookedHtmlData?.icon?.url?.startsWith('//')
+          ? cookedHtmlData?.icon?.url?.replace('//', 'https://')
           : cookedHtmlData?.icon?.url,
         width: cookedHtmlData?.icon?.width,
         height: cookedHtmlData?.icon?.height,
       }
-      : undefined ?? { url: undefined, width: 0, height: 0 }
+      : undefined ?? {
+        url:
+            typeof cookedHtmlData?.icon === 'string'
+              ? cookedHtmlData?.icon
+              : undefined,
+        width: 0,
+        height: 0,
+      }
     this.subscribers = cookedHtmlData?.subscribers ?? undefined
     this.url = `${enumData.HTML_YOUTUBE_CHANNEL_BASE_URL}${this.channelId}`
 

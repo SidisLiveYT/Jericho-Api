@@ -44,6 +44,19 @@ class Utils {
     let rawMatch = rawUrl.match(
       /^(?:\w+:)?\/\/([^\s\.]+\.\S{2}|localhost[\:?\d]*)\S*$/,
     )
+    if (!rawMatch?.[1] && /(PL|UU|LL|RD|OL)[a-zA-Z0-9-_]{16,41}/.test(rawUrl))
+      return {
+        parsedData: rawUrl,
+        parsedUrl: enumData.HTML_YOUTUBE_PLAYLIST_BASE_URL + rawUrl?.trim(),
+        searchQueryUrl: `${
+          enumData.HTML_YOUTUBE_BASE_SEARCH_QUERY_URL +
+          encodeURIComponent(
+            enumData.HTML_YOUTUBE_PLAYLIST_BASE_URL + rawUrl?.trim(),
+          ).replace(/%20/g, '+')
+        }`,
+        contentType: 'playlistId',
+        rawMatchData: rawMatch,
+      }
     if (!rawMatch?.[1] && /^[a-zA-Z0-9-_]{11}$/.test(rawUrl))
       return {
         parsedData: rawUrl,
@@ -190,7 +203,9 @@ class Utils {
    */
   static parseHtmlSearchResults(rawHtml, parsingSearchOptions) {
     if (!rawHtml)
-      throw new Error('Recevied Invalid Raw HTML Data from Youtube Watch Page')
+      throw new Error(
+        'Recevied Invalid Raw HTML Data from "Youtube Search Query Page"',
+      )
     if (
       !parsingSearchOptions ||
       parsingSearchOptions?.type?.toLowerCase()?.trim() === 'query'
@@ -295,53 +310,58 @@ class Utils {
         continue
 
       cookedVideos.push(
-        new YoutubeVideo({
-          videoId: rawJsonHtmlData[count]?.playlistVideoRenderer?.videoId,
-          Id:
-            parseInt(
-              rawJsonHtmlData[count]?.playlistVideoRenderer?.index?.simpleText,
-            ) || 0,
-          duration:
-            Utils.parseYoutubeDurationStringTomiliseconds(
+        new YoutubeVideo(
+          {
+            videoId: rawJsonHtmlData[count]?.playlistVideoRenderer?.videoId,
+            Id:
+              parseInt(
+                rawJsonHtmlData[count]?.playlistVideoRenderer?.index
+                  ?.simpleText,
+              ) || 0,
+            duration:
+              Utils.parseYoutubeDurationStringTomiliseconds(
+                rawJsonHtmlData[count]?.playlistVideoRenderer?.lengthText
+                  ?.simpleText,
+              ) || 0,
+            duration_raw:
               rawJsonHtmlData[count]?.playlistVideoRenderer?.lengthText
-                ?.simpleText,
-            ) || 0,
-          duration_raw:
-            rawJsonHtmlData[count]?.playlistVideoRenderer?.lengthText
-              ?.simpleText ?? '0:00',
-          thumbnail: {
-            thumbnailId: rawJsonHtmlData[count]?.playlistVideoRenderer?.videoId,
-            url: rawJsonHtmlData[
-              count
-            ]?.playlistVideoRenderer?.thumbnail.thumbnails.pop().url,
-            height: rawJsonHtmlData[
-              count
-            ]?.playlistVideoRenderer?.thumbnail.thumbnails.pop().height,
-            width: rawJsonHtmlData[
-              count
-            ]?.playlistVideoRenderer?.thumbnail.thumbnails.pop().width,
+                ?.simpleText ?? '0:00',
+            thumbnail: {
+              thumbnailId:
+                rawJsonHtmlData[count]?.playlistVideoRenderer?.videoId,
+              url: rawJsonHtmlData[
+                count
+              ]?.playlistVideoRenderer?.thumbnail.thumbnails.pop().url,
+              height: rawJsonHtmlData[
+                count
+              ]?.playlistVideoRenderer?.thumbnail.thumbnails.pop().height,
+              width: rawJsonHtmlData[
+                count
+              ]?.playlistVideoRenderer?.thumbnail.thumbnails.pop().width,
+            },
+            title:
+              rawJsonHtmlData[count]?.playlistVideoRenderer?.title?.runs?.[0]
+                ?.text,
+            channel: {
+              channelId:
+                rawJsonHtmlData[count]?.playlistVideoRenderer?.shortBylineText
+                  .runs[0].navigationEndpoint.browseEndpoint.browseId ??
+                undefined,
+              name:
+                rawJsonHtmlData[count]?.playlistVideoRenderer?.shortBylineText
+                  .runs[0].text ?? undefined,
+              url: `https://www.youtube.com${
+                rawJsonHtmlData[count]?.playlistVideoRenderer?.shortBylineText
+                  .runs[0].navigationEndpoint.browseEndpoint.canonicalBaseUrl ??
+                rawJsonHtmlData[count]?.playlistVideoRenderer?.shortBylineText
+                  .runs[0].navigationEndpoint.commandMetadata.webCommandMetadata
+                  .url
+              }`,
+              icon: undefined,
+            },
           },
-          title:
-            rawJsonHtmlData[count]?.playlistVideoRenderer?.title?.runs?.[0]
-              ?.text,
-          channel: {
-            channelId:
-              rawJsonHtmlData[count]?.playlistVideoRenderer?.shortBylineText
-                .runs[0].navigationEndpoint.browseEndpoint.browseId ??
-              undefined,
-            name:
-              rawJsonHtmlData[count]?.playlistVideoRenderer?.shortBylineText
-                .runs[0].text ?? undefined,
-            url: `https://www.youtube.com${
-              rawJsonHtmlData[count]?.playlistVideoRenderer?.shortBylineText
-                .runs[0].navigationEndpoint.browseEndpoint.canonicalBaseUrl ??
-              rawJsonHtmlData[count]?.playlistVideoRenderer?.shortBylineText
-                .runs[0].navigationEndpoint.commandMetadata.webCommandMetadata
-                .url
-            }`,
-            icon: undefined,
-          },
-        }),
+          count + 1,
+        ),
       )
     }
     return cookedVideos
@@ -364,69 +384,74 @@ class Utils {
     switch (type?.toLowerCase()?.trim()) {
       case 'video':
         if (!rawJson?.videoRenderer) return undefined
-        return new YoutubeVideo({
-          Id: ++initialIndex,
-          videoId: rawJson?.videoRenderer?.videoId ?? undefined,
-          url: `${enumData.HTML_YOUTUBE_VIDEO_BASE_URL}${rawJson?.videoRenderer?.videoId}`,
-          title: rawJson?.videoRenderer?.title?.runs?.[0]?.text ?? undefined,
-          description:
-            rawJson?.descriptionSnippet?.runs?.[0]?.text ?? undefined,
-          duration:
-            Utils.parseYoutubeDurationStringTomiliseconds(
-              rawJson?.videoRenderer?.lengthText?.simpleText,
-            ) ?? 0,
-          duration_raw:
-            rawJson?.videoRenderer?.lengthText?.simpleText ?? undefined,
-          thumbnail: {
-            thumbnailId: rawJson?.videoRenderer?.videoId,
-            url: rawJson?.videoRenderer?.thumbnail?.thumbnails?.pop()?.url,
-            height: rawJson?.videoRenderer?.thumbnail?.thumbnails?.pop()
-              ?.height,
-            width: rawJson?.videoRenderer?.thumbnail?.thumbnails?.pop()?.width,
-          },
-          channel: {
-            channelId:
-              rawJson?.videoRenderer?.ownerText?.runs?.[0]?.navigationEndpoint
-                ?.browseEndpoint?.browseId ?? undefined,
-            name:
-              rawJson?.videoRenderer?.ownerText?.runs?.[0]?.text ?? undefined,
-            url: `https://www.youtube.com${
-              rawJson?.videoRenderer?.ownerText?.runs?.[0]?.navigationEndpoint
-                ?.browseEndpoint?.canonicalBaseUrl ??
-              rawJson?.videoRenderer?.ownerText?.runs?.[0]?.navigationEndpoint
-                ?.commandMetadata?.webCommandMetadata?.url ??
-              undefined
-            }`,
-            icon: {
-              url:
-                rawJson?.videoRenderer?.channelThumbnailSupportedRenderers
-                  ?.channelThumbnailWithLinkRenderer?.thumbnail?.thumbnails?.[0]
-                  ?.url,
-              width:
-                rawJson?.videoRenderer?.channelThumbnailSupportedRenderers
-                  ?.channelThumbnailWithLinkRenderer?.thumbnail?.thumbnails?.[0]
-                  ?.width,
-              height:
-                rawJson?.videoRenderer?.channelThumbnailSupportedRenderers
-                  ?.channelThumbnailWithLinkRenderer?.thumbnail?.thumbnails?.[0]
-                  ?.height,
+        return new YoutubeVideo(
+          {
+            Id: ++initialIndex,
+            videoId: rawJson?.videoRenderer?.videoId ?? undefined,
+            url: `${enumData.HTML_YOUTUBE_VIDEO_BASE_URL}${rawJson?.videoRenderer?.videoId}`,
+            title: rawJson?.videoRenderer?.title?.runs?.[0]?.text ?? undefined,
+            description:
+              rawJson?.descriptionSnippet?.runs?.[0]?.text ?? undefined,
+            duration:
+              Utils.parseYoutubeDurationStringTomiliseconds(
+                rawJson?.videoRenderer?.lengthText?.simpleText,
+              ) ?? 0,
+            duration_raw:
+              rawJson?.videoRenderer?.lengthText?.simpleText ?? undefined,
+            thumbnail: {
+              thumbnailId: rawJson?.videoRenderer?.videoId,
+              url: rawJson?.videoRenderer?.thumbnail?.thumbnails?.pop()?.url,
+              height: rawJson?.videoRenderer?.thumbnail?.thumbnails?.pop()
+                ?.height,
+              width: rawJson?.videoRenderer?.thumbnail?.thumbnails?.pop()
+                ?.width,
             },
-            verified:
-              !!(
-                rawJson.videoRenderer.ownerBadges &&
-                rawJson.videoRenderer.ownerBadges[0]
-              )?.metadataBadgeRenderer?.style
-                ?.toLowerCase()
-                ?.includes('verified') ?? false,
+            channel: {
+              channelId:
+                rawJson?.videoRenderer?.ownerText?.runs?.[0]?.navigationEndpoint
+                  ?.browseEndpoint?.browseId ?? undefined,
+              name:
+                rawJson?.videoRenderer?.ownerText?.runs?.[0]?.text ?? undefined,
+              url: `https://www.youtube.com${
+                rawJson?.videoRenderer?.ownerText?.runs?.[0]?.navigationEndpoint
+                  ?.browseEndpoint?.canonicalBaseUrl ??
+                rawJson?.videoRenderer?.ownerText?.runs?.[0]?.navigationEndpoint
+                  ?.commandMetadata?.webCommandMetadata?.url ??
+                undefined
+              }`,
+              icon: {
+                url:
+                  rawJson?.videoRenderer?.channelThumbnailSupportedRenderers
+                    ?.channelThumbnailWithLinkRenderer?.thumbnail
+                    ?.thumbnails?.[0]?.url,
+                width:
+                  rawJson?.videoRenderer?.channelThumbnailSupportedRenderers
+                    ?.channelThumbnailWithLinkRenderer?.thumbnail
+                    ?.thumbnails?.[0]?.width,
+                height:
+                  rawJson?.videoRenderer?.channelThumbnailSupportedRenderers
+                    ?.channelThumbnailWithLinkRenderer?.thumbnail
+                    ?.thumbnails?.[0]?.height,
+              },
+              verified:
+                !!(
+                  rawJson.videoRenderer.ownerBadges &&
+                  rawJson.videoRenderer.ownerBadges[0]
+                )?.metadataBadgeRenderer?.style
+                  ?.toLowerCase()
+                  ?.includes('verified') ?? false,
+            },
+            uploadedAt:
+              rawJson?.videoRenderer?.publishedTimeText?.simpleText ??
+              undefined,
+            views:
+              rawJson?.videoRenderer?.viewCountText?.simpleText?.replace(
+                /\D/g,
+                '',
+              ) ?? 0,
           },
-          uploadedAt:
-            rawJson?.videoRenderer?.publishedTimeText?.simpleText ?? undefined,
-          views:
-            rawJson?.videoRenderer?.viewCountText?.simpleText?.replace(
-              /\D/g,
-              '',
-            ) ?? 0,
-        })
+          initialIndex,
+        )
       case 'channel':
         if (!rawJson?.channelRenderer) return undefined
         return new YoutubeChannel({
@@ -541,7 +566,7 @@ class Utils {
    * @returns {YoutubeVideo|YoutubePlaylist|void} Returns Youtube Video / Playlist Data after Parsing it from Raw HTML Data
    */
 
-  static hardHTMLSearchparse(rawHtmlData, type = 'video', limit = 1) {
+  static hardHTMLSearchparse(rawHtmlData, type = 'video', limit = 10) {
     if (!rawHtmlData) return undefined
 
     switch (type?.toLowerCase()?.trim()) {
@@ -596,51 +621,55 @@ class Utils {
           ...cookedJson,
         }
         if (!cookedJson?.videoId) return undefined
-        return new YoutubeVideo({
-          videoId: cookedJson?.videoId,
-          title: cookedJson?.title,
-          views: parseInt(cookedJson?.viewCount) ?? 0,
-          tags: cookedJson?.keywords,
-          isprivate: cookedJson?.isPrivate,
-          islive: cookedJson?.isLiveContent,
-          duration: parseInt(cookedJson?.lengthSeconds) * 1000,
-          duration_raw: Utils.parseDurationToString(
-            Utils.parseYoutubeDurationStringTomiliseconds(
-              parseInt(cookedJson?.lengthSeconds) * 1000 ?? 0,
+        return new YoutubeVideo(
+          {
+            videoId: cookedJson?.videoId,
+            title: cookedJson?.title,
+            views: parseInt(cookedJson?.viewCount) ?? 0,
+            tags: cookedJson?.keywords,
+            isprivate: cookedJson?.isPrivate,
+            islive: cookedJson?.isLiveContent,
+            duration: parseInt(cookedJson?.lengthSeconds) * 1000,
+            duration_raw: Utils.parseDurationToString(
+              Utils.parseYoutubeDurationStringTomiliseconds(
+                parseInt(cookedJson?.lengthSeconds ?? 0) * 1000,
+              ),
             ),
-          ),
-          channel: {
-            name: cookedJson?.author,
-            channelId: cookedJson?.channelId,
-            url: `https://www.youtube.com${cookedJson?.owner?.videoOwnerRenderer?.title?.runs?.[0]?.navigationEndpoint?.browseEndpoint?.canonicalBaseUrl}`,
-            icon:
-              cookedJson?.owner?.videoOwnerRenderer?.thumbnail?.thumbnails?.[0],
-            subscribers: cookedJson?.owner?.videoOwnerRenderer?.subscriberCountText?.simpleText?.replace(
-              ' subscribers',
-              '',
-            ),
+            channel: {
+              name: cookedJson?.author,
+              channelId: cookedJson?.channelId,
+              url: `https://www.youtube.com${cookedJson?.owner?.videoOwnerRenderer?.title?.runs?.[0]?.navigationEndpoint?.browseEndpoint?.canonicalBaseUrl}`,
+              icon:
+                cookedJson?.owner?.videoOwnerRenderer?.thumbnail
+                  ?.thumbnails?.[0],
+              subscribers: cookedJson?.owner?.videoOwnerRenderer?.subscriberCountText?.simpleText?.replace(
+                ' subscribers',
+                '',
+              ),
+            },
+            description: cookedJson?.shortDescription,
+            thumbnail: {
+              ...cookedJson?.thumbnail?.thumbnails?.pop(),
+              thumbnailId: cookedJson?.videoId,
+            },
+            uploadedAt: cookedJson?.dateText?.simpleText,
+            likes:
+              parseInt(
+                cookedJson?.videoActions?.menuRenderer?.topLevelButtons
+                  ?.find(
+                    (button) => button?.toggleButtonRenderer?.defaultIcon?.iconType ===
+                      'LIKE',
+                  )
+                  ?.toggleButtonRenderer?.defaultText?.accessibility?.accessibilityData?.label?.split(
+                    ' ',
+                  )?.[0]
+                  ?.replace(/,/g, '') ?? 0,
+              ) ?? 0,
+            dislikes: 0,
+            videos: Utils.parseExtraHtmlVideos(nextJsonData ?? {}) || [],
           },
-          description: cookedJson?.shortDescription,
-          thumbnail: {
-            ...cookedJson?.thumbnail?.thumbnails?.pop(),
-            thumbnailId: cookedJson?.videoId,
-          },
-          uploadedAt: cookedJson?.dateText?.simpleText,
-          likes:
-            parseInt(
-              cookedJson?.videoActions?.menuRenderer?.topLevelButtons
-                ?.find(
-                  (button) => button?.toggleButtonRenderer?.defaultIcon?.iconType ===
-                    'LIKE',
-                )
-                ?.toggleButtonRenderer?.defaultText?.accessibility?.accessibilityData?.label?.split(
-                  ' ',
-                )?.[0]
-                ?.replace(/,/g, '') ?? 0,
-            ) ?? 0,
-          dislikes: 0,
-          videos: Utils.parseExtraHtmlVideos(nextJsonData ?? {}) || [],
-        })
+          1,
+        )
 
       case 'playlist':
         if (
@@ -671,74 +700,77 @@ class Utils {
 
         if (!parsedJsonData.title.runs || !parsedJsonData.title.runs.length)
           return undefined
-
         return new YoutubePlaylist({
           continuation: {
             api:
-              rawHtmlData.split('INNERTUBE_API_KEY":"')[1]?.split('"')[0] ??
-              rawHtmlData.split('innertubeApiKey":"')[1]?.split('"')[0] ??
-              enumData.DEFAULT_API_KEY,
+              rawHtmlData?.split('INNERTUBE_API_KEY":"')[1]?.split('"')?.[0] ??
+              rawHtmlData?.split('innertubeApiKey":"')[1]?.split('"')?.[0] ??
+              enumData?.DEFAULT_API_KEY,
             token: Utils.getHtmlcontinuationToken(rawParsed),
             clientVersion:
               rawHtmlData
-                .split('"INNERTUBE_CONTEXT_CLIENT_VERSION":"')[1]
-                ?.split('"')[0] ??
+                ?.split('"INNERTUBE_CONTEXT_CLIENT_VERSION":"')?.[1]
+                ?.split('"')?.[0] ??
               rawHtmlData
-                .split('"innertube_context_client_version":"')[1]
-                ?.split('"')[0] ??
+                ?.split('"innertube_context_client_version":"')?.[1]
+                ?.split('"')?.[0] ??
               '<some version>',
           },
           playlistId:
-            parsedJsonData.title.runs[0].navigationEndpoint.watchEndpoint
-              .playlistId,
-          title: parsedJsonData.title.runs[0].text,
+            parsedJsonData?.title?.runs?.[0]?.navigationEndpoint?.watchEndpoint
+              ?.playlistId,
+          title: parsedJsonData?.title?.runs?.[0]?.text,
           videoCount:
             parseInt(
-              parsedJsonData.stats[0].runs[0].text.replace(/[^0-9]/g, '') ?? 0,
+              parsedJsonData?.stats?.[0]?.runs?.[0]?.text?.replace(
+                /[^0-9]/g,
+                '',
+              ) ?? 0,
             ) ?? 0,
           lastUpdate:
-            parsedJsonData.stats
-              .find(
+            parsedJsonData?.stats
+              ?.find(
                 (data) => 'runs' in data &&
-                  data.runs.find((subData) => subData.text.toLowerCase().includes('last update')),
+                  data?.runs?.find((subData) => subData?.text.toLowerCase().includes('last update')),
               )
               ?.runs.pop()?.text ?? undefined,
           views:
             parseInt(
-              parsedJsonData.stats?.[1]?.simpleText?.replace(/[^0-9]/g, '') ??
+              parsedJsonData?.stats?.[1]?.simpleText?.replace(/[^0-9]/g, '') ??
                 0,
             ) ?? 0,
           videos: Utils.fetchPlaylistHtmlVideos(rawParsed, limit),
-          url: `https://www.youtube.com/playlist?list=${parsedJsonData.title.runs[0].navigationEndpoint.watchEndpoint.playlistId}`,
-          link: `https://www.youtube.com${parsedJsonData.title.runs[0].navigationEndpoint.commandMetadata.webCommandMetadata.url}`,
+          url: `https://www.youtube.com/playlist?list=${parsedJsonData?.title?.runs[0]?.navigationEndpoint?.watchEndpoint?.playlistId}`,
+          previewLink: `https://www.youtube.com${parsedJsonData?.title?.runs?.[0]?.navigationEndpoint?.commandMetadata?.webCommandMetadata?.url}`,
           author: {
             name:
               rawJsonData[1]?.playlistSidebarSecondaryInfoRenderer?.videoOwner
                 ?.videoOwnerRenderer?.title?.runs?.[0]?.text,
-            id:
+            channelId:
               rawJsonData[1]?.playlistSidebarSecondaryInfoRenderer?.videoOwner
-                .videoOwnerRenderer.title.runs[0].navigationEndpoint
-                .browseEndpoint.browseId,
+                ?.videoOwnerRenderer?.title?.runs?.[0]?.navigationEndpoint
+                ?.browseEndpoint?.browseId,
             url: `https://www.youtube.com${
               rawJsonData[1]?.playlistSidebarSecondaryInfoRenderer?.videoOwner
-                .videoOwnerRenderer.navigationEndpoint.commandMetadata
-                .webCommandMetadata.url ||
+                ?.videoOwnerRenderer?.navigationEndpoint?.commandMetadata
+                ?.webCommandMetadata?.url ||
               rawJsonData[1]?.playlistSidebarSecondaryInfoRenderer?.videoOwner
-                .videoOwnerRenderer.navigationEndpoint.browseEndpoint
-                .canonicalBaseUrl
+                ?.videoOwnerRenderer?.navigationEndpoint?.browseEndpoint
+                ?.canonicalBaseUrl
             }`,
             icon: rawJsonData[1]?.playlistSidebarSecondaryInfoRenderer
-              ?.videoOwner.videoOwnerRenderer.thumbnail.thumbnails.length
-              ? rawJsonData[1]?.playlistSidebarSecondaryInfoRenderer?.videoOwner.videoOwnerRenderer.thumbnail.thumbnails.pop()
-                .url
+              ?.videoOwner?.videoOwnerRenderer?.thumbnail?.thumbnails?.length
+              ? rawJsonData[1]?.playlistSidebarSecondaryInfoRenderer?.videoOwner?.videoOwnerRenderer?.thumbnail?.thumbnails?.pop()
+                ?.url
               : undefined,
           },
-          thumbnail: rawJsonData[1]?.playlistSidebarSecondaryInfoRenderer
-            ?.videoOwner.thumbnailRenderer.playlistVideoThumbnailRenderer
-            ?.thumbnail.thumbnails.length
-            ? rawJsonData[1]?.playlistSidebarSecondaryInfoRenderer?.videoOwner.thumbnailRenderer.playlistVideoThumbnailRenderer.thumbnail.thumbnails.pop()
-              .url
-            : undefined,
+          thumbnail: {
+            thumbnailId:
+              parsedJsonData?.title?.runs?.[0]?.navigationEndpoint
+                ?.watchEndpoint?.playlistId,
+            ...(rawJsonData?.[0]?.playlistSidebarPrimaryInfoRenderer?.thumbnailRenderer?.playlistVideoThumbnailRenderer?.thumbnail?.thumbnails?.pop() ??
+              undefined),
+          },
         })
       default:
         return undefined
@@ -766,8 +798,8 @@ class Utils {
       cookedVideos.push(
         new YoutubeVideo(
           {
-            id: rawVideosData[count]?.playlistVideoRenderer?.videoId,
-            index:
+            videoId: rawVideosData[count]?.playlistVideoRenderer?.videoId,
+            Id:
               parseInt(
                 rawVideosData[count]?.playlistVideoRenderer?.index?.simpleText,
               ) || 0,
@@ -810,7 +842,7 @@ class Utils {
               icon: null,
             },
           },
-          count,
+          count + 1,
         ),
       )
     }
@@ -856,61 +888,61 @@ class Utils {
     for (const rawbody of rawHTMLJsonData) {
       const rawDetails = parseHomePageBoolean
         ? rawbody
-        : rawbody.compactVideoRenderer
+        : rawbody?.compactVideoRenderer
 
       if (rawDetails) {
         try {
           cookedResults.push(
             new YoutubeVideo(
               {
-                videoId: rawDetails.videoId,
+                videoId: rawDetails?.videoId,
                 title:
-                  rawDetails.title.simpleText ?? rawDetails.title.runs[0]?.text,
+                  rawDetails?.title?.simpleText ??
+                  rawDetails?.title?.runs?.[0]?.text,
                 views:
                   parseInt(
-                    (/^\d/.test(rawDetails.viewCountText.simpleText)
-                      ? rawDetails.viewCountText.simpleText
+                    (/^\d/.test(rawDetails?.viewCountText?.simpleText)
+                      ? rawDetails?.viewCountText?.simpleText
                       : '0'
                     )
-                      .split(' ')[0]
-                      .replace(/,/g, ''),
+                      ?.split(' ')?.[0]
+                      ?.replace(/,/g, ''),
                   ) || 0,
                 duration_raw:
-                  rawDetails.lengthText.simpleText ??
-                  rawDetails.lengthText.accessibility.accessibilityData.label,
+                  rawDetails?.lengthText?.simpleText ??
+                  rawDetails?.lengthText?.accessibility?.accessibilityData
+                    ?.label,
                 duration:
                   Utils.parseYoutubeDurationStringTomiliseconds(
-                    rawDetails.lengthText.simpleText,
+                    rawDetails?.lengthText?.simpleText,
                   ) / 1000,
                 channel: {
-                  name: rawDetails.shortBylineText.runs[0].text,
+                  name: rawDetails?.shortBylineText?.runs?.[0].text,
                   channelId:
-                    rawDetails.shortBylineText.runs[0].navigationEndpoint
-                      .browseEndpoint.browseId,
-                  url: `https://www.youtube.com${rawDetails.shortBylineText.runs[0].navigationEndpoint.browseEndpoint.canonicalBaseUrl}`,
+                    rawDetails?.shortBylineText?.runs?.[0]?.navigationEndpoint
+                      ?.browseEndpoint?.browseId,
+                  url: `https://www.youtube.com${rawDetails?.shortBylineText?.runs?.[0].navigationEndpoint?.browseEndpoint?.canonicalBaseUrl}`,
                   icon: parseHomePageBoolean
-                    ? rawDetails.channelThumbnailSupportedRenderers
-                      .channelThumbnailWithLinkRenderer.thumbnail
-                      .thumbnails[0]
-                    : rawDetails.channelThumbnail.thumbnails[0],
+                    ? rawDetails?.channelThumbnailSupportedRenderers
+                      ?.channelThumbnailWithLinkRenderer?.thumbnail
+                      ?.thumbnails?.[0]
+                    : rawDetails?.channelThumbnail?.thumbnails?.[0],
                   subscribers: '0',
                   verified: Boolean(
-                    rawDetails.ownerBadges[0].metadataBadgeRenderer.tooltip ===
-                      'Verified',
+                    rawDetails?.ownerBadges?.[0].metadataBadgeRenderer
+                      ?.tooltip === 'Verified',
                   ),
                 },
                 thumbnail: {
-                  ...rawDetails.thumbnail.thumbnails[
-                    rawDetails.thumbnail.thumbnails.length - 1
-                  ],
-                  thumbnailId: rawDetails.videoId,
+                  ...rawDetails?.thumbnail?.thumbnails?.pop(),
+                  thumbnailId: rawDetails?.videoId,
                 },
-                uploadedAt: rawDetails.publishedTimeText.simpleText,
+                uploadedAt: rawDetails?.publishedTimeText?.simpleText,
                 likes: 0,
                 dislikes: 0,
-                description: rawDetails.descriptionSnippet?.runs[0]?.text,
+                description: rawDetails?.descriptionSnippet?.runs?.[0]?.text,
               },
-              garbageCount,
+              garbageCount + 1,
             ),
           )
         } catch {

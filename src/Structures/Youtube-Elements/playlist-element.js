@@ -1,5 +1,7 @@
 const { enumData } = require('../../types/interfaces')
 const Utils = require('../../Utils/Youtube-Utils')
+const YoutubeChannel = require('./channel-element')
+const YoutubeThumbnail = require('./thumbnail-element')
 
 class YoutubePlaylist {
   constructor(cookedHtmlData, forceHtmlSearchResult = false) {
@@ -15,12 +17,8 @@ class YoutubePlaylist {
     return {
       playlistId: this.playlistId,
       name: this.name,
-      thumbnail: this.thumbnail.toJSON(),
-      channel: {
-        name: this.channel.name,
-        id: this.channel.id,
-        icon: this.channel.iconURL(),
-      },
+      thumbnail: this.thumbnail?.toJSON(),
+      channel: this.channel?.toJSON(),
       url: this.url,
       videos: this.videos,
     }
@@ -28,14 +26,17 @@ class YoutubePlaylist {
 
   #__parse(cookedHtmlData) {
     this.playlistId = cookedHtmlData.playlistId ?? undefined
-    this.name = cookedHtmlData.name ?? undefined
+    this.name = cookedHtmlData.title ?? cookedHtmlData.name ?? undefined
     this.videoCount = cookedHtmlData.videoCount ?? 0
     this.lastUpdate = cookedHtmlData.lastUpdate ?? undefined
     this.views = cookedHtmlData.views ?? 0
     this.url = cookedHtmlData.url ?? undefined
-    this.link = cookedHtmlData.link ?? undefined
-    this.channel = cookedHtmlData.author ?? undefined
-    this.thumbnail = cookedHtmlData.thumbnail ?? undefined
+    this.previewLink =
+      cookedHtmlData.previewLink ?? cookedHtmlData.link ?? undefined
+    this.channel = new YoutubeChannel(
+      cookedHtmlData.channel ?? cookedHtmlData.author ?? undefined,
+    )
+    this.thumbnail = new YoutubeThumbnail(cookedHtmlData.thumbnail ?? undefined)
     this.videos = cookedHtmlData.videos ?? []
     this._continuation = {
       api: cookedHtmlData.continuation?.api ?? undefined,
@@ -49,15 +50,18 @@ class YoutubePlaylist {
 
   #__parseSearchResults(cookedHtmlData) {
     this.playlistId = cookedHtmlData.playlistId ?? undefined
-    this.name = cookedHtmlData.name ?? undefined
-    this.thumbnail = cookedHtmlData.thumbnail ?? undefined
-    this.channel = cookedHtmlData.channel ?? undefined
+    this.name = cookedHtmlData.title ?? cookedHtmlData.name ?? undefined
+    this.thumbnail = new YoutubeThumbnail(cookedHtmlData.thumbnail ?? undefined)
+    this.channel = new YoutubeChannel(
+      cookedHtmlData.channel ?? cookedHtmlData.author ?? undefined,
+    )
     this.videos = []
     this.videoCount = cookedHtmlData.videos ?? 0
     this.url = this.playlistId
       ? `${enumData.HTML_YOUTUBE_PLAYLIST_BASE_URL}${this.playlistId}`
       : null
-    this.link = undefined
+    this.previewLink =
+      cookedHtmlData?.previewLink ?? cookedHtmlData?.link ?? undefined
     this.lastUpdate = undefined
     this.views = 0
 
@@ -119,7 +123,7 @@ class YoutubePlaylist {
   }
 
   get type() {
-    if (!this.channelId) return undefined
+    if (!this.playlistId) return undefined
     return 'playlist'
   }
 }
