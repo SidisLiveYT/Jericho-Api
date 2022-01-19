@@ -23,6 +23,13 @@ const enumData = {
   },
 }
 
+const youtubeValidateData = {
+  Id: '',
+  url: '',
+  type: '',
+  isSafeCheck: true,
+}
+
 const searchOptions = {
   type: 'all',
   safeSearchMode: true,
@@ -30,4 +37,9 @@ const searchOptions = {
   htmlrequestOptions: {},
 }
 
-module.exports = { youtubeUrlParseHtmlSearchData, enumData, searchOptions }
+module.exports = {
+  youtubeUrlParseHtmlSearchData,
+  enumData,
+  searchOptions,
+  youtubeValidateData,
+}

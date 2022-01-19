@@ -1,20 +1,40 @@
 const { enumData } = require('../../types/interfaces')
 
+/**
+ * @class YoutubeThumbnail -> Youtube Thumbnail based Class
+ */
+
 class YoutubeThumbnail {
+  /**
+   * @constructor
+   * @param {JSON} cookedHtmlData Cooked Json formated Data for parsing into instance
+   */
   constructor(cookedHtmlData) {
     this.#__parse(cookedHtmlData)
   }
 
+  /**
+   * @private
+   * @method #__parse() -> Parsing Raw Json Formated Given Value to YoutubeThmbnail Instance
+   * @param {JSON} cookedHtmlData Cooked Json formated Data for parsing into instance
+   * @returns {void} Returns undefined after Parsing
+   */
   #__parse(cookedHtmlData) {
     if (!cookedHtmlData) return undefined
 
-    this.thumbnailId = cookedHtmlData.thumbnailId || null
+    this.thumbnailId = cookedHtmlData.thumbnailId ?? null
     this.width = cookedHtmlData.width ?? 0
     this.height = cookedHtmlData.height ?? 0
     this.url = cookedHtmlData.url ?? undefined
 
     return undefined
   }
+
+  /**
+   * @method displayThumbnailURL() -> parsing to Custom Display Thumbnail Url
+   * @param {string | void | "ultrares"} thumbnailType Youtube Thumbnail Type for Display Thumbnail Url
+   * @returns {void | string} Returns Custom Display Thumbnail Url
+   */
 
   displayThumbnailURL(thumbnailType = 'ultrares') {
     if (!this.thumbnailId) return undefined
@@ -33,6 +53,12 @@ class YoutubeThumbnail {
     return `${enumData.HTML_YOUTUBE_THUMBNAIL_BASE_URL}${this.thumbnailId}/${thumbnailType}.jpg`
   }
 
+  /**
+   * @method defaultThumbnailURL() -> parsing to Custom Default Thumbnail Url
+   * @param {string | void | "0"} thumbnailId Youtube Thumbnail Type for Default Thumbnail Url
+   * @returns {void | string} Returns Custom Default Thumbnail Url
+   */
+
   defaultThumbnailURL(thumbnailId = '0') {
     if (!thumbnailId) thumbnailId = '0'
     if (!['0', '1', '2', '3', '4'].includes(thumbnailId))
@@ -40,9 +66,19 @@ class YoutubeThumbnail {
     return `${enumData.HTML_YOUTUBE_THUMBNAIL_BASE_URL}${this.thumbnailId}/${thumbnailId}.jpg`
   }
 
+  /**
+   * @method toString() -> String value of instance's Thumbnail url
+   * @returns {string} returns string url
+   */
+
   toString() {
     return this.url ? `${this.url}` : undefined
   }
+
+  /**
+   * @method toJSON() -> JSON Formated from raw instance properties
+   * @returns {JSON} Returns Json Formated Value
+   */
 
   toJSON() {
     if (!this.thumbnailId) return undefined
@@ -54,6 +90,9 @@ class YoutubeThumbnail {
     }
   }
 
+  /**
+   * @type {string | void} return type of instance
+   */
   get type() {
     if (!this.thumbnailId) return undefined
     return 'thumbnail'

@@ -93,7 +93,7 @@ class Utils {
         searchQueryUrl: `${
           enumData.HTML_YOUTUBE_BASE_SEARCH_QUERY_URL +
           encodeURIComponent(
-            enumData.HTML_YOUTUBE_PLAYLIST_BASE_URL + rawUrl?.trim(),
+            enumData.HTML_YOUTUBE_PLAYLIST_BASE_URL + rawMatch?.[1]?.trim(),
           ).replace(/%20/g, '+')
         }`,
         contentType: 'playlist',
@@ -112,7 +112,7 @@ class Utils {
         searchQueryUrl: `${
           enumData.HTML_YOUTUBE_BASE_SEARCH_QUERY_URL +
           encodeURIComponent(
-            enumData.HTML_YOUTUBE_VIDEO_BASE_URL + rawUrl?.trim(),
+            enumData.HTML_YOUTUBE_VIDEO_BASE_URL + rawMatch?.[1]?.trim(),
           ).replace(/%20/g, '+')
         }`,
         rawMatchData: rawMatch,
@@ -128,7 +128,7 @@ class Utils {
         searchQueryUrl: `${
           enumData.HTML_YOUTUBE_BASE_SEARCH_QUERY_URL +
           encodeURIComponent(
-            enumData.HTML_YOUTUBE_CHANNEL_BASE_URL + rawUrl?.trim(),
+            enumData.HTML_YOUTUBE_CHANNEL_BASE_URL + rawMatch?.[1]?.trim(),
           ).replace(/%20/g, '+')
         }`,
         rawMatchData: rawMatch,
@@ -143,7 +143,7 @@ class Utils {
         searchQueryUrl: `${
           enumData.HTML_YOUTUBE_BASE_SEARCH_QUERY_URL +
           encodeURIComponent(
-            enumData.HTML_YOUTUBE_USER_BASE_URL + rawUrl?.trim(),
+            enumData.HTML_YOUTUBE_USER_BASE_URL + rawMatch?.[1]?.trim(),
           ).replace(/%20/g, '+')
         }`,
         contentType: 'channel',
@@ -317,12 +317,12 @@ class Utils {
               parseInt(
                 rawJsonHtmlData[count]?.playlistVideoRenderer?.index
                   ?.simpleText,
-              ) || 0,
+              ) ?? 0,
             duration:
               Utils.parseYoutubeDurationStringTomiliseconds(
                 rawJsonHtmlData[count]?.playlistVideoRenderer?.lengthText
                   ?.simpleText,
-              ) || 0,
+              ) ?? 0,
             duration_raw:
               rawJsonHtmlData[count]?.playlistVideoRenderer?.lengthText
                 ?.simpleText ?? '0:00',
@@ -566,7 +566,7 @@ class Utils {
    * @returns {YoutubeVideo|YoutubePlaylist|void} Returns Youtube Video / Playlist Data after Parsing it from Raw HTML Data
    */
 
-  static hardHTMLSearchparse(rawHtmlData, type = 'video', limit = 10) {
+  static hardHTMLSearchparse(rawHtmlData, type = 'video', limit = Infinity) {
     if (!rawHtmlData) return undefined
 
     switch (type?.toLowerCase()?.trim()) {
@@ -631,9 +631,7 @@ class Utils {
             islive: cookedJson?.isLiveContent,
             duration: parseInt(cookedJson?.lengthSeconds) * 1000,
             duration_raw: Utils.parseDurationToString(
-              Utils.parseYoutubeDurationStringTomiliseconds(
-                parseInt(cookedJson?.lengthSeconds ?? 0) * 1000,
-              ),
+              parseInt(cookedJson?.lengthSeconds ?? 0) * 1000,
             ),
             channel: {
               name: cookedJson?.author,
@@ -666,9 +664,10 @@ class Utils {
                   ?.replace(/,/g, '') ?? 0,
               ) ?? 0,
             dislikes: 0,
-            videos: Utils.parseExtraHtmlVideos(nextJsonData ?? {}) || [],
+            videos: Utils.parseExtraHtmlVideos(nextJsonData ?? {}) ?? [],
           },
           1,
+          true,
         )
 
       case 'playlist':
@@ -700,78 +699,86 @@ class Utils {
 
         if (!parsedJsonData.title.runs || !parsedJsonData.title.runs.length)
           return undefined
-        return new YoutubePlaylist({
-          continuation: {
-            api:
-              rawHtmlData?.split('INNERTUBE_API_KEY":"')[1]?.split('"')?.[0] ??
-              rawHtmlData?.split('innertubeApiKey":"')[1]?.split('"')?.[0] ??
-              enumData?.DEFAULT_API_KEY,
-            token: Utils.getHtmlcontinuationToken(rawParsed),
-            clientVersion:
-              rawHtmlData
-                ?.split('"INNERTUBE_CONTEXT_CLIENT_VERSION":"')?.[1]
-                ?.split('"')?.[0] ??
-              rawHtmlData
-                ?.split('"innertube_context_client_version":"')?.[1]
-                ?.split('"')?.[0] ??
-              '<some version>',
-          },
-          playlistId:
-            parsedJsonData?.title?.runs?.[0]?.navigationEndpoint?.watchEndpoint
-              ?.playlistId,
-          title: parsedJsonData?.title?.runs?.[0]?.text,
-          videoCount:
-            parseInt(
-              parsedJsonData?.stats?.[0]?.runs?.[0]?.text?.replace(
-                /[^0-9]/g,
-                '',
-              ) ?? 0,
-            ) ?? 0,
-          lastUpdate:
-            parsedJsonData?.stats
-              ?.find(
-                (data) => 'runs' in data &&
-                  data?.runs?.find((subData) => subData?.text.toLowerCase().includes('last update')),
-              )
-              ?.runs.pop()?.text ?? undefined,
-          views:
-            parseInt(
-              parsedJsonData?.stats?.[1]?.simpleText?.replace(/[^0-9]/g, '') ??
-                0,
-            ) ?? 0,
-          videos: Utils.fetchPlaylistHtmlVideos(rawParsed, limit),
-          url: `https://www.youtube.com/playlist?list=${parsedJsonData?.title?.runs[0]?.navigationEndpoint?.watchEndpoint?.playlistId}`,
-          previewLink: `https://www.youtube.com${parsedJsonData?.title?.runs?.[0]?.navigationEndpoint?.commandMetadata?.webCommandMetadata?.url}`,
-          author: {
-            name:
-              rawJsonData[1]?.playlistSidebarSecondaryInfoRenderer?.videoOwner
-                ?.videoOwnerRenderer?.title?.runs?.[0]?.text,
-            channelId:
-              rawJsonData[1]?.playlistSidebarSecondaryInfoRenderer?.videoOwner
-                ?.videoOwnerRenderer?.title?.runs?.[0]?.navigationEndpoint
-                ?.browseEndpoint?.browseId,
-            url: `https://www.youtube.com${
-              rawJsonData[1]?.playlistSidebarSecondaryInfoRenderer?.videoOwner
-                ?.videoOwnerRenderer?.navigationEndpoint?.commandMetadata
-                ?.webCommandMetadata?.url ||
-              rawJsonData[1]?.playlistSidebarSecondaryInfoRenderer?.videoOwner
-                ?.videoOwnerRenderer?.navigationEndpoint?.browseEndpoint
-                ?.canonicalBaseUrl
-            }`,
-            icon: rawJsonData[1]?.playlistSidebarSecondaryInfoRenderer
-              ?.videoOwner?.videoOwnerRenderer?.thumbnail?.thumbnails?.length
-              ? rawJsonData[1]?.playlistSidebarSecondaryInfoRenderer?.videoOwner?.videoOwnerRenderer?.thumbnail?.thumbnails?.pop()
-                ?.url
-              : undefined,
-          },
-          thumbnail: {
-            thumbnailId:
+        return new YoutubePlaylist(
+          {
+            continuation: {
+              api:
+                rawHtmlData
+                  ?.split('INNERTUBE_API_KEY":"')[1]
+                  ?.split('"')?.[0] ??
+                rawHtmlData?.split('innertubeApiKey":"')[1]?.split('"')?.[0] ??
+                enumData?.DEFAULT_API_KEY,
+              token: Utils.getHtmlcontinuationToken(rawParsed),
+              clientVersion:
+                rawHtmlData
+                  ?.split('"INNERTUBE_CONTEXT_CLIENT_VERSION":"')?.[1]
+                  ?.split('"')?.[0] ??
+                rawHtmlData
+                  ?.split('"innertube_context_client_version":"')?.[1]
+                  ?.split('"')?.[0] ??
+                '<some version>',
+            },
+            playlistId:
               parsedJsonData?.title?.runs?.[0]?.navigationEndpoint
                 ?.watchEndpoint?.playlistId,
-            ...(rawJsonData?.[0]?.playlistSidebarPrimaryInfoRenderer?.thumbnailRenderer?.playlistVideoThumbnailRenderer?.thumbnail?.thumbnails?.pop() ??
-              undefined),
+            title: parsedJsonData?.title?.runs?.[0]?.text,
+            videoCount:
+              parseInt(
+                parsedJsonData?.stats?.[0]?.runs?.[0]?.text?.replace(
+                  /[^0-9]/g,
+                  '',
+                ) ?? 0,
+              ) ?? 0,
+            lastUpdate:
+              parsedJsonData?.stats
+                ?.find(
+                  (data) => 'runs' in data &&
+                    data?.runs?.find((subData) => subData?.text.toLowerCase().includes('last update')),
+                )
+                ?.runs.pop()?.text ?? undefined,
+            views:
+              parseInt(
+                parsedJsonData?.stats?.[1]?.simpleText?.replace(
+                  /[^0-9]/g,
+                  '',
+                ) ?? 0,
+              ) ?? 0,
+            videos: Utils.fetchPlaylistHtmlVideos(rawParsed, Infinity),
+            url: `https://www.youtube.com/playlist?list=${parsedJsonData?.title?.runs[0]?.navigationEndpoint?.watchEndpoint?.playlistId}`,
+            previewLink: `https://www.youtube.com${parsedJsonData?.title?.runs?.[0]?.navigationEndpoint?.commandMetadata?.webCommandMetadata?.url}`,
+            author: {
+              name:
+                rawJsonData[1]?.playlistSidebarSecondaryInfoRenderer?.videoOwner
+                  ?.videoOwnerRenderer?.title?.runs?.[0]?.text,
+              channelId:
+                rawJsonData[1]?.playlistSidebarSecondaryInfoRenderer?.videoOwner
+                  ?.videoOwnerRenderer?.title?.runs?.[0]?.navigationEndpoint
+                  ?.browseEndpoint?.browseId,
+              url: `https://www.youtube.com${
+                rawJsonData[1]?.playlistSidebarSecondaryInfoRenderer?.videoOwner
+                  ?.videoOwnerRenderer?.navigationEndpoint?.commandMetadata
+                  ?.webCommandMetadata?.url ??
+                rawJsonData[1]?.playlistSidebarSecondaryInfoRenderer?.videoOwner
+                  ?.videoOwnerRenderer?.navigationEndpoint?.browseEndpoint
+                  ?.canonicalBaseUrl
+              }`,
+              icon: rawJsonData[1]?.playlistSidebarSecondaryInfoRenderer
+                ?.videoOwner?.videoOwnerRenderer?.thumbnail?.thumbnails?.length
+                ? rawJsonData[1]?.playlistSidebarSecondaryInfoRenderer?.videoOwner?.videoOwnerRenderer?.thumbnail?.thumbnails?.pop()
+                  ?.url
+                : undefined,
+            },
+            thumbnail: {
+              thumbnailId:
+                parsedJsonData?.title?.runs?.[0]?.navigationEndpoint
+                  ?.watchEndpoint?.playlistId,
+              ...(rawJsonData?.[0]?.playlistSidebarPrimaryInfoRenderer?.thumbnailRenderer?.playlistVideoThumbnailRenderer?.thumbnail?.thumbnails?.pop() ??
+                undefined),
+            },
           },
-        })
+          undefined,
+          limit,
+        )
       default:
         return undefined
     }
@@ -786,7 +793,6 @@ class Utils {
 
   static fetchPlaylistHtmlVideos(rawVideosData, limit = Infinity) {
     const cookedVideos = []
-
     for (let count = 0, len = rawVideosData.length; count < len; count++) {
       if (limit === cookedVideos.length) break
       if (
@@ -802,12 +808,12 @@ class Utils {
             Id:
               parseInt(
                 rawVideosData[count]?.playlistVideoRenderer?.index?.simpleText,
-              ) || 0,
+              ) ?? 0,
             duration:
               Utils.parseYoutubeDurationStringTomiliseconds(
                 rawVideosData[count]?.playlistVideoRenderer?.lengthText
                   ?.simpleText,
-              ) || 0,
+              ) ?? 0,
             duration_raw:
               rawVideosData[count]?.playlistVideoRenderer?.lengthText
                 ?.simpleText ?? '0:00',
@@ -828,13 +834,13 @@ class Utils {
             channel: {
               id:
                 rawVideosData[count]?.playlistVideoRenderer?.shortBylineText
-                  .runs[0].navigationEndpoint.browseEndpoint.browseId || null,
+                  .runs[0].navigationEndpoint.browseEndpoint.browseId ?? null,
               name:
                 rawVideosData[count]?.playlistVideoRenderer?.shortBylineText
-                  .runs[0].text || null,
+                  .runs[0].text ?? null,
               url: `https://www.youtube.com${
                 rawVideosData[count]?.playlistVideoRenderer?.shortBylineText
-                  .runs[0].navigationEndpoint.browseEndpoint.canonicalBaseUrl ||
+                  .runs[0].navigationEndpoint.browseEndpoint.canonicalBaseUrl ??
                 rawVideosData[count]?.playlistVideoRenderer?.shortBylineText
                   .runs[0].navigationEndpoint.commandMetadata.webCommandMetadata
                   .url
@@ -856,20 +862,23 @@ class Utils {
    */
 
   static parseDurationToString(rawDuration = 0) {
-    if (!rawDuration) return undefined
-    const rawObjects = Object.keys(rawDuration)
-    const defaultRequired = ['days', 'hours', 'minutes', 'seconds']
+    let cookedString = ''
+    const hours = rawDuration / (1000 * 60 * 60)
+    const absoluteHours = Math.floor(hours)
+    const hour = absoluteHours > 9 ? absoluteHours : `0${absoluteHours}`
+    cookedString += hour && `${hour}` !== '00' ? `${hour}:` : ''
 
-    const rawParsed = rawObjects
-      .filter((object) => defaultRequired.includes(object))
-      .map((cookedObject) => (rawDuration[cookedObject] > 0 ? rawDuration[cookedObject] : ''))
-    const cookedParsed = rawParsed
-      .filter((object) => !!object)
-      .map((cookedObject) => cookedObject.toString().padStart(2, '0'))
-      .join(':')
-    return cookedParsed.length <= 3
-      ? `0:${cookedParsed.padStart(2, '0') || 0}`
-      : cookedParsed
+    const minutes = (hours - absoluteHours) * 60
+    const absoluteMinutes = Math.floor(minutes)
+    const minute = absoluteMinutes > 9 ? absoluteMinutes : `0${absoluteMinutes}`
+    cookedString += minute && `${minute}` !== '00' ? `${minute}:` : '00:'
+
+    const seconds = (minutes - absoluteMinutes) * 60
+    const absoluteSeconds = Math.floor(seconds)
+    const second = absoluteSeconds > 9 ? absoluteSeconds : `0${absoluteSeconds}`
+    cookedString += second && `${second}` !== '00' ? `${second}` : '00'
+
+    return cookedString
   }
 
   /**
@@ -907,7 +916,7 @@ class Utils {
                     )
                       ?.split(' ')?.[0]
                       ?.replace(/,/g, ''),
-                  ) || 0,
+                  ) ?? 0,
                 duration_raw:
                   rawDetails?.lengthText?.simpleText ??
                   rawDetails?.lengthText?.accessibility?.accessibilityData
