@@ -225,7 +225,9 @@ class YoutubePlaylist {
   }
 
   /**
-   * @type {string} type -> returns instance type
+   * @type {string}
+   * @readonly
+   * type -> returns instance type
    */
   get type() {
     if (!this.playlistId) return undefined

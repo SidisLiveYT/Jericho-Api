@@ -971,7 +971,7 @@ class Utils {
   /**
    * @method parseHtmlHomepage() -> Parse Raw HTML Data of Youtube Homepage to Json Formated Data
    * @param {string} rawHTMLData Raw HTML data from Axios Request for Youtube Homepage
-   * @returns {YoutubeVideo[] | [] | void} Returns of Array of Youtube Video Data
+   * @returns {YoutubeVideo[] | void} Returns of Array of Youtube Video Data
    */
   static parseHtmlHomepage(rawHTMLData) {
     let cookedContents
@@ -1008,7 +1008,7 @@ class Utils {
   /**
    * @method parseHTMLTrendingPage() -> Parse Raw HTML Data of Youtube Trending Page to Json Formated Data
    * @param {string} rawHTMLData Raw HTML data from Axios Request for Youtube Trending Page
-   * @returns {YoutubeVideo[] | [] | void} Returns of Array of Youtube Video Data
+   * @returns {YoutubeVideo[] | void} Returns of Array of Youtube Video Data
    */
   static parseHTMLTrendingPage(rawHTMLData) {
     if (!rawHTMLData) return []

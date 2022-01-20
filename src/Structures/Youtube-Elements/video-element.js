@@ -245,7 +245,9 @@ class YoutubeVideo {
   }
 
   /**
-   * @type {string | void} return Embed URL
+   * @type {string | void}
+   * @readonly
+   * return Embed URL
    */
 
   get embedURL() {
@@ -254,7 +256,9 @@ class YoutubeVideo {
   }
 
   /**
-   * @type {string | void} return type of instance
+   * @type {string | void}
+   * @readonly
+   * return type of instance
    */
 
   get type() {

@@ -86,7 +86,9 @@ class YoutubeChannel {
   }
 
   /**
-   * @type {string | void} return type of instance
+   * @type {string | void}
+   * @readonly
+   * return type of instance
    */
   get type() {
     if (!this.channelId) return undefined
