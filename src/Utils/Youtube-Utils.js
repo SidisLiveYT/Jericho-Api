@@ -3,6 +3,7 @@ const {
   youtubeUrlParseHtmlSearchData,
   enumData,
   searchOptions,
+  httpRequestOptions,
 } = require('../types/interfaces.js')
 const YoutubeVideo = require('../Structures/Youtube-Elements/video-element')
 const YoutubePlaylist = require('../Structures/Youtube-Elements/playlist-element')
@@ -155,17 +156,20 @@ class Utils {
   /**
    * @method getHtmlData() -> Fetch response.text() for Parsing the Watch Page Data
    * @param {string} rawHtmlUrl Raw Youtube Get Request Url "search url query" as Defination
-   * @param {Object} htmlRequestOption html get Request Options for Axios get fetch method
+   * @param {httpRequestOptions} htmlRequestOption html get Request Options for Axios get fetch method
    * @param {string | void} method HTTP Request for Axios | Bydefault its GET Request handler
    * @param {boolean | void} ignoreRejection Ignore the Response.status code !== '200' if possible
    * @returns {Promise<string|void>} returns response.text() as Data for Raw HTML Data of Youtube Watch Page
    */
   static async getHtmlData(
     rawHtmlUrl,
-    htmlRequestOption,
+    htmlRequestOption = enumData.HTML_YOUTUBE_HEADER_DATA,
     method = 'GET',
     ignoreRejection = false,
   ) {
+    htmlRequestOption =
+      Utils.#parseHTTPRequestOption(htmlRequestOption) ??
+      enumData.HTML_YOUTUBE_HEADER_DATA
     return new Promise(async (resolve, reject) => {
       if (method?.toLowerCase()?.trim() === 'get') {
         await Axios.get(rawHtmlUrl, htmlRequestOption)
@@ -629,7 +633,7 @@ class Utils {
             tags: cookedJson?.keywords,
             isprivate: cookedJson?.isPrivate,
             islive: cookedJson?.isLiveContent,
-            duration: parseInt(cookedJson?.lengthSeconds) * 1000,
+            duration: parseInt(cookedJson?.lengthSeconds ?? 0) * 1000,
             duration_raw: Utils.parseDurationToString(
               parseInt(cookedJson?.lengthSeconds ?? 0) * 1000,
             ),
@@ -707,7 +711,7 @@ class Utils {
                   ?.split('INNERTUBE_API_KEY":"')[1]
                   ?.split('"')?.[0] ??
                 rawHtmlData?.split('innertubeApiKey":"')[1]?.split('"')?.[0] ??
-                enumData?.DEFAULT_API_KEY,
+                enumData?.DEFAULT_HTML_YOUTUBE_API_KEY,
               token: Utils.getHtmlcontinuationToken(rawParsed),
               clientVersion:
                 rawHtmlData
@@ -733,7 +737,7 @@ class Utils {
               parsedJsonData?.stats
                 ?.find(
                   (data) => 'runs' in data &&
-                    data?.runs?.find((subData) => subData?.text.toLowerCase().includes('last update')),
+                    data?.runs?.find((subData) => subData?.text.toLowerCase().includes('update')),
                 )
                 ?.runs.pop()?.text ?? undefined,
             views:
@@ -962,6 +966,171 @@ class Utils {
     }
 
     return cookedResults
+  }
+
+  /**
+   * @method parseHtmlHomepage() -> Parse Raw HTML Data of Youtube Homepage to Json Formated Data
+   * @param {string} rawHTMLData Raw HTML data from Axios Request for Youtube Homepage
+   * @returns {YoutubeVideo[] | [] | void} Returns of Array of Youtube Video Data
+   */
+  static parseHtmlHomepage(rawHTMLData) {
+    let cookedContents
+    if (!rawHTMLData) return []
+
+    try {
+      cookedContents = rawHTMLData
+        ?.split('var ytInitialData = ')?.[1]
+        ?.split(';</script>')?.[0]
+
+      cookedContents = JSON.parse(cookedContents)?.contents
+        ?.twoColumnBrowseResultsRenderer?.tabs?.[0]?.tabRenderer?.content
+        ?.richGridRenderer?.contents
+      console.log(cookedContents)
+    } catch {
+      return []
+    }
+
+    if (
+      !cookedContents ||
+      !cookedContents?.length ||
+      !cookedContents?.find(
+        (data) => Object.keys(data)?.[0] === 'richItemRenderer',
+      )
+    )
+      return []
+    cookedContents = cookedContents
+      .filter((datafirst) => Object.keys(datafirst)?.[0] === 'richItemRenderer')
+      .map((meta) => meta?.richItemRenderer?.content?.videoRenderer)
+
+    return Utils.parseExtraHtmlVideos(cookedContents, true) ?? []
+  }
+
+  /**
+   * @method parseHTMLTrendingPage() -> Parse Raw HTML Data of Youtube Trending Page to Json Formated Data
+   * @param {string} rawHTMLData Raw HTML data from Axios Request for Youtube Trending Page
+   * @returns {YoutubeVideo[] | [] | void} Returns of Array of Youtube Video Data
+   */
+  static parseHTMLTrendingPage(rawHTMLData) {
+    if (!rawHTMLData) return []
+
+    let rawJson
+
+    try {
+      rawJson = JSON.parse(
+        rawHTMLData?.split('var ytInitialData =')[1].split(';')[0],
+      )
+    } catch {
+      return null
+    }
+
+    const cookedContents =
+      rawJson.contents?.twoColumnBrowseResultsRenderer?.tabs[0].tabRenderer
+        ?.content?.sectionListRenderer?.contents[1]?.itemSectionRenderer
+        ?.contents[0]?.shelfRenderer?.content?.expandedShelfContentsRenderer
+        ?.items
+    if (!cookedContents || !Array.isArray(cookedContents)) return null
+
+    const cookedResults = []
+    let count = 0
+    for (const JsonItem of cookedContents?.map(
+      (metadata) => metadata?.videoRenderer,
+    )) {
+      cookedResults.push(
+        new YoutubeVideo(
+          {
+            Id: ++count,
+            title: JsonItem?.title?.runs?.[0]?.text,
+            videoId: JsonItem?.videoId,
+            url: `https://www.youtube.com/watch?v=${JsonItem?.videoId}`,
+            description: JsonItem?.descriptionSnippet?.runs?.[0]?.text,
+            duration:
+              Utils.parseYoutubeDurationStringTomiliseconds(
+                JsonItem?.lengthText?.simpleText,
+              ) / 1000 ?? 0,
+            duration_raw: JsonItem?.lengthText?.simpleText,
+            thumbnail: {
+              thumbnailId: JsonItem?.videoId,
+              ...JsonItem?.thumbnail?.thumbnails?.pop(),
+            },
+            channel: {
+              channelId:
+                JsonItem?.ownerText?.runs?.[0]?.navigationEndpoint
+                  ?.browseEndpoint?.browseId,
+              name: JsonItem?.ownerText?.runs?.[0]?.text,
+              url: `https://www.youtube.com${JsonItem?.ownerText?.runs?.[0]?.navigationEndpoint?.browseEndpoint?.canonicalBaseUrl}`,
+              icon: {
+                url: null,
+                width: 0,
+                height: 0,
+              },
+              verified: JsonItem?.ownerBadges
+                ? Boolean(
+                  JsonItem?.ownerBadges?.[0]?.metadataBadgeRenderer
+                    ?.tooltip === 'Verified',
+                )
+                : false,
+            },
+            uploadedAt: JsonItem?.publishedTimeText?.simpleText,
+            views:
+              JsonItem?.viewCountText?.simpleText?.replace(/[^0-9]/g, '') ?? 0,
+          },
+          count,
+        ),
+      )
+    }
+    return cookedResults
+  }
+
+  /**
+   * @static
+   * @private
+   * @method #parseHTTPRequestOption() -> parsing Raw HTTP Request for Axios Get or Post Request
+   * @param {httpRequestOptions} requestOptions HTTP-Request-Options For Parsing into Axios acceptance Value
+   * @returns {httpRequestOptions} Returns the Exact Axios Acceptance Value
+   */
+  static #parseHTTPRequestOption(requestOptions = {}) {
+    if (
+      !(
+        requestOptions &&
+        typeof requestOptions === 'object' &&
+        !Array.isArray(requestOptions)
+      )
+    )
+      return { headers: enumData.HTML_YOUTUBE_HEADER_DATA }
+    requestOptions = {
+      headers: enumData.HTML_YOUTUBE_HEADER_DATA,
+      ...requestOptions,
+    }
+    if (requestOptions?.cookie || requestOptions?.cookies) {
+      requestOptions.headers.cookie ??=
+        requestOptions?.cookies ?? requestOptions?.cookie
+      requestOptions?.cookies ? delete requestOptions?.cookies : undefined
+      requestOptions?.cookie ? delete requestOptions?.cookie : undefined
+    }
+
+    if (requestOptions?.proxy && typeof requestOptions.proxy === 'string') {
+      const rawProxyData = new URL(requestOptions?.proxy)
+      if (!rawProxyData?.host || !rawProxyData?.port)
+        throw new TypeError(
+          'Invalid Proxy url with Invalid Host-Name or Post-Number',
+        )
+      requestOptions.proxy = {
+        host: rawProxyData?.host,
+        port: parseInt(rawProxyData?.port),
+      }
+      return requestOptions
+    } else if (
+      requestOptions?.proxy?.host &&
+      typeof requestOptions?.proxy?.host === 'string' &&
+      requestOptions?.proxy?.port &&
+      !Number.isNaN(requestOptions?.proxy?.port)
+    ) {
+      requestOptions.proxy = {
+        host: requestOptions?.proxy?.host,
+        port: parseInt(requestOptions?.proxy?.port),
+      }
+      return requestOptions
+    } else return requestOptions
   }
 }
 

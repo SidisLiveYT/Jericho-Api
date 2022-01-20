@@ -28,7 +28,7 @@ class YoutubeApiLTE {
 
   /**
    * @method search() -> Normal Search Method for Youtube with "https://www.youtube.com/results" as Base Search Query Url and fetches data given by Youtube
-   * @param {string | YoutubeChannel | YoutubePlaylist | YoutubeVideo } rawQuery Raw Query like Url , Youtube Ids or instance of YoutubeVideo | <YoutubeApiLTE>.validate() will Validate the value to Request
+   * @param {string | YoutubeChannel | YoutubePlaylist | YoutubeVideo} rawQuery Raw Query like Url , Youtube Ids or instance of YoutubeVideo | <YoutubeApiLTE>.validate() will Validate the value to Request
    * @param {searchOptions} searchOptions Youtube Search Options for Request Module and Filter Parsing Sections
    * @returns {Promise<YoutubeVideo[] | YoutubePlaylist[] | YoutubeChannel[] | void>} Returns Array of Youtube Video/Playlist/Channel Based on Client's requested searchOptions.type> value
    */
@@ -47,8 +47,12 @@ class YoutubeApiLTE {
         ...searchOptions,
       },
     )
-      .then((cookedData) => {
-        if (!cookedData?.length) return undefined
+      .then(async (cookedData) => {
+        if (!cookedData?.length && validationData?.type === 'video')
+          return [await this.getVideo(validationData?.url, searchOptions)]
+        else if (!cookedData?.length && validationData?.type === 'playlist')
+          return [await this.getPlaylist(validationData?.url, searchOptions)]
+        else if (!cookedData?.length) return []
         return cookedData
       })
       .catch(() => undefined)
@@ -66,7 +70,7 @@ class YoutubeApiLTE {
     return await this.search(rawQuery, {
       type: searchOptions?.type ?? 'video',
       limit: 1,
-      htmlrequestOptions: searchOptions?.htmlrequestOptions,
+      AxiosHttpRequestConfigs: searchOptions?.AxiosHttpRequestConfigs,
       safeSearchMode: searchOptions?.safeSearchMode ?? false,
     })
       .then((cookedData) => {
@@ -88,7 +92,7 @@ class YoutubeApiLTE {
     return await this.search(rawQuery, {
       type: searchOptions?.type ?? 'video',
       limit: searchOptions?.limit ?? 1,
-      htmlrequestOptions: searchOptions?.htmlrequestOptions,
+      AxiosHttpRequestConfigs: searchOptions?.AxiosHttpRequestConfigs,
       safeSearchMode: true,
     })
       .then((cookedData) => {
@@ -110,7 +114,7 @@ class YoutubeApiLTE {
     return await this.search(rawQuery, {
       type: searchOptions?.type ?? 'video',
       limit: 1,
-      htmlrequestOptions: searchOptions?.htmlrequestOptions,
+      AxiosHttpRequestConfigs: searchOptions?.AxiosHttpRequestConfigs,
       safeSearchMode: true,
     })
       .then((cookedData) => {
@@ -146,7 +150,7 @@ class YoutubeApiLTE {
       Utils.youtubeUrlParseHtmlSearch(cookedUrl)?.parsedUrl,
       {
         type: 'video',
-        htmlrequestOptions: searchOptions?.htmlrequestOptions,
+        AxiosHttpRequestConfigs: searchOptions?.AxiosHttpRequestConfigs,
       },
     )
       .then((cookedData) => {
@@ -192,7 +196,7 @@ class YoutubeApiLTE {
         : Utils.hardHTMLSearchparse(
           await Utils.getHtmlData(
             `${validationData.url}&hl=en`,
-            searchOptions?.htmlrequestOptions,
+            searchOptions?.AxiosHttpRequestConfigs,
           ),
           'video',
         )
@@ -247,7 +251,7 @@ class YoutubeApiLTE {
     const fetchedData = Utils.hardHTMLSearchparse(
       await Utils.getHtmlData(
         `${validationData.url}&hl=en`,
-        searchOptions?.htmlrequestOptions,
+        searchOptions?.AxiosHttpRequestConfigs,
       ),
       'playlist',
       searchOptions?.limit ?? 0,
@@ -324,7 +328,69 @@ class YoutubeApiLTE {
         type: 'playlist',
         isSafeCheck: true,
       }
+    } else if (
+      typeof cookedUrl === 'string' &&
+      cookedData?.contentType === 'channel'
+    ) {
+      return {
+        Id: cookedData?.parsedData?.trim(),
+        url: cookedData?.parsedUrl,
+        type: 'channel',
+        isSafeCheck: true,
+      }
     } else return undefined
+  }
+
+  /**
+   * @method getHomepage() -> Fetches Homepage Video Data into Youtube Video Formated
+   * @param {searchOptions} searchOptions Search Options for HTTP Request Options
+   * @returns {Promise<YoutubeVideo[] | [] | void} Returns Youtube Video Array or [] or undefined on failure
+   */
+
+  async getHomepage(searchOptions = this.searchOptions) {
+    return (
+      Utils.parseHtmlHomepage(
+        await Utils.getHtmlData(
+          enumData?.HTML_YOUTUBE_HOMEPAGE_BASE_URL,
+          searchOptions?.AxiosHttpRequestConfigs,
+        ),
+      ) ?? []
+    )
+  }
+
+  /**
+   * @method getTrending() -> Fetches Trending Page Data into Youtube Video Formated
+   * @param {searchOptions} searchOptions Search Options for HTTP Request Options
+   * @returns {Promise<YoutubeVideo[] | [] | void} Returns Youtube Video Array or [] or undefined on failure
+   */
+
+  async getTrending(searchOptions = this.searchOptions) {
+    return (
+      Utils.parseHTMLTrendingPage(
+        await Utils.getHtmlData(
+          enumData.HTML_YOUTUBE_TRENDING_PAGE_BASE_URL,
+          searchOptions?.AxiosHttpRequestConfigs,
+        ),
+      ) ?? []
+    )
+  }
+
+  /**
+   * @method InnerTube() -> Fetches Inner API Key Data from Youtube HomePage
+   * @param {searchOptions | void} searchOptions Search Options for HTTP Request Options
+   * @returns {string | void} Returns Youtube Inner Tube API Key or undefined on failure
+   */
+
+  async innerTubeApikey(searchOptions = this.searchOptions) {
+    const rawHTMLData = await Utils.getHtmlData(
+      enumData.HTML_YOUTUBE_HOMEPAGE_BASE_URL,
+      searchOptions?.AxiosHttpRequestConfigs,
+    )
+    if (!rawHTMLData) return undefined
+    const apiKey =
+      rawHTMLData?.split('INNERTUBE_API_KEY":"')?.[1]?.split('"')?.[0] ??
+      rawHTMLData?.split('innertubeApiKey":"')?.[1]?.split('"')?.[0]
+    return apiKey ?? undefined
   }
 
   /**
@@ -356,12 +422,12 @@ class YoutubeApiLTE {
 
     const htmlOptions = searchOptions?.safeSearchMode
       ? {
-        ...searchOptions.htmlrequestOptions,
+        ...searchOptions.AxiosHttpRequestConfigs,
         headers: { cookie: enumData?.HTML_SAFE_SEARCH_COOKIE_VALUE },
       }
       : {
         headers: enumData.HTML_YOUTUBE_HEADER_DATA,
-        ...searchOptions.htmlrequestOptions,
+        ...searchOptions.AxiosHttpRequestConfigs,
       }
     return Utils.parseHtmlSearchResults(
       await Utils.getHtmlData(htmlgetUrl, htmlOptions),

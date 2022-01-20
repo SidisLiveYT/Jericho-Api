@@ -143,10 +143,17 @@ class YoutubePlaylist {
     this.url = cookedHtmlData.url ?? undefined
     this.previewLink =
       cookedHtmlData.previewLink ?? cookedHtmlData.link ?? undefined
-    this.channel = new YoutubeChannel(
-      cookedHtmlData.channel ?? cookedHtmlData.author ?? undefined,
-    )
-    this.thumbnail = new YoutubeThumbnail(cookedHtmlData.thumbnail ?? undefined)
+    this.channel =
+      (cookedHtmlData.channel ?? cookedHtmlData.author) instanceof
+      YoutubeChannel
+        ? cookedHtmlData.channel ?? cookedHtmlData.author
+        : new YoutubeChannel(
+          cookedHtmlData.channel ?? cookedHtmlData.author ?? undefined,
+        )
+    this.thumbnail =
+      cookedHtmlData.thumbnail instanceof YoutubeThumbnail
+        ? cookedHtmlData.thumbnail
+        : new YoutubeThumbnail(cookedHtmlData.thumbnail ?? undefined)
     this.videos = this.#parseContainedVideos(cookedHtmlData.videos ?? [], limit)
     this.#continuation = {
       api: cookedHtmlData.continuation?.api ?? undefined,
@@ -168,10 +175,17 @@ class YoutubePlaylist {
   #__parseSearchResults(cookedHtmlData) {
     this.playlistId = cookedHtmlData.playlistId ?? undefined
     this.name = cookedHtmlData.title ?? cookedHtmlData.name ?? undefined
-    this.thumbnail = new YoutubeThumbnail(cookedHtmlData.thumbnail ?? undefined)
-    this.channel = new YoutubeChannel(
-      cookedHtmlData.channel ?? cookedHtmlData.author ?? undefined,
-    )
+    this.channel =
+      (cookedHtmlData.channel ?? cookedHtmlData.author) instanceof
+      YoutubeChannel
+        ? cookedHtmlData.channel ?? cookedHtmlData.author
+        : new YoutubeChannel(
+          cookedHtmlData.channel ?? cookedHtmlData.author ?? undefined,
+        )
+    this.thumbnail =
+      cookedHtmlData.thumbnail instanceof YoutubeThumbnail
+        ? cookedHtmlData.thumbnail
+        : new YoutubeThumbnail(cookedHtmlData.thumbnail ?? undefined)
     this.videos = []
     this.videoCount = cookedHtmlData.videos ?? 0
     this.url = this.playlistId
@@ -179,8 +193,8 @@ class YoutubePlaylist {
       : null
     this.previewLink =
       cookedHtmlData?.previewLink ?? cookedHtmlData?.link ?? undefined
-    this.lastUpdate = undefined
-    this.views = 0
+    this.lastUpdate = cookedHtmlData?.lastUpdate ?? undefined
+    this.views = cookedHtmlData?.views ?? 0
 
     return undefined
   }

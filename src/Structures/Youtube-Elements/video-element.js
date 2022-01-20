@@ -34,7 +34,13 @@ class YoutubeVideo {
    */
   #__parse(cookedHtmlData, initialIndex, fetchedDataBoolean = false) {
     if (!cookedHtmlData) return undefined
-    this.Id = initialIndex ?? cookedHtmlData?.Id ?? 0
+    this.Id = parseInt(
+      initialIndex !== 0
+        ? initialIndex
+        : undefined ?? cookedHtmlData?.Id !== 0
+          ? cookedHtmlData?.Id
+          : undefined ?? 0,
+    )
     this.videoId = cookedHtmlData.videoId ?? undefined
     this.title = cookedHtmlData.title ?? cookedHtmlData.name ?? undefined
     this.description = cookedHtmlData.description ?? undefined
@@ -98,7 +104,7 @@ class YoutubeVideo {
 
     const rawHtmlData = await Utils.getHtmlData(
       `${this.url}&hl=en`,
-      searchOptions?.htmlrequestOptions,
+      searchOptions?.AxiosHttpRequestConfigs,
     )
 
     let rawJson
