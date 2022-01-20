@@ -333,15 +333,24 @@ class Utils {
             thumbnail: {
               thumbnailId:
                 rawJsonHtmlData[count]?.playlistVideoRenderer?.videoId,
-              url: rawJsonHtmlData[
-                count
-              ]?.playlistVideoRenderer?.thumbnail.thumbnails.pop().url,
-              height: rawJsonHtmlData[
-                count
-              ]?.playlistVideoRenderer?.thumbnail.thumbnails.pop().height,
-              width: rawJsonHtmlData[
-                count
-              ]?.playlistVideoRenderer?.thumbnail.thumbnails.pop().width,
+              url:
+                rawJsonHtmlData[count]?.playlistVideoRenderer?.thumbnail
+                  ?.thumbnails?.[
+                    rawJsonHtmlData[count]?.playlistVideoRenderer?.thumbnail
+                      ?.thumbnails?.length - 1
+                  ]?.url,
+              height:
+                rawJsonHtmlData[count]?.playlistVideoRenderer?.thumbnail
+                  ?.thumbnails?.[
+                    rawJsonHtmlData[count]?.playlistVideoRenderer?.thumbnail
+                      ?.thumbnails?.length - 1
+                  ]?.height,
+              width:
+                rawJsonHtmlData[count]?.playlistVideoRenderer?.thumbnail
+                  ?.thumbnails?.[
+                    rawJsonHtmlData[count]?.playlistVideoRenderer?.thumbnail
+                      ?.thumbnails?.length - 1
+                  ]?.width,
             },
             title:
               rawJsonHtmlData[count]?.playlistVideoRenderer?.title?.runs?.[0]
@@ -404,11 +413,18 @@ class Utils {
               rawJson?.videoRenderer?.lengthText?.simpleText ?? undefined,
             thumbnail: {
               thumbnailId: rawJson?.videoRenderer?.videoId,
-              url: rawJson?.videoRenderer?.thumbnail?.thumbnails?.pop()?.url,
-              height: rawJson?.videoRenderer?.thumbnail?.thumbnails?.pop()
-                ?.height,
-              width: rawJson?.videoRenderer?.thumbnail?.thumbnails?.pop()
-                ?.width,
+              url:
+                rawJson?.videoRenderer?.thumbnail?.thumbnails?.[
+                  rawJson?.videoRenderer?.thumbnail?.thumbnails?.length - 1
+                ]?.url,
+              height:
+                rawJson?.videoRenderer?.thumbnail?.thumbnails?.[
+                  rawJson?.videoRenderer?.thumbnail?.thumbnails?.length - 1
+                ].height,
+              width:
+                rawJson?.videoRenderer?.thumbnail?.thumbnails?.[
+                  rawJson?.videoRenderer?.thumbnail?.thumbnails?.length - 1
+                ]?.width,
             },
             channel: {
               channelId:
@@ -493,12 +509,21 @@ class Utils {
             name: rawJson?.playlistRenderer?.title?.simpleText,
             thumbnail: {
               thumbnailId: rawJson?.playlistRenderer?.playlistId,
-              url: rawJson?.playlistRenderer?.thumbnails?.[0]?.thumbnails?.pop()
-                ?.url,
-              height: rawJson?.playlistRenderer?.thumbnails?.[0]?.thumbnails?.pop()
-                ?.height,
-              width: rawJson?.playlistRenderer?.thumbnails?.[0]?.thumbnails?.pop()
-                ?.width,
+              url:
+                rawJson?.playlistRenderer?.thumbnails?.[0]?.thumbnails?.[
+                  rawJson?.playlistRenderer?.thumbnails?.[0]?.thumbnails
+                    ?.length - 1
+                ]?.url,
+              height:
+                rawJson?.playlistRenderer?.thumbnails?.[0]?.thumbnails?.[
+                  rawJson?.playlistRenderer?.thumbnails?.[0]?.thumbnails
+                    ?.length - 1
+                ]?.height,
+              width:
+                rawJson?.playlistRenderer?.thumbnails?.[0]?.thumbnails?.[
+                  rawJson?.playlistRenderer?.thumbnails?.[0]?.thumbnails
+                    ?.length - 1
+                ]?.width,
             },
             channel: {
               channelId:
@@ -696,7 +721,7 @@ class Utils {
               .split('}};</script>')[0],
           ).items
         } catch {
-          return null
+          return undefined
         }
 
         const parsedJsonData = rawJsonData[0].playlistSidebarPrimaryInfoRenderer
@@ -739,7 +764,7 @@ class Utils {
                   (data) => 'runs' in data &&
                     data?.runs?.find((subData) => subData?.text.toLowerCase().includes('update')),
                 )
-                ?.runs.pop()?.text ?? undefined,
+                ?.runs?.pop()?.text ?? undefined,
             views:
               parseInt(
                 parsedJsonData?.stats?.[1]?.simpleText?.replace(
@@ -823,25 +848,35 @@ class Utils {
                 ?.simpleText ?? '0:00',
             thumbnail: {
               id: rawVideosData[count]?.playlistVideoRenderer?.videoId,
-              url: rawVideosData[
-                count
-              ]?.playlistVideoRenderer?.thumbnail.thumbnails.pop().url,
-              height: rawVideosData[
-                count
-              ]?.playlistVideoRenderer?.thumbnail.thumbnails.pop().height,
-              width: rawVideosData[
-                count
-              ]?.playlistVideoRenderer?.thumbnail.thumbnails.pop().width,
+              url:
+                rawVideosData[count]?.playlistVideoRenderer?.thumbnail
+                  ?.thumbnails?.[
+                    rawVideosData[count]?.playlistVideoRenderer?.thumbnail
+                      ?.thumbnails?.length - 1
+                  ].url,
+              height:
+                rawVideosData[count]?.playlistVideoRenderer?.thumbnail
+                  ?.thumbnails?.[
+                    rawVideosData[count]?.playlistVideoRenderer?.thumbnail
+                      ?.thumbnails?.length - 1
+                  ].height,
+              width:
+                rawVideosData[count]?.playlistVideoRenderer?.thumbnail
+                  ?.thumbnails?.[
+                    rawVideosData[count]?.playlistVideoRenderer?.thumbnail
+                      ?.thumbnails?.length - 1
+                  ].width,
             },
             title:
               rawVideosData[count]?.playlistVideoRenderer?.title.runs[0].text,
             channel: {
               id:
                 rawVideosData[count]?.playlistVideoRenderer?.shortBylineText
-                  .runs[0].navigationEndpoint.browseEndpoint.browseId ?? null,
+                  .runs[0].navigationEndpoint.browseEndpoint.browseId ??
+                undefined,
               name:
                 rawVideosData[count]?.playlistVideoRenderer?.shortBylineText
-                  .runs[0].text ?? null,
+                  .runs[0].text ?? undefined,
               url: `https://www.youtube.com${
                 rawVideosData[count]?.playlistVideoRenderer?.shortBylineText
                   .runs[0].navigationEndpoint.browseEndpoint.canonicalBaseUrl ??
@@ -849,7 +884,7 @@ class Utils {
                   .runs[0].navigationEndpoint.commandMetadata.webCommandMetadata
                   .url
               }`,
-              icon: null,
+              icon: undefined,
             },
           },
           count + 1,
@@ -925,10 +960,9 @@ class Utils {
                   rawDetails?.lengthText?.simpleText ??
                   rawDetails?.lengthText?.accessibility?.accessibilityData
                     ?.label,
-                duration:
-                  Utils.parseYoutubeDurationStringTomiliseconds(
-                    rawDetails?.lengthText?.simpleText,
-                  ) / 1000,
+                duration: Utils.parseYoutubeDurationStringTomiliseconds(
+                  rawDetails?.lengthText?.simpleText,
+                ),
                 channel: {
                   name: rawDetails?.shortBylineText?.runs?.[0].text,
                   channelId:
@@ -1020,7 +1054,7 @@ class Utils {
         rawHTMLData?.split('var ytInitialData =')[1].split(';')[0],
       )
     } catch {
-      return null
+      return undefined
     }
 
     const cookedContents =
@@ -1028,7 +1062,7 @@ class Utils {
         ?.content?.sectionListRenderer?.contents[1]?.itemSectionRenderer
         ?.contents[0]?.shelfRenderer?.content?.expandedShelfContentsRenderer
         ?.items
-    if (!cookedContents || !Array.isArray(cookedContents)) return null
+    if (!cookedContents || !Array.isArray(cookedContents)) return undefined
 
     const cookedResults = []
     let count = 0
@@ -1059,7 +1093,7 @@ class Utils {
               name: JsonItem?.ownerText?.runs?.[0]?.text,
               url: `https://www.youtube.com${JsonItem?.ownerText?.runs?.[0]?.navigationEndpoint?.browseEndpoint?.canonicalBaseUrl}`,
               icon: {
-                url: null,
+                url: undefined,
                 width: 0,
                 height: 0,
               },

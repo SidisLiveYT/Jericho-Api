@@ -21,6 +21,125 @@ class YoutubeVideo {
    * @param {boolean | void} fetchedDataBoolean if its fetched Data
    */
   constructor(cookedHtmlData, initialIndex = 0, fetchedDataBoolean = false) {
+    /**
+     * @type {number}
+     * @readonly
+     * Youtube Index Value in Accordance
+     */
+    this.Id = undefined
+
+    /**
+     * @type {string}
+     * @readonly
+     * Youtube Video Id in Accordance
+     */
+    this.videoId = undefined
+
+    /**
+     * @type {string}
+     * @readonly
+     * Youtube Video Title
+     */
+    this.title = undefined
+
+    /**
+     * @type {string}
+     * @readonly
+     * Youtube Video Description Data
+     */
+    this.description = undefined
+
+    /**
+     * @type {string}
+     * @readonly
+     * Youtube Video Duration in Raw Format | Human Readable Format
+     */
+    this.duration_raw = undefined
+
+    /**
+     * @type {number}
+     * @readonly
+     * Youtube Video Duration in Parsed Format | Duration in Milli-Seconds
+     */
+    this.duration = 0
+
+    /**
+     * @type {string}
+     * @readonly
+     * Youtube Video's Url
+     */
+    this.url = undefined
+
+    /**
+     * @type {string}
+     * @readonly
+     * Youtube Video's Uploaded Data in the form onf Huma Readable Format
+     */
+    this.uploadedAt = undefined
+
+    /**
+     * @type {number}
+     * @readonly
+     * Youtube Video's Views Count
+     */
+    this.views = undefined
+
+    /**
+     * @type {YoutubeThumbnail}
+     * @readonly
+     * Youtube Video's Thumbnail Data
+     */
+    this.thumbnail = undefined
+
+    /**
+     * @type {YoutubeChannel}
+     * @readonly
+     * Youtube Video's Channel Data
+     */
+    this.channel = undefined
+
+    /**
+     * @type {number}
+     * @readonly
+     * Youtube Video's Likes Count
+     */
+    this.likes = undefined
+
+    /**
+     * @type {number}
+     * @readonly
+     * Youtube Video's Dislikes Count
+     */
+    this.dislikes = undefined
+
+    /**
+     * @type {Boolean}
+     * @readonly
+     * Youtube Video's Live Content check as Boolean (true | false)
+     */
+    this.islive = false
+
+    /**
+     * @type {Boolean}
+     * @readonly
+     * Youtube Video's Private Content check as Boolean (true | false)
+     */
+    this.isprivate = false
+
+    /**
+     * @type {string[]}
+     * @readonly
+     * Youtube Video's Tags or Keywords
+     */
+    this.tags = undefined
+
+    /**
+     * @type {YoutubeVideo[]}
+     * @readonly
+     * Youtube Video's Recommendation Videos on Video Watch page
+     */
+    this.suggestionVideos = undefined
+
     this.#__parse(cookedHtmlData, initialIndex, fetchedDataBoolean)
   }
 
@@ -251,7 +370,7 @@ class YoutubeVideo {
    */
 
   get embedURL() {
-    if (!this.videoId) return null
+    if (!this.videoId) return undefined
     return `https://www.youtube.com/embed/${this.videoId}`
   }
 

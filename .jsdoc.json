@@ -4,7 +4,13 @@
     "dictionaries": ["jsdoc"]
   },
   "source": {
-    "include": ["package.json", "README.md", "src/Classes"],
+    "include": [
+      "package.json",
+      "README.md",
+      "src/Classes",
+      "src/Structures",
+      "src/types/interfaces.js"
+    ],
     "includePattern": ".js$",
     "excludePattern": "(node_modules/|docs|tests/)"
   },

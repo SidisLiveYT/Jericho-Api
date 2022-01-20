@@ -10,6 +10,34 @@ class YoutubeThumbnail {
    * @param {JSON} cookedHtmlData Cooked Json formated Data for parsing into instance
    */
   constructor(cookedHtmlData) {
+    /**
+     * @type {string}
+     * @readonly
+     * Youtube Thumbnail's Id
+     */
+    this.thumbnailId = undefined
+
+    /**
+     * @type {number}
+     * @readonly
+     * Youtube Thumbnail's width
+     */
+    this.width = 0
+
+    /**
+     * @type {number}
+     * @readonly
+     * Youtube Thumbnail's height
+     */
+    this.height = 0
+
+    /**
+     * @type {string}
+     * @readonly
+     * Youtube Thumbnail's Url
+     */
+    this.url = undefined
+
     this.#__parse(cookedHtmlData)
   }
 
@@ -22,7 +50,7 @@ class YoutubeThumbnail {
   #__parse(cookedHtmlData) {
     if (!cookedHtmlData) return undefined
 
-    this.thumbnailId = cookedHtmlData.thumbnailId ?? null
+    this.thumbnailId = cookedHtmlData.thumbnailId ?? undefined
     this.width = cookedHtmlData.width ?? 0
     this.height = cookedHtmlData.height ?? 0
     this.url = cookedHtmlData.url ?? undefined

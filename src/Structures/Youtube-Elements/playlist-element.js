@@ -25,6 +25,77 @@ class YoutubePlaylist {
       throw new Error(
         `Cannot Making up the "${this.constructor.name}" class without "cookedHtmlData"`,
       )
+
+    /**
+     * @type {string}
+     * @readonly
+     * Youtube Playlist Id
+     */
+    this.playlistId = undefined
+
+    /**
+     * @type {string}
+     * @readonly
+     * Youtube Playlist Name / Title
+     */
+    this.name = undefined
+
+    /**
+     * @type {number}
+     * @readonly
+     * Youtube Playlist Actual Video Count
+     */
+    this.videoCount = 0
+
+    /**
+     * @type {string}
+     * @readonly
+     * Youtube Playlist Last Update
+     */
+    this.lastUpdate = undefined
+
+    /**
+     * @type {number}
+     * @readonly
+     * Youtube Playlist Actual views
+     */
+    this.views = 0
+
+    /**
+     * @type {string}
+     * @readonly
+     * Youtube Playlist Url
+     */
+    this.url = undefined
+
+    /**
+     * @type {string}
+     * @readonly
+     * Youtube Playlist First Video Link as Preview Link
+     */
+    this.previewLink = undefined
+
+    /**
+     * @type {YoutubeChannel}
+     * @readonly
+     * Youtube Playlist's Youtube Channel Data
+     */
+    this.channel = undefined
+
+    /**
+     * @type {YoutubeThumbnail}
+     * @readonly
+     * Youtube Playlist's Youtube Thumbnail Data
+     */
+    this.thumbnail = undefined
+
+    /**
+     * @type {YoutubeVideo[]}
+     * @readonly
+     * Youtube Playlist's Youtube Video in Array Data
+     */
+    this.videos = undefined
+
     if (forceHtmlSearchResult) this.#__parseSearchResults(cookedHtmlData)
     else this.#__parse(cookedHtmlData, limit)
   }
@@ -190,7 +261,7 @@ class YoutubePlaylist {
     this.videoCount = cookedHtmlData.videos ?? 0
     this.url = this.playlistId
       ? `${enumData.HTML_YOUTUBE_PLAYLIST_BASE_URL}${this.playlistId}`
-      : null
+      : undefined
     this.previewLink =
       cookedHtmlData?.previewLink ?? cookedHtmlData?.link ?? undefined
     this.lastUpdate = cookedHtmlData?.lastUpdate ?? undefined

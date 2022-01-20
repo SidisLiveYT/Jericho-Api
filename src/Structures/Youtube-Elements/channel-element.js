@@ -9,6 +9,46 @@ class YoutubeChannel {
    * @param {JSON} cookedHtmlData Cooked Json formated Data for parsing into instance
    */
   constructor(cookedHtmlData) {
+    /**
+     * @type {String}
+     * @readonly
+     * Youtube Channel Name
+     */
+    this.name = undefined
+
+    /**
+     * @type {Boolean}
+     * @readonly
+     * Youtube Channel Verification Boolean State (true | false)
+     */
+    this.verified = false
+
+    /**
+     * @type {String}
+     * @readonly
+     * Youtube Channel Id Fetched from raw JSON Data
+     */
+    this.channelId = undefined
+
+    /**
+     * @type {String}
+     * @readonly
+     * Youtube Channel url Fetched from raw JSON Data
+     */
+    this.url = undefined
+    /**
+     * @type {Object}
+     * @readonly
+     * Youtube Channel icon Data Fetched from raw JSON Data
+     */
+    this.icon = undefined
+
+    /**
+     * @type {String}
+     * @readonly
+     * Youtube Channel subscribers Data Fetched from raw JSON Data
+     */
+    this.subscribers = undefined
     this.#__parse(cookedHtmlData)
   }
 
@@ -54,7 +94,7 @@ class YoutubeChannel {
   iconURL(iconSize = 0) {
     if (typeof iconSize !== 'number' || iconSize < 0)
       throw new Error('Invalid icon-size is Detected for IconUrl')
-    if (!this?.icon?.url) return null
+    if (!this?.icon?.url) return undefined
     const defaultSize = this.icon.url.split('=s')[1].split('-c')[0]
     return this.icon.url.replace(`=s${defaultSize}-c`, `=s${iconSize}-c`)
   }
