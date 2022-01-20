@@ -7,6 +7,6 @@ updates:
     # Check the npm registry for updates every day (weekdays)
     schedule:
       interval: "daily"
-    target-branch: "main"
+    target-branch: "master"
     labels:
       - "npm dependencies"

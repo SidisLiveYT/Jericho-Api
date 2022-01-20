@@ -1,7 +1,7 @@
 <div align="center">
   <br />
   <p>
-    <a href="https://github.com/SidisLiveYT/Jericho-Api"><img src="https://raw.githubusercontent.com/SidisLiveYT/Jericho-Api/main/.github/asserts/logo.svg" width="546" alt="jericho-api" /></a>
+    <a href="https://github.com/SidisLiveYT/Jericho-Api"><img src="https://raw.githubusercontent.com/SidisLiveYT/Jericho-Api/master/.github/asserts/logo.svg" width="546" alt="jericho-api" /></a>
   </p>
   <br />
 <p>
