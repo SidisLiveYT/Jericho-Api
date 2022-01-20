@@ -1,14 +1,14 @@
 <div align="center">
   <br />
   <p>
-    <a href="https://github.com/SidisLiveYT/jericho-api"><img src="https://raw.githubusercontent.com/SidisLiveYT/jericho-api/main/.github/asserts/logo.svg" width="546" alt="jericho-api" /></a>
+    <a href="https://github.com/SidisLiveYT/Jericho-Api"><img src="https://raw.githubusercontent.com/SidisLiveYT/Jericho-Api/main/.github/asserts/logo.svg" width="546" alt="jericho-api" /></a>
   </p>
   <br />
 <p>
 <a href="https://discord.gg/MfME24sJ2a"><img src="https://img.shields.io/discord/795434308005134406?color=5865F2&logo=discord&logoColor=white" alt="Discord server" /></a>
 <a href="https://www.npmjs.com/package/jericho-api"><img src="https://img.shields.io/npm/v/jericho-api.svg?maxAge=3600" alt="npm version" /></a>
 <a href="https://www.npmjs.com/package/jericho-api"><img src="https://img.shields.io/npm/dt/jericho-api.svg?maxAge=3600" alt="npm downloads" /></a>
-<a href="https://github.com/SidisLiveYT/jericho-api/actions"><img src="https://github.com/discordjs/discord.js/workflows/Testing/badge.svg" alt="Tests status" /></a>
+<a href="https://github.com/SidisLiveYT/Jericho-Api/actions"><img src="https://github.com/discordjs/discord.js/workflows/Testing/badge.svg" alt="Tests status" /></a>
 </p>
 </div>
 
@@ -222,7 +222,7 @@ var searchOptions = {
 
 ## Links
 
-- [Source Code](https://github.com/SidisLiveYT/jericho-api.git)
-- [GitHub Repo Link](https://github.com/SidisLiveYT/jericho-api)
+- [Source Code](https://github.com/SidisLiveYT/Jericho-Api.git)
+- [GitHub Repo Link](https://github.com/SidisLiveYT/Jericho-Api)
 - [NPM Package](https://www.npmjs.com/package/jericho-api)
 - [Yarn Package](https://yarn.pm/jericho-api)

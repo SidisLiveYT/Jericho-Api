@@ -25,4 +25,4 @@ jobs:
         with:
           personal_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs
-          cname: https://sidisliveyt.github.io/multi-discord-api/
+          cname: jericho-api.js.org
