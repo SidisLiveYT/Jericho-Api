@@ -14,7 +14,7 @@ class YoutubeChannel {
 
   /**
    * @private
-   * @method #__parse() -> Parsing Raw Json Formated Given Value to YoutubeChannel Instance
+   * #__parse() -> Parsing Raw Json Formated Given Value to YoutubeChannel Instance
    * @param {JSON} cookedHtmlData Cooked Json formated Data for parsing into instance
    * @returns {void} Returns undefined after Parsing
    */
@@ -47,7 +47,7 @@ class YoutubeChannel {
   }
 
   /**
-   * @method iconURL() -> iconUrl Data Parsing from iconSize
+   * iconURL() -> iconUrl Data Parsing from iconSize
    * @param {number | void | '0'} iconSize Numeric Value for iconURL Data
    * @returns {string | void} Returns String as Url or undefined on failure
    */
@@ -60,7 +60,7 @@ class YoutubeChannel {
   }
 
   /**
-   * @method toString() -> String value of instance's Channel name
+   * toString() -> String value of instance's Channel name
    * @returns {string} returns string name
    */
 
@@ -69,7 +69,7 @@ class YoutubeChannel {
   }
 
   /**
-   * @method toJSON() -> JSON Formated from raw instance properties
+   * toJSON() -> JSON Formated from raw instance properties
    * @returns {JSON} Returns Json Formated Value
    */
 

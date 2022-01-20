@@ -26,7 +26,7 @@ class YoutubeVideo {
 
   /**
    * @private
-   * @method #__parse() -> Youtube Video Parsing method for Raw Json to indiviual data properties
+   * #__parse() -> Youtube Video Parsing method for Raw Json to indiviual data properties
    * @param {JSON} cookedHtmlData Cooked Json formated Data for parsing into instance
    * @param {number | void | "0"} initialIndex Initial index for video as Id
    * @param {boolean | void} fetchedDataBoolean Boolean Value for Giving Checks for Fetched Data
@@ -76,7 +76,7 @@ class YoutubeVideo {
   }
 
   /**
-   * @method embedHTML() -> Parsing Data for Embed HTML URL
+   * embedHTML() -> Parsing Data for Embed HTML URL
    * @param {Object} options embedHTML Options for creating the URL
    * @returns {string | void} Return embed Url on success or undefined on failure
    */
@@ -91,7 +91,7 @@ class YoutubeVideo {
   }
 
   /**
-   * @method fetch() -> Fetch Method to fetch Youtube Data Completely
+   * fetch() -> Fetch Method to fetch Youtube Data Completely
    * @param {searchOptions} searchOptions Search Options for HTTP Request Options and limit
    * @param {number | void | "0"} initialIndex Initial index for video as Id
    * @returns {Promise<this>} Returns Instance but with altered and modified Data
@@ -207,7 +207,7 @@ class YoutubeVideo {
   }
 
   /**
-   * @method toString() -> String value of instance's Video URL
+   * toString() -> String value of instance's Video URL
    * @returns {string} returns string URL
    */
 
@@ -216,7 +216,7 @@ class YoutubeVideo {
   }
 
   /**
-   * @method toJSON() -> JSON Formated from raw instance properties
+   * toJSON() -> JSON Formated from raw instance properties
    * @returns {JSON} Returns Json Formated Value
    */
 

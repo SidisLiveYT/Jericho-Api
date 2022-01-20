@@ -15,7 +15,7 @@ class YoutubeThumbnail {
 
   /**
    * @private
-   * @method #__parse() -> Parsing Raw Json Formated Given Value to YoutubeThmbnail Instance
+   * #__parse() -> Parsing Raw Json Formated Given Value to YoutubeThmbnail Instance
    * @param {JSON} cookedHtmlData Cooked Json formated Data for parsing into instance
    * @returns {void} Returns undefined after Parsing
    */
@@ -31,7 +31,7 @@ class YoutubeThumbnail {
   }
 
   /**
-   * @method displayThumbnailURL() -> parsing to Custom Display Thumbnail Url
+   * displayThumbnailURL() -> parsing to Custom Display Thumbnail Url
    * @param {string | void | "ultrares"} thumbnailType Youtube Thumbnail Type for Display Thumbnail Url
    * @returns {void | string} Returns Custom Display Thumbnail Url
    */
@@ -54,7 +54,7 @@ class YoutubeThumbnail {
   }
 
   /**
-   * @method defaultThumbnailURL() -> parsing to Custom Default Thumbnail Url
+   * defaultThumbnailURL() -> parsing to Custom Default Thumbnail Url
    * @param {string | void | "0"} thumbnailId Youtube Thumbnail Type for Default Thumbnail Url
    * @returns {void | string} Returns Custom Default Thumbnail Url
    */
@@ -67,7 +67,7 @@ class YoutubeThumbnail {
   }
 
   /**
-   * @method toString() -> String value of instance's Thumbnail url
+   * toString() -> String value of instance's Thumbnail url
    * @returns {string} returns string url
    */
 
@@ -76,7 +76,7 @@ class YoutubeThumbnail {
   }
 
   /**
-   * @method toJSON() -> JSON Formated from raw instance properties
+   * toJSON() -> JSON Formated from raw instance properties
    * @returns {JSON} Returns Json Formated Value
    */
 

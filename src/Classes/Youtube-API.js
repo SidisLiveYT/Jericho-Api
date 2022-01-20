@@ -29,7 +29,7 @@ class YoutubeApiLTE {
   }
 
   /**
-   * @method search() -> Normal Search Method for Youtube with "https://www.youtube.com/results" as Base Search Query Url and fetches data given by Youtube
+   * search() -> Normal Search Method for Youtube with "https://www.youtube.com/results" as Base Search Query Url and fetches data given by Youtube
    * @param {string | YoutubeChannel | YoutubePlaylist | YoutubeVideo} rawQuery Raw Query like Url , Youtube Ids or instance of YoutubeVideo | <YoutubeApiLTE>.validate() will Validate the value to Request
    * @param {searchOptions} searchOptions Youtube Search Options for Request Module and Filter Parsing Sections
    * @returns {Promise<YoutubeVideo[] | YoutubePlaylist[] | YoutubeChannel[] | void>} Returns Array of Youtube Video/Playlist/Channel Based on Client's requested searchOptions.type> value
@@ -61,7 +61,7 @@ class YoutubeApiLTE {
   }
 
   /**
-   * @method searchOne() -> Search One Specific Data in Search Query Result
+   * searchOne() -> Search One Specific Data in Search Query Result
    * @param {string | YoutubeChannel | YoutubePlaylist | YoutubeVideo } rawQuery Raw Query like Url , Youtube Ids or instance of YoutubeVideo | <YoutubeApiLTE>.validate() will Validate the value to Request
    * @param {searchOptions} searchOptions Youtube Search Options for Request Module and Filter Parsing Sections
    * @returns {Promise<YoutubeVideo | YoutubePlaylist | YoutubeChannel | void>} Returns  Youtube Video/Playlist/Channel Based on Client's requested searchOptions.type> value
@@ -83,7 +83,7 @@ class YoutubeApiLTE {
   }
 
   /**
-   * @method safeSearch() -> Safe Search Mode Function where "safeSearchMode" will be enabled by default
+   * safeSearch() -> Safe Search Mode Function where "safeSearchMode" will be enabled by default
    * @param {string | YoutubeChannel | YoutubePlaylist | YoutubeVideo } rawQuery Raw Query like Url , Youtube Ids or instance of YoutubeVideo | <YoutubeApiLTE>.validate() will Validate the value to Request
    * @param {searchOptions} searchOptions Youtube Search Options for Request Module and Filter Parsing Sections
    * @returns {Promise<YoutubeVideo[] | YoutubePlaylist[] | YoutubeChannel[] | void>} Returns Array of Youtube Video/Playlist/Channel Based on Client's requested searchOptions.type> value
@@ -105,7 +105,7 @@ class YoutubeApiLTE {
   }
 
   /**
-   * @method safeSearchOne() -> Safe Search Mode Function where "safeSearchMode" will be enabled by default and Fetches 1 Value as its Answer
+   * safeSearchOne() -> Safe Search Mode Function where "safeSearchMode" will be enabled by default and Fetches 1 Value as its Answer
    * @param {string | YoutubeChannel | YoutubePlaylist | YoutubeVideo } rawQuery Raw Query like Url , Youtube Ids or instance of YoutubeVideo | <YoutubeApiLTE>.validate() will Validate the value to Request
    * @param {searchOptions} searchOptions Youtube Search Options for Request Module and Filter Parsing Sections
    * @returns {Promise<YoutubeVideo | YoutubePlaylist | YoutubeChannel | void>} Returns  Youtube Video/Playlist/Channel Based on Client's requested searchOptions.type> value
@@ -127,7 +127,7 @@ class YoutubeApiLTE {
   }
 
   /**
-   * @method isSafeCheck() -> Safe Function check for Youtube Video as its primary scope and returns boolean as "true" or "false"
+   * isSafeCheck() -> Safe Function check for Youtube Video as its primary scope and returns boolean as "true" or "false"
    * @param {string | YoutubeChannel | YoutubePlaylist | YoutubeVideo } rawUrl Raw Query like Url , Youtube Ids or instance of YoutubeVideo | <YoutubeApiLTE>.validate() will Validate the value to Request
    * @param {searchOptions} searchOptions Youtube Search Options for Request Module and Filter Parsing Sections
    * @returns {Promise<Boolean | void> | void} Returns Boolean Value for if its safe to use or not
@@ -164,7 +164,7 @@ class YoutubeApiLTE {
   }
 
   /**
-   * @method getVideo() -> Fetches Only Video and Fetches Data from Video's Official Page for correct and more valuable Data to Fetch
+   * getVideo() -> Fetches Only Video and Fetches Data from Video's Official Page for correct and more valuable Data to Fetch
    * @param {string | YoutubeChannel | YoutubePlaylist | YoutubeVideo } rawUrl Raw Query like Url , Youtube Ids or instance of YoutubeVideo | <YoutubeApiLTE>.validate() will Validate the value to Request
    * @param {searchOptions} searchOptions Youtube Search Options for Request Module and Filter Parsing Sections
    * @param {boolean | void} hardFetchMode hard Fetch method to fetch everything aggressively
@@ -222,7 +222,7 @@ class YoutubeApiLTE {
   }
 
   /**
-   * @method getPlaylist() -> Fetches Playlist Data from Playlist Url or Id and Fetches Data from Actual Playlist Page
+   * getPlaylist() -> Fetches Playlist Data from Playlist Url or Id and Fetches Data from Actual Playlist Page
    * @param {string | YoutubeChannel | YoutubePlaylist | YoutubeVideo } rawUrl Raw Query like Url , Youtube Ids or instance of YoutubeVideo | <YoutubeApiLTE>.validate() will Validate the value to Request
    * @param {searchOptions} searchOptions Youtube Search Options for Request Module and Filter Parsing Sections
    * @param {boolean | void} hardPlaylistfetchMode hard Fetch method to fetch Playlist Video Data aggressively
@@ -281,7 +281,7 @@ class YoutubeApiLTE {
   }
 
   /**
-   * @method validate() -> Validation of Urls or strings for Query , Video , Playlist and Channel
+   * validate() -> Validation of Urls or strings for Query , Video , Playlist and Channel
    * @param {string | YoutubeChannel | YoutubePlaylist | YoutubeVideo } rawUrl Raw Query like Url , Youtube Ids or instance of YoutubeVideo | <YoutubeApiLTE>.validate() will Validate the value to Request
    * @param {string | void} safeSearchMode Youtube Search Safe Mode if to check
    * @returns {Promise<youtubeValidateData> | void} Returns Parsed Data of Url and Id after validate of Data
@@ -344,7 +344,7 @@ class YoutubeApiLTE {
   }
 
   /**
-   * @method getHomepage() -> Fetches Homepage Video Data into Youtube Video Formated
+   * getHomepage() -> Fetches Homepage Video Data into Youtube Video Formated
    * @param {searchOptions} searchOptions Search Options for HTTP Request Options
    * @returns {Promise<YoutubeVideo[] | void>} Returns Youtube Video Array or undefined on failure
    */
@@ -361,7 +361,7 @@ class YoutubeApiLTE {
   }
 
   /**
-   * @method getTrending() -> Fetches Trending Page Data into Youtube Video Formated
+   * getTrending() -> Fetches Trending Page Data into Youtube Video Formated
    * @param {searchOptions} searchOptions Search Options for HTTP Request Options
    * @returns {Promise<YoutubeVideo[] | void>} Returns Youtube Video Array or [] or undefined on failure
    */
@@ -378,7 +378,7 @@ class YoutubeApiLTE {
   }
 
   /**
-   * @method InnerTube() -> Fetches Inner API Key Data from Youtube HomePage
+   * InnerTube() -> Fetches Inner API Key Data from Youtube HomePage
    * @param {searchOptions | void} searchOptions Search Options for HTTP Request Options
    * @returns {string | void} Returns Youtube Inner Tube API Key or undefined on failure
    */
@@ -397,7 +397,7 @@ class YoutubeApiLTE {
 
   /**
    * @private
-   * @method #htmlSearchResultFetch() -> HTML Search Result private Fetch Function for public search method
+   * #htmlSearchResultFetch() -> HTML Search Result private Fetch Function for public search method
    * @param {string | YoutubeChannel | YoutubePlaylist | YoutubeVideo } rawQuery Raw Query like Url , Youtube Ids or instance of YoutubeVideo | <YoutubeApiLTE>.validate() will Validate the value to Request
    * @param {searchOptions} searchOptions Youtube Search Options for Request Module and Filter Parsing Sections
    * @returns {Promise<YoutubeVideo[] | YoutubePlaylist[] | YoutubeChannel[] | void>} Returns Array of Youtube Video/Playlist/Channel Based on Client's requested searchOptions.type> value

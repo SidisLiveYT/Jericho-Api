@@ -11,7 +11,7 @@ const YoutubeChannel = require('../Structures/Youtube-Elements/channel-element')
 
 class Utils {
   /**
-   * @method htmlSearchrawFilterParser() _> parsing filter type for HTML fetch from youtbe Watch page
+   * htmlSearchrawFilterParser() _> parsing filter type for HTML fetch from youtbe Watch page
    * @param {string} rawFilter String value of playlist , video , channel Data
    * @returns {string | void} string value for html query search for Youtube Default Watch Page
    */
@@ -36,7 +36,7 @@ class Utils {
   }
 
   /**
-   * @method youtubeUrlParseHtmlSearch() -> Parsing rawUrl for Actual Regex checking list/video/channel Ids
+   * youtubeUrlParseHtmlSearch() -> Parsing rawUrl for Actual Regex checking list/video/channel Ids
    * @param {string} rawUrl Youtube Url or Search if any
    * @returns {youtubeUrlParseHtmlSearchData} Returns Json Format of Parsing of Youtube Url Raw Data
    */
@@ -154,7 +154,7 @@ class Utils {
   }
 
   /**
-   * @method getHtmlData() -> Fetch response.text() for Parsing the Watch Page Data
+   * getHtmlData() -> Fetch response.text() for Parsing the Watch Page Data
    * @param {string} rawHtmlUrl Raw Youtube Get Request Url "search url query" as Defination
    * @param {httpRequestOptions} htmlRequestOption html get Request Options for Axios get fetch method
    * @param {string | void} method HTTP Request for Axios | Bydefault its GET Request handler
@@ -200,7 +200,7 @@ class Utils {
   }
 
   /**
-   * @method parseHtmlSearchResults() -> Parse Raw Html Search Results "Response String Value" | Returns Array of Youtube Video/Playlist/Channel
+   * parseHtmlSearchResults() -> Parse Raw Html Search Results "Response String Value" | Returns Array of Youtube Video/Playlist/Channel
    * @param {string} rawHtml String Value of Response.text() or String Value of response.data to Parse in Json and Filter the accurate Data from sections
    * @param {searchOptions} parsingSearchOptions Parsing Options form Client Side/User Side for Filtering raw json Data
    * @returns {YoutubeVideo[]|YoutubeChannel[]|YoutubePlaylist[]|void} Returns Array of Youtube Video/Playlist/Channel Data from the Parsing Raw HTML Data
@@ -298,7 +298,7 @@ class Utils {
   }
 
   /**
-   * @method getHtmlSearchVideos() -> Parsing Suggestion Videos for Video Watch Page from raw Json Data to Youtube Video Array Format
+   * getHtmlSearchVideos() -> Parsing Suggestion Videos for Video Watch Page from raw Json Data to Youtube Video Array Format
    * @param {JSON} rawJsonHtmlData raw Json Data fetched from Youtube and Parsed to Json Format
    * @param {number | void} limit Numerical Value to limit suggestion Datas
    * @returns {YoutubeVideo[] | void} Returns Array of Youtube Video Data on filtered limit value | or Returns void on failure
@@ -372,7 +372,7 @@ class Utils {
   }
 
   /**
-   * @method patchCookedHtmlSearchResults() -> Patch raw Search Results Json Data to Seperate Class Type Value like Youtube Video / Playlist / Channel
+   * patchCookedHtmlSearchResults() -> Patch raw Search Results Json Data to Seperate Class Type Value like Youtube Video / Playlist / Channel
    * @param {JSON} rawJson Json raw Data after Parsing the string value of html source code
    * @param {string} type what type of Parsing to be done | By default -> "video"
    * @param {number | void} initialIndex To implement Video Index Value for special cases
@@ -519,7 +519,7 @@ class Utils {
   }
 
   /**
-   * @method parseYoutubeDurationStringTomiliseconds() ->
+   * parseYoutubeDurationStringTomiliseconds() ->
    * @param {string} rawDuration raw Duration in String Parsed to Milli-Seconds
    * @returns {number | void} Returns Milli-Seconds from String Value
    */
@@ -549,7 +549,7 @@ class Utils {
   }
 
   /**
-   * @method getHtmlcontinuationToken() ->
+   * getHtmlcontinuationToken() ->
    * @param {Object} rawObjectData raw Object Data from Playlist Data
    * @returns {string | void} Returns and Continuation Token for Playlist Videos next() method
    */
@@ -563,7 +563,7 @@ class Utils {
   }
 
   /**
-   * @method hardHTMLSearchparse() -> Function to Hard or Full parse method of Videos and Playlist from their own watch Page but not from Default search Results
+   * hardHTMLSearchparse() -> Function to Hard or Full parse method of Videos and Playlist from their own watch Page but not from Default search Results
    * @param {string} rawHtmlData Raw HTML Data from get Request of URL
    * @param {string | void} type Type Value for Parsing HTML Data for switch case js function
    * @param {number | void} limit Numerical Value for Playlist Limit if asked in Type
@@ -789,7 +789,7 @@ class Utils {
   }
 
   /**
-   * @method fetchPlaylistHtmlVideos() -> fetch Playlist Videos from Raw HTML Video Json Data
+   * fetchPlaylistHtmlVideos() -> fetch Playlist Videos from Raw HTML Video Json Data
    * @param {JSON} rawVideosData Raw Json Data parsed from Playlists
    * @param {number | void} limit Limit the Parsing Video content length
    * @returns {YoutubeVideo[] | void} Returns Array of Youtube Video Same as per Search Result of Type of Video though
@@ -860,7 +860,7 @@ class Utils {
   }
 
   /**
-   * @method parseDurationToString() -> Parsing of Milliseconds Duration to String Value of Human Readable Value
+   * parseDurationToString() -> Parsing of Milliseconds Duration to String Value of Human Readable Value
    * @param {number | void} rawDuration Raw Number Value | Milliseconds Value
    * @returns {string} Returns Human Readable Time/Duration Value
    */
@@ -886,7 +886,7 @@ class Utils {
   }
 
   /**
-   * @method parseExtraHtmlVideos() -> Parsing Suggestive Videos from Background
+   * parseExtraHtmlVideos() -> Parsing Suggestive Videos from Background
    * @param {JSON} rawHTMLJsonData raw HTML Json Data from Parsed Video Watch Pages
    * @param {boolean | void} parseHomePageBoolean Parsing homepage if
    * @returns {YoutubeVideo[] | void} Returns Array of Youtube Video Value
@@ -969,7 +969,7 @@ class Utils {
   }
 
   /**
-   * @method parseHtmlHomepage() -> Parse Raw HTML Data of Youtube Homepage to Json Formated Data
+   * parseHtmlHomepage() -> Parse Raw HTML Data of Youtube Homepage to Json Formated Data
    * @param {string} rawHTMLData Raw HTML data from Axios Request for Youtube Homepage
    * @returns {YoutubeVideo[] | void} Returns of Array of Youtube Video Data
    */
@@ -1006,7 +1006,7 @@ class Utils {
   }
 
   /**
-   * @method parseHTMLTrendingPage() -> Parse Raw HTML Data of Youtube Trending Page to Json Formated Data
+   * parseHTMLTrendingPage() -> Parse Raw HTML Data of Youtube Trending Page to Json Formated Data
    * @param {string} rawHTMLData Raw HTML data from Axios Request for Youtube Trending Page
    * @returns {YoutubeVideo[] | void} Returns of Array of Youtube Video Data
    */
@@ -1084,7 +1084,7 @@ class Utils {
   /**
    * @static
    * @private
-   * @method #parseHTTPRequestOption() -> parsing Raw HTTP Request for Axios Get or Post Request
+   * #parseHTTPRequestOption() -> parsing Raw HTTP Request for Axios Get or Post Request
    * @param {httpRequestOptions} requestOptions HTTP-Request-Options For Parsing into Axios acceptance Value
    * @returns {httpRequestOptions} Returns the Exact Axios Acceptance Value
    */

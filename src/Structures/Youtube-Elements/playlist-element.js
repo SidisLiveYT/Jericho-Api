@@ -30,7 +30,7 @@ class YoutubePlaylist {
   }
 
   /**
-   * @method next() -> Fetches Next List of Playlist Videos from Token and Default Youtube API
+   * next() -> Fetches Next List of Playlist Videos from Token and Default Youtube API
    * @param {number | void | 'Infinity'} limit Numerical Limit Value for Parsing Playlist Videos if required
    * @returns {Promise<YoutubeVideo[] | []> | []} Returns Array of Youtube Video
    */
@@ -87,7 +87,7 @@ class YoutubePlaylist {
   }
 
   /**
-   * @method fetchAll() -> Fetching all Videos from Youtube | Can take more time based on videocount
+   * fetchAll() -> Fetching all Videos from Youtube | Can take more time based on videocount
    * @param {number | void | 'Infinity'} fetchCount Numerical Fetch-Count Value for Parsing Playlist Videos
    * @returns {Promise<YoutubePlaylist>} Returns the Youtube Playlist Default Instance but with altered and fetched data
    */
@@ -111,7 +111,7 @@ class YoutubePlaylist {
   }
 
   /**
-   * @method toJSON() -> Json Representation of Youtube Playlist
+   * toJSON() -> Json Representation of Youtube Playlist
    * @returns {JSON<YoutubePlaylist>} Returns Json Representation of Youtube Playlist
    */
 
@@ -128,7 +128,7 @@ class YoutubePlaylist {
 
   /**
    * @private
-   * @method #__parse() -> parsing of raw JSON formated Youtube Playlist Data
+   * #__parse() -> parsing of raw JSON formated Youtube Playlist Data
    * @param {Object} cookedHtmlData Actual Structured Data for Parsing into Playlist Instance
    * @param {number | void | 'Infinity'} limit Numerical Limit Value for Parsing Playlist Videos if required
    * @returns {void} Returns undefined because its used for Parsing and patch data with <YoutubePlaylist> Instance
@@ -167,7 +167,7 @@ class YoutubePlaylist {
 
   /**
    * @private
-   * @method #__parseSearchResults() -> parsing of raw JSON formated Youtube Playlist Data
+   * #__parseSearchResults() -> parsing of raw JSON formated Youtube Playlist Data
    * @param {Object} cookedHtmlData Actual Structured Data for Parsing into Playlist Instance
    * @returns {void} Returns undefined because its used for Parsing and patch data with <YoutubePlaylist> Instance
    */
@@ -201,7 +201,7 @@ class YoutubePlaylist {
 
   /**
    * @private
-   * @method #parseContainedVideos() -> parsing and storing rest remaining videos to private | cleaning of remaining if requested
+   * #parseContainedVideos() -> parsing and storing rest remaining videos to private | cleaning of remaining if requested
    * @param {YoutubeVideo[] | void} rawVideos Raw Youtube Video Data in Array to Parse
    * @param {number | void | 'Infinity'} limit Numerical Limit Value for Parsing Playlist Videos if required
    * @param {boolean | void | 'false'} clearRemaining If Clearing Cache comes in boolean as answer
