@@ -346,7 +346,7 @@ class YoutubeApiLTE {
   /**
    * @method getHomepage() -> Fetches Homepage Video Data into Youtube Video Formated
    * @param {searchOptions} searchOptions Search Options for HTTP Request Options
-   * @returns {Promise<YoutubeVideo[] | void} Returns Youtube Video Array or undefined on failure
+   * @returns {Promise<YoutubeVideo[] | void>} Returns Youtube Video Array or undefined on failure
    */
 
   async getHomepage(searchOptions = this.searchOptions) {
@@ -363,7 +363,7 @@ class YoutubeApiLTE {
   /**
    * @method getTrending() -> Fetches Trending Page Data into Youtube Video Formated
    * @param {searchOptions} searchOptions Search Options for HTTP Request Options
-   * @returns {Promise<YoutubeVideo[] | void} Returns Youtube Video Array or [] or undefined on failure
+   * @returns {Promise<YoutubeVideo[] | void>} Returns Youtube Video Array or [] or undefined on failure
    */
 
   async getTrending(searchOptions = this.searchOptions) {
