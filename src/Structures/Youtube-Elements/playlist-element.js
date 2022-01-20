@@ -103,7 +103,7 @@ class YoutubePlaylist {
   /**
    * next() -> Fetches Next List of Playlist Videos from Token and Default Youtube API
    * @param {number | void | 'Infinity'} limit Numerical Limit Value for Parsing Playlist Videos if required
-   * @returns {Promise<YoutubeVideo[] | []> | []} Returns Array of Youtube Video
+   * @returns {Promise<YoutubeVideo[]>} Returns Array of Youtube Video
    */
   async next(limit = Infinity) {
     const cookedVideos = [
