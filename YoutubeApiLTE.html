@@ -17,7 +17,7 @@
 <body>
 
 <nav class="navbar">
-    <h4><a href="index.html">Home</a></h4><h5 class="no-bottom must-underline">Classes</h5><ul><li><span class="small-icon C">C</span><b><a href="YoutubeApiLTE.html">YoutubeApiLTE</a></b><ul class="has-class-methods"><li><span class="small-icon M">M</span><a href="YoutubeApiLTE.html#searchOptions">searchOptions</a></li></ul></li></ul><h4>Global</h4><ul><li><a href="global.html#getHomepage()-%253EFetchesHomepageVideoDataintoYoutubeVideoFormated">getHomepage() -> Fetches Homepage Video Data into Youtube Video Formated</a></li><li><a href="global.html#getPlaylist()-%253EFetchesPlaylistDatafromPlaylistUrlorIdandFetchesDatafromActualPlaylistPage">getPlaylist() -> Fetches Playlist Data from Playlist Url or Id and Fetches Data from Actual Playlist Page</a></li><li><a href="global.html#getTrending()-%253EFetchesTrendingPageDataintoYoutubeVideoFormated">getTrending() -> Fetches Trending Page Data into Youtube Video Formated</a></li><li><a href="global.html#getVideo()-%253EFetchesOnlyVideoandFetchesDatafromVideo'sOfficialPageforcorrectandmorevaluableDatatoFetch">getVideo() -> Fetches Only Video and Fetches Data from Video's Official Page for correct and more valuable Data to Fetch</a></li><li><a href="global.html#InnerTube()-%253EFetchesInnerAPIKeyDatafromYoutubeHomePage">InnerTube() -> Fetches Inner API Key Data from Youtube HomePage</a></li><li><a href="global.html#isSafeCheck()-%253ESafeFunctioncheckforYoutubeVideoasitsprimaryscopeandreturnsbooleanas%2522true%2522or%2522false%2522">isSafeCheck() -> Safe Function check for Youtube Video as its primary scope and returns boolean as "true" or "false"</a></li><li><a href="global.html#safeSearch()-%253ESafeSearchModeFunctionwhere%2522safeSearchMode%2522willbeenabledbydefault">safeSearch() -> Safe Search Mode Function where "safeSearchMode" will be enabled by default</a></li><li><a href="global.html#safeSearchOne()-%253ESafeSearchModeFunctionwhere%2522safeSearchMode%2522willbeenabledbydefaultandFetches1ValueasitsAnswer">safeSearchOne() -> Safe Search Mode Function where "safeSearchMode" will be enabled by default and Fetches 1 Value as its Answer</a></li><li><a href="global.html#search()-%253ENormalSearchMethodforYoutubewith%2522https://www.youtube.com/results%2522asBaseSearchQueryUrlandfetchesdatagivenbyYoutube">search() -> Normal Search Method for Youtube with "https://www.youtube.com/results" as Base Search Query Url and fetches data given by Youtube</a></li><li><a href="global.html#searchOne()-%253ESearchOneSpecificDatainSearchQueryResult">searchOne() -> Search One Specific Data in Search Query Result</a></li></ul>
+    <h4><a href="index.html">Home</a></h4><h5 class="no-bottom must-underline">Classes</h5><ul><li><span class="small-icon C">C</span><b><a href="YoutubeApiLTE.html">YoutubeApiLTE</a></b><ul class="has-class-methods"><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#getHomepage">getHomepage</a></li><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#getPlaylist">getPlaylist</a></li><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#getTrending">getTrending</a></li><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#getVideo">getVideo</a></li><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#innerTubeApikey">innerTubeApikey</a></li><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#isSafeCheck">isSafeCheck</a></li><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#safeSearch">safeSearch</a></li><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#safeSearchOne">safeSearchOne</a></li><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#search">search</a></li><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#searchOne">searchOne</a></li><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#validate">validate</a></li><li><span class="small-icon M">M</span><a href="YoutubeApiLTE.html#searchOptions">searchOptions</a></li></ul></li></ul>
 </nav>
 
 <div id="main">
@@ -279,6 +279,2152 @@
     
 
     
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getHomepage"><span class="type-signature">(async) </span>getHomepage<span class="signature">(searchOptions)</span><span class="type-signature"> &rarr; {Promise.&lt;(Array.&lt;YoutubeVideo>|void)>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>getHomepage() -&gt; Fetches Homepage Video Data into Youtube Video Formated</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<div class="table-box">
+    <table class="params">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
+                
+                    <td class="name"><code>searchOptions</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">searchOptions</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>Search Options for HTTP Request Options</p></td>
+            </tr>
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Youtube-API.js.html">Youtube-API.js</a>, <a href="Youtube-API.js.html#line352">line 352</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Returns Youtube Video Array or undefined on failure</p>
+</div>
+
+
+
+<ul>
+    <li>
+        Type: <span class="simple-code">
+<span class="param-type">Promise.&lt;(Array.&lt;YoutubeVideo>|void)></span>
+
+</span>
+    </li>
+</ul>
+
+    
+
+
+
+
+
+<hr>
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getPlaylist"><span class="type-signature">(async) </span>getPlaylist<span class="signature">(rawUrl, searchOptions, hardPlaylistfetchMode, hardVideofetchMode)</span><span class="type-signature"> &rarr; {Promise.&lt;(YoutubePlaylist|void)>|void}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>getPlaylist() -&gt; Fetches Playlist Data from Playlist Url or Id and Fetches Data from Actual Playlist Page</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<div class="table-box">
+    <table class="params">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+            <th>Default</th>
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
+                
+                    <td class="name"><code>rawUrl</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">string</span>
+|
+
+<span class="param-type">YoutubeChannel</span>
+|
+
+<span class="param-type">YoutubePlaylist</span>
+|
+
+<span class="param-type">YoutubeVideo</span>
+
+
+                
+                </td>
+
+                
+
+                
+                    <td class="default">
+                    
+                    </td>
+                
+
+                <td class="description last"><p>Raw Query like Url , Youtube Ids or instance of YoutubeVideo | <YoutubeApiLTE>.validate() will Validate the value to Request</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>searchOptions</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">searchOptions</span>
+
+
+                
+                </td>
+
+                
+
+                
+                    <td class="default">
+                    
+                    </td>
+                
+
+                <td class="description last"><p>Youtube Search Options for Request Module and Filter Parsing Sections</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>hardPlaylistfetchMode</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">boolean</span>
+|
+
+<span class="param-type">void</span>
+
+
+                
+                </td>
+
+                
+
+                
+                    <td class="default">
+                    
+                        false
+                    
+                    </td>
+                
+
+                <td class="description last"><p>hard Fetch method to fetch Playlist Video Data aggressively</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>hardVideofetchMode</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">boolean</span>
+|
+
+<span class="param-type">void</span>
+
+
+                
+                </td>
+
+                
+
+                
+                    <td class="default">
+                    
+                        false
+                    
+                    </td>
+                
+
+                <td class="description last"><p>hard Fetch method to fetch every Suggestion Videos in Youtube Video aggressively</p></td>
+            </tr>
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Youtube-API.js.html">Youtube-API.js</a>, <a href="Youtube-API.js.html#line233">line 233</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Returns Youtube Playlist Data or undefined on failure</p>
+</div>
+
+
+
+<ul>
+    <li>
+        Type: <span class="simple-code">
+<span class="param-type">Promise.&lt;(YoutubePlaylist|void)></span>
+|
+
+<span class="param-type">void</span>
+
+</span>
+    </li>
+</ul>
+
+    
+
+
+
+
+
+<hr>
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getTrending"><span class="type-signature">(async) </span>getTrending<span class="signature">(searchOptions)</span><span class="type-signature"> &rarr; {Promise.&lt;(Array.&lt;YoutubeVideo>|void)>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>getTrending() -&gt; Fetches Trending Page Data into Youtube Video Formated</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<div class="table-box">
+    <table class="params">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
+                
+                    <td class="name"><code>searchOptions</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">searchOptions</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>Search Options for HTTP Request Options</p></td>
+            </tr>
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Youtube-API.js.html">Youtube-API.js</a>, <a href="Youtube-API.js.html#line369">line 369</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Returns Youtube Video Array or [] or undefined on failure</p>
+</div>
+
+
+
+<ul>
+    <li>
+        Type: <span class="simple-code">
+<span class="param-type">Promise.&lt;(Array.&lt;YoutubeVideo>|void)></span>
+
+</span>
+    </li>
+</ul>
+
+    
+
+
+
+
+
+<hr>
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getVideo"><span class="type-signature">(async) </span>getVideo<span class="signature">(rawUrl, searchOptions, hardFetchMode)</span><span class="type-signature"> &rarr; {Promise.&lt;(YoutubeVideo|void)>|void}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>getVideo() -&gt; Fetches Only Video and Fetches Data from Video's Official Page for correct and more valuable Data to Fetch</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<div class="table-box">
+    <table class="params">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+            <th>Default</th>
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
+                
+                    <td class="name"><code>rawUrl</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">string</span>
+|
+
+<span class="param-type">YoutubeChannel</span>
+|
+
+<span class="param-type">YoutubePlaylist</span>
+|
+
+<span class="param-type">YoutubeVideo</span>
+
+
+                
+                </td>
+
+                
+
+                
+                    <td class="default">
+                    
+                    </td>
+                
+
+                <td class="description last"><p>Raw Query like Url , Youtube Ids or instance of YoutubeVideo | <YoutubeApiLTE>.validate() will Validate the value to Request</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>searchOptions</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">searchOptions</span>
+
+
+                
+                </td>
+
+                
+
+                
+                    <td class="default">
+                    
+                    </td>
+                
+
+                <td class="description last"><p>Youtube Search Options for Request Module and Filter Parsing Sections</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>hardFetchMode</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">boolean</span>
+|
+
+<span class="param-type">void</span>
+
+
+                
+                </td>
+
+                
+
+                
+                    <td class="default">
+                    
+                        false
+                    
+                    </td>
+                
+
+                <td class="description last"><p>hard Fetch method to fetch everything aggressively</p></td>
+            </tr>
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Youtube-API.js.html">Youtube-API.js</a>, <a href="Youtube-API.js.html#line174">line 174</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Returns Youtube Video Data or undefined on failure</p>
+</div>
+
+
+
+<ul>
+    <li>
+        Type: <span class="simple-code">
+<span class="param-type">Promise.&lt;(YoutubeVideo|void)></span>
+|
+
+<span class="param-type">void</span>
+
+</span>
+    </li>
+</ul>
+
+    
+
+
+
+
+
+<hr>
+        
+            
+
+    
+
+    
+    <h4 class="name" id="innerTubeApikey"><span class="type-signature">(async) </span>innerTubeApikey<span class="signature">(searchOptions)</span><span class="type-signature"> &rarr; {string|void}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>InnerTube() -&gt; Fetches Inner API Key Data from Youtube HomePage</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<div class="table-box">
+    <table class="params">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
+                
+                    <td class="name"><code>searchOptions</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">searchOptions</span>
+|
+
+<span class="param-type">void</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>Search Options for HTTP Request Options</p></td>
+            </tr>
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Youtube-API.js.html">Youtube-API.js</a>, <a href="Youtube-API.js.html#line386">line 386</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Returns Youtube Inner Tube API Key or undefined on failure</p>
+</div>
+
+
+
+<ul>
+    <li>
+        Type: <span class="simple-code">
+<span class="param-type">string</span>
+|
+
+<span class="param-type">void</span>
+
+</span>
+    </li>
+</ul>
+
+    
+
+
+
+
+
+<hr>
+        
+            
+
+    
+
+    
+    <h4 class="name" id="isSafeCheck"><span class="type-signature">(async) </span>isSafeCheck<span class="signature">(rawUrl, searchOptions)</span><span class="type-signature"> &rarr; {Promise.&lt;(Boolean|void)>|void}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>isSafeCheck() -&gt; Safe Function check for Youtube Video as its primary scope and returns boolean as &quot;true&quot; or &quot;false&quot;</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<div class="table-box">
+    <table class="params">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
+                
+                    <td class="name"><code>rawUrl</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">string</span>
+|
+
+<span class="param-type">YoutubeChannel</span>
+|
+
+<span class="param-type">YoutubePlaylist</span>
+|
+
+<span class="param-type">YoutubeVideo</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>Raw Query like Url , Youtube Ids or instance of YoutubeVideo | <YoutubeApiLTE>.validate() will Validate the value to Request</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>searchOptions</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">searchOptions</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>Youtube Search Options for Request Module and Filter Parsing Sections</p></td>
+            </tr>
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Youtube-API.js.html">Youtube-API.js</a>, <a href="Youtube-API.js.html#line136">line 136</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Returns Boolean Value for if its safe to use or not</p>
+</div>
+
+
+
+<ul>
+    <li>
+        Type: <span class="simple-code">
+<span class="param-type">Promise.&lt;(Boolean|void)></span>
+|
+
+<span class="param-type">void</span>
+
+</span>
+    </li>
+</ul>
+
+    
+
+
+
+
+
+<hr>
+        
+            
+
+    
+
+    
+    <h4 class="name" id="safeSearch"><span class="type-signature">(async) </span>safeSearch<span class="signature">(rawQuery, searchOptions)</span><span class="type-signature"> &rarr; {Promise.&lt;(Array.&lt;YoutubeVideo>|Array.&lt;YoutubePlaylist>|Array.&lt;YoutubeChannel>|void)>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>safeSearch() -&gt; Safe Search Mode Function where &quot;safeSearchMode&quot; will be enabled by default</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<div class="table-box">
+    <table class="params">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
+                
+                    <td class="name"><code>rawQuery</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">string</span>
+|
+
+<span class="param-type">YoutubeChannel</span>
+|
+
+<span class="param-type">YoutubePlaylist</span>
+|
+
+<span class="param-type">YoutubeVideo</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>Raw Query like Url , Youtube Ids or instance of YoutubeVideo | <YoutubeApiLTE>.validate() will Validate the value to Request</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>searchOptions</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">searchOptions</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>Youtube Search Options for Request Module and Filter Parsing Sections</p></td>
+            </tr>
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Youtube-API.js.html">Youtube-API.js</a>, <a href="Youtube-API.js.html#line92">line 92</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Returns Array of Youtube Video/Playlist/Channel Based on Client's requested searchOptions.type&gt; value</p>
+</div>
+
+
+
+<ul>
+    <li>
+        Type: <span class="simple-code">
+<span class="param-type">Promise.&lt;(Array.&lt;YoutubeVideo>|Array.&lt;YoutubePlaylist>|Array.&lt;YoutubeChannel>|void)></span>
+
+</span>
+    </li>
+</ul>
+
+    
+
+
+
+
+
+<hr>
+        
+            
+
+    
+
+    
+    <h4 class="name" id="safeSearchOne"><span class="type-signature">(async) </span>safeSearchOne<span class="signature">(rawQuery, searchOptions)</span><span class="type-signature"> &rarr; {Promise.&lt;(YoutubeVideo|YoutubePlaylist|YoutubeChannel|void)>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>safeSearchOne() -&gt; Safe Search Mode Function where &quot;safeSearchMode&quot; will be enabled by default and Fetches 1 Value as its Answer</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<div class="table-box">
+    <table class="params">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
+                
+                    <td class="name"><code>rawQuery</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">string</span>
+|
+
+<span class="param-type">YoutubeChannel</span>
+|
+
+<span class="param-type">YoutubePlaylist</span>
+|
+
+<span class="param-type">YoutubeVideo</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>Raw Query like Url , Youtube Ids or instance of YoutubeVideo | <YoutubeApiLTE>.validate() will Validate the value to Request</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>searchOptions</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">searchOptions</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>Youtube Search Options for Request Module and Filter Parsing Sections</p></td>
+            </tr>
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Youtube-API.js.html">Youtube-API.js</a>, <a href="Youtube-API.js.html#line114">line 114</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Returns  Youtube Video/Playlist/Channel Based on Client's requested searchOptions.type&gt; value</p>
+</div>
+
+
+
+<ul>
+    <li>
+        Type: <span class="simple-code">
+<span class="param-type">Promise.&lt;(YoutubeVideo|YoutubePlaylist|YoutubeChannel|void)></span>
+
+</span>
+    </li>
+</ul>
+
+    
+
+
+
+
+
+<hr>
+        
+            
+
+    
+
+    
+    <h4 class="name" id="search"><span class="type-signature">(async) </span>search<span class="signature">(rawQuery, searchOptions)</span><span class="type-signature"> &rarr; {Promise.&lt;(Array.&lt;YoutubeVideo>|Array.&lt;YoutubePlaylist>|Array.&lt;YoutubeChannel>|void)>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>search() -&gt; Normal Search Method for Youtube with &quot;https://www.youtube.com/results&quot; as Base Search Query Url and fetches data given by Youtube</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<div class="table-box">
+    <table class="params">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
+                
+                    <td class="name"><code>rawQuery</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">string</span>
+|
+
+<span class="param-type">YoutubeChannel</span>
+|
+
+<span class="param-type">YoutubePlaylist</span>
+|
+
+<span class="param-type">YoutubeVideo</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>Raw Query like Url , Youtube Ids or instance of YoutubeVideo | <YoutubeApiLTE>.validate() will Validate the value to Request</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>searchOptions</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">searchOptions</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>Youtube Search Options for Request Module and Filter Parsing Sections</p></td>
+            </tr>
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Youtube-API.js.html">Youtube-API.js</a>, <a href="Youtube-API.js.html#line38">line 38</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Returns Array of Youtube Video/Playlist/Channel Based on Client's requested searchOptions.type&gt; value</p>
+</div>
+
+
+
+<ul>
+    <li>
+        Type: <span class="simple-code">
+<span class="param-type">Promise.&lt;(Array.&lt;YoutubeVideo>|Array.&lt;YoutubePlaylist>|Array.&lt;YoutubeChannel>|void)></span>
+
+</span>
+    </li>
+</ul>
+
+    
+
+
+
+
+
+<hr>
+        
+            
+
+    
+
+    
+    <h4 class="name" id="searchOne"><span class="type-signature">(async) </span>searchOne<span class="signature">(rawQuery, searchOptions)</span><span class="type-signature"> &rarr; {Promise.&lt;(YoutubeVideo|YoutubePlaylist|YoutubeChannel|void)>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>searchOne() -&gt; Search One Specific Data in Search Query Result</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<div class="table-box">
+    <table class="params">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
+                
+                    <td class="name"><code>rawQuery</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">string</span>
+|
+
+<span class="param-type">YoutubeChannel</span>
+|
+
+<span class="param-type">YoutubePlaylist</span>
+|
+
+<span class="param-type">YoutubeVideo</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>Raw Query like Url , Youtube Ids or instance of YoutubeVideo | <YoutubeApiLTE>.validate() will Validate the value to Request</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>searchOptions</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">searchOptions</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>Youtube Search Options for Request Module and Filter Parsing Sections</p></td>
+            </tr>
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Youtube-API.js.html">Youtube-API.js</a>, <a href="Youtube-API.js.html#line70">line 70</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Returns  Youtube Video/Playlist/Channel Based on Client's requested searchOptions.type&gt; value</p>
+</div>
+
+
+
+<ul>
+    <li>
+        Type: <span class="simple-code">
+<span class="param-type">Promise.&lt;(YoutubeVideo|YoutubePlaylist|YoutubeChannel|void)></span>
+
+</span>
+    </li>
+</ul>
+
+    
+
+
+
+
+
+<hr>
+        
+            
+
+    
+
+    
+    <h4 class="name" id="validate"><span class="type-signature">(async) </span>validate<span class="signature">(rawUrl, safeSearchMode)</span><span class="type-signature"> &rarr; {Promise.&lt;youtubeValidateData>|void}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>validate() -&gt; Validation of Urls or strings for Query , Video , Playlist and Channel</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<div class="table-box">
+    <table class="params">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
+                
+                    <td class="name"><code>rawUrl</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">string</span>
+|
+
+<span class="param-type">YoutubeChannel</span>
+|
+
+<span class="param-type">YoutubePlaylist</span>
+|
+
+<span class="param-type">YoutubeVideo</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>Raw Query like Url , Youtube Ids or instance of YoutubeVideo | <YoutubeApiLTE>.validate() will Validate the value to Request</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>safeSearchMode</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">string</span>
+|
+
+<span class="param-type">void</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>Youtube Search Safe Mode if to check</p></td>
+            </tr>
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Youtube-API.js.html">Youtube-API.js</a>, <a href="Youtube-API.js.html#line290">line 290</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Returns Parsed Data of Url and Id after validate of Data</p>
+</div>
+
+
+
+<ul>
+    <li>
+        Type: <span class="simple-code">
+<span class="param-type">Promise.&lt;youtubeValidateData></span>
+|
+
+<span class="param-type">void</span>
+
+</span>
+    </li>
+</ul>
+
+    
+
+
+
+
+
+<hr>
+        
+    
 
     
 
@@ -296,7 +2442,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Thu Jan 20 2022 12:40:06 GMT+0000 (Coordinated Universal Time) using <a href="https://github.com/zyrouge/jsdoc-skyceil">Skyceil Theme</a>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Thu Jan 20 2022 12:43:27 GMT+0000 (Coordinated Universal Time) using <a href="https://github.com/zyrouge/jsdoc-skyceil">Skyceil Theme</a>
 </footer>
 
 <script>prettyPrint();</script>

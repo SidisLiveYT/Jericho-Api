@@ -17,7 +17,7 @@
 <body>
 
 <nav class="navbar">
-    <h4><a href="index.html">Home</a></h4><h5 class="no-bottom must-underline">Classes</h5><ul><li><span class="small-icon C">C</span><b><a href="YoutubeApiLTE.html">YoutubeApiLTE</a></b><ul class="has-class-methods"><li><span class="small-icon M">M</span><a href="YoutubeApiLTE.html#searchOptions">searchOptions</a></li></ul></li></ul><h4>Global</h4><ul><li><a href="global.html#getHomepage()-%253EFetchesHomepageVideoDataintoYoutubeVideoFormated">getHomepage() -> Fetches Homepage Video Data into Youtube Video Formated</a></li><li><a href="global.html#getPlaylist()-%253EFetchesPlaylistDatafromPlaylistUrlorIdandFetchesDatafromActualPlaylistPage">getPlaylist() -> Fetches Playlist Data from Playlist Url or Id and Fetches Data from Actual Playlist Page</a></li><li><a href="global.html#getTrending()-%253EFetchesTrendingPageDataintoYoutubeVideoFormated">getTrending() -> Fetches Trending Page Data into Youtube Video Formated</a></li><li><a href="global.html#getVideo()-%253EFetchesOnlyVideoandFetchesDatafromVideo'sOfficialPageforcorrectandmorevaluableDatatoFetch">getVideo() -> Fetches Only Video and Fetches Data from Video's Official Page for correct and more valuable Data to Fetch</a></li><li><a href="global.html#InnerTube()-%253EFetchesInnerAPIKeyDatafromYoutubeHomePage">InnerTube() -> Fetches Inner API Key Data from Youtube HomePage</a></li><li><a href="global.html#isSafeCheck()-%253ESafeFunctioncheckforYoutubeVideoasitsprimaryscopeandreturnsbooleanas%2522true%2522or%2522false%2522">isSafeCheck() -> Safe Function check for Youtube Video as its primary scope and returns boolean as "true" or "false"</a></li><li><a href="global.html#safeSearch()-%253ESafeSearchModeFunctionwhere%2522safeSearchMode%2522willbeenabledbydefault">safeSearch() -> Safe Search Mode Function where "safeSearchMode" will be enabled by default</a></li><li><a href="global.html#safeSearchOne()-%253ESafeSearchModeFunctionwhere%2522safeSearchMode%2522willbeenabledbydefaultandFetches1ValueasitsAnswer">safeSearchOne() -> Safe Search Mode Function where "safeSearchMode" will be enabled by default and Fetches 1 Value as its Answer</a></li><li><a href="global.html#search()-%253ENormalSearchMethodforYoutubewith%2522https://www.youtube.com/results%2522asBaseSearchQueryUrlandfetchesdatagivenbyYoutube">search() -> Normal Search Method for Youtube with "https://www.youtube.com/results" as Base Search Query Url and fetches data given by Youtube</a></li><li><a href="global.html#searchOne()-%253ESearchOneSpecificDatainSearchQueryResult">searchOne() -> Search One Specific Data in Search Query Result</a></li></ul>
+    <h4><a href="index.html">Home</a></h4><h5 class="no-bottom must-underline">Classes</h5><ul><li><span class="small-icon C">C</span><b><a href="YoutubeApiLTE.html">YoutubeApiLTE</a></b><ul class="has-class-methods"><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#getHomepage">getHomepage</a></li><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#getPlaylist">getPlaylist</a></li><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#getTrending">getTrending</a></li><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#getVideo">getVideo</a></li><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#innerTubeApikey">innerTubeApikey</a></li><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#isSafeCheck">isSafeCheck</a></li><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#safeSearch">safeSearch</a></li><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#safeSearchOne">safeSearchOne</a></li><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#search">search</a></li><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#searchOne">searchOne</a></li><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#validate">validate</a></li><li><span class="small-icon M">M</span><a href="YoutubeApiLTE.html#searchOptions">searchOptions</a></li></ul></li></ul>
 </nav>
 
 <div id="main">
@@ -67,7 +67,7 @@ class YoutubeApiLTE {
   }
 
   /**
-   * @method search() -> Normal Search Method for Youtube with "https://www.youtube.com/results" as Base Search Query Url and fetches data given by Youtube
+   * search() -> Normal Search Method for Youtube with "https://www.youtube.com/results" as Base Search Query Url and fetches data given by Youtube
    * @param {string | YoutubeChannel | YoutubePlaylist | YoutubeVideo} rawQuery Raw Query like Url , Youtube Ids or instance of YoutubeVideo | &lt;YoutubeApiLTE>.validate() will Validate the value to Request
    * @param {searchOptions} searchOptions Youtube Search Options for Request Module and Filter Parsing Sections
    * @returns {Promise&lt;YoutubeVideo[] | YoutubePlaylist[] | YoutubeChannel[] | void>} Returns Array of Youtube Video/Playlist/Channel Based on Client's requested searchOptions.type> value
@@ -99,7 +99,7 @@ class YoutubeApiLTE {
   }
 
   /**
-   * @method searchOne() -> Search One Specific Data in Search Query Result
+   * searchOne() -> Search One Specific Data in Search Query Result
    * @param {string | YoutubeChannel | YoutubePlaylist | YoutubeVideo } rawQuery Raw Query like Url , Youtube Ids or instance of YoutubeVideo | &lt;YoutubeApiLTE>.validate() will Validate the value to Request
    * @param {searchOptions} searchOptions Youtube Search Options for Request Module and Filter Parsing Sections
    * @returns {Promise&lt;YoutubeVideo | YoutubePlaylist | YoutubeChannel | void>} Returns  Youtube Video/Playlist/Channel Based on Client's requested searchOptions.type> value
@@ -121,7 +121,7 @@ class YoutubeApiLTE {
   }
 
   /**
-   * @method safeSearch() -> Safe Search Mode Function where "safeSearchMode" will be enabled by default
+   * safeSearch() -> Safe Search Mode Function where "safeSearchMode" will be enabled by default
    * @param {string | YoutubeChannel | YoutubePlaylist | YoutubeVideo } rawQuery Raw Query like Url , Youtube Ids or instance of YoutubeVideo | &lt;YoutubeApiLTE>.validate() will Validate the value to Request
    * @param {searchOptions} searchOptions Youtube Search Options for Request Module and Filter Parsing Sections
    * @returns {Promise&lt;YoutubeVideo[] | YoutubePlaylist[] | YoutubeChannel[] | void>} Returns Array of Youtube Video/Playlist/Channel Based on Client's requested searchOptions.type> value
@@ -143,7 +143,7 @@ class YoutubeApiLTE {
   }
 
   /**
-   * @method safeSearchOne() -> Safe Search Mode Function where "safeSearchMode" will be enabled by default and Fetches 1 Value as its Answer
+   * safeSearchOne() -> Safe Search Mode Function where "safeSearchMode" will be enabled by default and Fetches 1 Value as its Answer
    * @param {string | YoutubeChannel | YoutubePlaylist | YoutubeVideo } rawQuery Raw Query like Url , Youtube Ids or instance of YoutubeVideo | &lt;YoutubeApiLTE>.validate() will Validate the value to Request
    * @param {searchOptions} searchOptions Youtube Search Options for Request Module and Filter Parsing Sections
    * @returns {Promise&lt;YoutubeVideo | YoutubePlaylist | YoutubeChannel | void>} Returns  Youtube Video/Playlist/Channel Based on Client's requested searchOptions.type> value
@@ -165,7 +165,7 @@ class YoutubeApiLTE {
   }
 
   /**
-   * @method isSafeCheck() -> Safe Function check for Youtube Video as its primary scope and returns boolean as "true" or "false"
+   * isSafeCheck() -> Safe Function check for Youtube Video as its primary scope and returns boolean as "true" or "false"
    * @param {string | YoutubeChannel | YoutubePlaylist | YoutubeVideo } rawUrl Raw Query like Url , Youtube Ids or instance of YoutubeVideo | &lt;YoutubeApiLTE>.validate() will Validate the value to Request
    * @param {searchOptions} searchOptions Youtube Search Options for Request Module and Filter Parsing Sections
    * @returns {Promise&lt;Boolean | void> | void} Returns Boolean Value for if its safe to use or not
@@ -202,7 +202,7 @@ class YoutubeApiLTE {
   }
 
   /**
-   * @method getVideo() -> Fetches Only Video and Fetches Data from Video's Official Page for correct and more valuable Data to Fetch
+   * getVideo() -> Fetches Only Video and Fetches Data from Video's Official Page for correct and more valuable Data to Fetch
    * @param {string | YoutubeChannel | YoutubePlaylist | YoutubeVideo } rawUrl Raw Query like Url , Youtube Ids or instance of YoutubeVideo | &lt;YoutubeApiLTE>.validate() will Validate the value to Request
    * @param {searchOptions} searchOptions Youtube Search Options for Request Module and Filter Parsing Sections
    * @param {boolean | void} hardFetchMode hard Fetch method to fetch everything aggressively
@@ -260,7 +260,7 @@ class YoutubeApiLTE {
   }
 
   /**
-   * @method getPlaylist() -> Fetches Playlist Data from Playlist Url or Id and Fetches Data from Actual Playlist Page
+   * getPlaylist() -> Fetches Playlist Data from Playlist Url or Id and Fetches Data from Actual Playlist Page
    * @param {string | YoutubeChannel | YoutubePlaylist | YoutubeVideo } rawUrl Raw Query like Url , Youtube Ids or instance of YoutubeVideo | &lt;YoutubeApiLTE>.validate() will Validate the value to Request
    * @param {searchOptions} searchOptions Youtube Search Options for Request Module and Filter Parsing Sections
    * @param {boolean | void} hardPlaylistfetchMode hard Fetch method to fetch Playlist Video Data aggressively
@@ -319,7 +319,7 @@ class YoutubeApiLTE {
   }
 
   /**
-   * @method validate() -> Validation of Urls or strings for Query , Video , Playlist and Channel
+   * validate() -> Validation of Urls or strings for Query , Video , Playlist and Channel
    * @param {string | YoutubeChannel | YoutubePlaylist | YoutubeVideo } rawUrl Raw Query like Url , Youtube Ids or instance of YoutubeVideo | &lt;YoutubeApiLTE>.validate() will Validate the value to Request
    * @param {string | void} safeSearchMode Youtube Search Safe Mode if to check
    * @returns {Promise&lt;youtubeValidateData> | void} Returns Parsed Data of Url and Id after validate of Data
@@ -382,7 +382,7 @@ class YoutubeApiLTE {
   }
 
   /**
-   * @method getHomepage() -> Fetches Homepage Video Data into Youtube Video Formated
+   * getHomepage() -> Fetches Homepage Video Data into Youtube Video Formated
    * @param {searchOptions} searchOptions Search Options for HTTP Request Options
    * @returns {Promise&lt;YoutubeVideo[] | void>} Returns Youtube Video Array or undefined on failure
    */
@@ -399,7 +399,7 @@ class YoutubeApiLTE {
   }
 
   /**
-   * @method getTrending() -> Fetches Trending Page Data into Youtube Video Formated
+   * getTrending() -> Fetches Trending Page Data into Youtube Video Formated
    * @param {searchOptions} searchOptions Search Options for HTTP Request Options
    * @returns {Promise&lt;YoutubeVideo[] | void>} Returns Youtube Video Array or [] or undefined on failure
    */
@@ -416,7 +416,7 @@ class YoutubeApiLTE {
   }
 
   /**
-   * @method InnerTube() -> Fetches Inner API Key Data from Youtube HomePage
+   * InnerTube() -> Fetches Inner API Key Data from Youtube HomePage
    * @param {searchOptions | void} searchOptions Search Options for HTTP Request Options
    * @returns {string | void} Returns Youtube Inner Tube API Key or undefined on failure
    */
@@ -435,7 +435,7 @@ class YoutubeApiLTE {
 
   /**
    * @private
-   * @method #htmlSearchResultFetch() -> HTML Search Result private Fetch Function for public search method
+   * #htmlSearchResultFetch() -> HTML Search Result private Fetch Function for public search method
    * @param {string | YoutubeChannel | YoutubePlaylist | YoutubeVideo } rawQuery Raw Query like Url , Youtube Ids or instance of YoutubeVideo | &lt;YoutubeApiLTE>.validate() will Validate the value to Request
    * @param {searchOptions} searchOptions Youtube Search Options for Request Module and Filter Parsing Sections
    * @returns {Promise&lt;YoutubeVideo[] | YoutubePlaylist[] | YoutubeChannel[] | void>} Returns Array of Youtube Video/Playlist/Channel Based on Client's requested searchOptions.type> value
@@ -490,7 +490,7 @@ module.exports = YoutubeApiLTE
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Thu Jan 20 2022 12:40:06 GMT+0000 (Coordinated Universal Time) using <a href="https://github.com/zyrouge/jsdoc-skyceil">Skyceil Theme</a>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Thu Jan 20 2022 12:43:27 GMT+0000 (Coordinated Universal Time) using <a href="https://github.com/zyrouge/jsdoc-skyceil">Skyceil Theme</a>
 </footer>
 
 <script>prettyPrint();</script>
