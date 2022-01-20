@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Global</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <script src="scripts/nav.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/skyceil.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+</head>
+
+<body>
+
+<nav class="navbar">
+    <h4><a href="index.html">Home</a></h4><h5 class="no-bottom must-underline">Classes</h5><ul><li><span class="small-icon C">C</span><b><a href="YoutubeApiLTE.html">YoutubeApiLTE</a></b><ul class="has-class-methods"><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#getHomepage">getHomepage</a></li><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#getPlaylist">getPlaylist</a></li><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#getTrending">getTrending</a></li><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#getVideo">getVideo</a></li><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#innerTubeApikey">innerTubeApikey</a></li><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#isSafeCheck">isSafeCheck</a></li><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#safeSearch">safeSearch</a></li><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#safeSearchOne">safeSearchOne</a></li><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#search">search</a></li><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#searchOne">searchOne</a></li><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#validate">validate</a></li><li><span class="small-icon M">M</span><a href="YoutubeApiLTE.html#searchOptions">searchOptions</a></li></ul></li><li><span class="small-icon C">C</span><b><a href="YoutubeChannel.html">YoutubeChannel</a></b><ul class="has-class-methods"><li><span class="small-icon F">F</span><a href="YoutubeChannel.html#iconURL">iconURL</a></li><li><span class="small-icon F">F</span><a href="YoutubeChannel.html#toJSON">toJSON</a></li><li><span class="small-icon F">F</span><a href="YoutubeChannel.html#toString">toString</a></li><li><span class="small-icon M">M</span><a href="YoutubeChannel.html#channelId">channelId</a></li><li><span class="small-icon M">M</span><a href="YoutubeChannel.html#icon">icon</a></li><li><span class="small-icon M">M</span><a href="YoutubeChannel.html#name">name</a></li><li><span class="small-icon M">M</span><a href="YoutubeChannel.html#subscribers">subscribers</a></li><li><span class="small-icon M">M</span><a href="YoutubeChannel.html#type">type</a></li><li><span class="small-icon M">M</span><a href="YoutubeChannel.html#url">url</a></li><li><span class="small-icon M">M</span><a href="YoutubeChannel.html#verified">verified</a></li></ul></li><li><span class="small-icon C">C</span><b><a href="YoutubePlaylist.html">YoutubePlaylist</a></b><ul class="has-class-methods"><li><span class="small-icon F">F</span><a href="YoutubePlaylist.html#fetchAll">fetchAll</a></li><li><span class="small-icon F">F</span><a href="YoutubePlaylist.html#next">next</a></li><li><span class="small-icon F">F</span><a href="YoutubePlaylist.html#toJSON">toJSON</a></li><li><span class="small-icon M">M</span><a href="YoutubePlaylist.html#channel">channel</a></li><li><span class="small-icon M">M</span><a href="YoutubePlaylist.html#lastUpdate">lastUpdate</a></li><li><span class="small-icon M">M</span><a href="YoutubePlaylist.html#name">name</a></li><li><span class="small-icon M">M</span><a href="YoutubePlaylist.html#playlistId">playlistId</a></li><li><span class="small-icon M">M</span><a href="YoutubePlaylist.html#previewLink">previewLink</a></li><li><span class="small-icon M">M</span><a href="YoutubePlaylist.html#thumbnail">thumbnail</a></li><li><span class="small-icon M">M</span><a href="YoutubePlaylist.html#type">type</a></li><li><span class="small-icon M">M</span><a href="YoutubePlaylist.html#url">url</a></li><li><span class="small-icon M">M</span><a href="YoutubePlaylist.html#videoCount">videoCount</a></li><li><span class="small-icon M">M</span><a href="YoutubePlaylist.html#videos">videos</a></li><li><span class="small-icon M">M</span><a href="YoutubePlaylist.html#views">views</a></li></ul></li><li><span class="small-icon C">C</span><b><a href="YoutubeThumbnail.html">YoutubeThumbnail</a></b><ul class="has-class-methods"><li><span class="small-icon F">F</span><a href="YoutubeThumbnail.html#defaultThumbnailURL">defaultThumbnailURL</a></li><li><span class="small-icon F">F</span><a href="YoutubeThumbnail.html#displayThumbnailURL">displayThumbnailURL</a></li><li><span class="small-icon F">F</span><a href="YoutubeThumbnail.html#toJSON">toJSON</a></li><li><span class="small-icon F">F</span><a href="YoutubeThumbnail.html#toString">toString</a></li><li><span class="small-icon M">M</span><a href="YoutubeThumbnail.html#height">height</a></li><li><span class="small-icon M">M</span><a href="YoutubeThumbnail.html#thumbnailId">thumbnailId</a></li><li><span class="small-icon M">M</span><a href="YoutubeThumbnail.html#type">type</a></li><li><span class="small-icon M">M</span><a href="YoutubeThumbnail.html#url">url</a></li><li><span class="small-icon M">M</span><a href="YoutubeThumbnail.html#width">width</a></li></ul></li><li><span class="small-icon C">C</span><b><a href="YoutubeVideo.html">YoutubeVideo</a></b><ul class="has-class-methods"><li><span class="small-icon F">F</span><a href="YoutubeVideo.html#embedHTML">embedHTML</a></li><li><span class="small-icon F">F</span><a href="YoutubeVideo.html#fetch">fetch</a></li><li><span class="small-icon F">F</span><a href="YoutubeVideo.html#toJSON">toJSON</a></li><li><span class="small-icon F">F</span><a href="YoutubeVideo.html#toString">toString</a></li><li><span class="small-icon M">M</span><a href="YoutubeVideo.html#channel">channel</a></li><li><span class="small-icon M">M</span><a href="YoutubeVideo.html#description">description</a></li><li><span class="small-icon M">M</span><a href="YoutubeVideo.html#dislikes">dislikes</a></li><li><span class="small-icon M">M</span><a href="YoutubeVideo.html#duration">duration</a></li><li><span class="small-icon M">M</span><a href="YoutubeVideo.html#duration_raw">duration_raw</a></li><li><span class="small-icon M">M</span><a href="YoutubeVideo.html#embedURL">embedURL</a></li><li><span class="small-icon M">M</span><a href="YoutubeVideo.html#Id">Id</a></li><li><span class="small-icon M">M</span><a href="YoutubeVideo.html#islive">islive</a></li><li><span class="small-icon M">M</span><a href="YoutubeVideo.html#isprivate">isprivate</a></li><li><span class="small-icon M">M</span><a href="YoutubeVideo.html#likes">likes</a></li><li><span class="small-icon M">M</span><a href="YoutubeVideo.html#suggestionVideos">suggestionVideos</a></li><li><span class="small-icon M">M</span><a href="YoutubeVideo.html#tags">tags</a></li><li><span class="small-icon M">M</span><a href="YoutubeVideo.html#thumbnail">thumbnail</a></li><li><span class="small-icon M">M</span><a href="YoutubeVideo.html#title">title</a></li><li><span class="small-icon M">M</span><a href="YoutubeVideo.html#type">type</a></li><li><span class="small-icon M">M</span><a href="YoutubeVideo.html#uploadedAt">uploadedAt</a></li><li><span class="small-icon M">M</span><a href="YoutubeVideo.html#url">url</a></li><li><span class="small-icon M">M</span><a href="YoutubeVideo.html#videoId">videoId</a></li><li><span class="small-icon M">M</span><a href="YoutubeVideo.html#views">views</a></li></ul></li></ul><h4><a href="global.html">Global</a></h4>
+</nav>
+
+<div id="main">
+    <div class="burger">
+        <div class="burger-line-1"></div>
+        <div class="burger-line-2"></div>
+        <div class="burger-line-3"></div>
+    </div>
+
+    <h1 class="page-title">Global</h1>
+
+    
+
+
+
+
+<section>
+<header>
+    <hr>
+    
+        <h2></h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Type Definitions</h3>
+
+        
+                
+<h4 class="name" id="embedHTMLvideoURLOptions">embedHTMLvideoURLOptions</h4>
+
+
+
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<div class="table-box">
+    <table class="props">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
+                
+                    <td class="name"><code>id</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">string</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>Embed YTPLAYER Id</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>width</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">number</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>Embed's Width Value</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>height</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">number</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>Embed's Height Value</p></td>
+            </tr>
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="types_interfaces.js.html">types/interfaces.js</a>, <a href="types_interfaces.js.html#line99">line 99</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+<hr>
+            
+                
+<h4 class="name" id="enumData">enumData</h4>
+
+
+
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<div class="table-box">
+    <table class="props">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
+                
+                    <td class="name"><code>HTML_SAFE_SEARCH_COOKIE_VALUE</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">String</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>&quot;PREF=f2=8000000&quot;</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>BASE_HTML_YOUTUBE_API_URL</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">String</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>&quot;https://www.youtube.com/youtubei/v1/browse?key=&quot;</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>HTML_BASE_SEARCH_QUERY_URL</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">String</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>&quot;https://youtube.com/results&quot;</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>DEFAULT_HTML_YOUTUBE_API_KEY</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">String</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>'AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8'</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>HTML_YOUTUBE_BASE_SEARCH_QUERY_URL</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">String</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>&quot;https://youtube.com/results?q=&quot;</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>HTML_YOUTUBE_VIDEO_BASE_URL</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">String</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>&quot;https://www.youtube.com/watch?v=&quot;</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>HTML_YOUTUBE_CHANNEL_BASE_URL</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">String</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>&quot;https://www.youtube.com/channel/&quot;</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>HTML_YOUTUBE_USER_BASE_URL</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">String</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>&quot;https://www.youtube.com/c/&quot;</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>HTML_YOUTUBE_THUMBNAIL_BASE_URL</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">String</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>&quot;https://i3.ytimg.com/vi/&quot;</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>HTML_YOUTUBE_HOMEPAGE_BASE_URL</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">String</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>&quot;https://www.youtube.com?hl=en&quot;</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>HTML_YOUTUBE_TRENDING_PAGE_BASE_URL</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">String</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>&quot;https://www.youtube.com/feed/explore?hl=en&quot;</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>HTML_YOUTUBE_PLAYLIST_BASE_URL</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">String</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>&quot;https://www.youtube.com/playlist?list=&quot;</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>HTML_YOUTUBE_HEADER_DATA</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">Object</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>{ &quot;User-Agent&quot;: &quot;Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/78.0&quot;, }</p></td>
+            </tr>
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="types_interfaces.js.html">types/interfaces.js</a>, <a href="types_interfaces.js.html#line18">line 18</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+<hr>
+            
+                
+<h4 class="name" id="httpRequestOptions">httpRequestOptions</h4>
+
+
+
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<div class="table-box">
+    <table class="props">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
+                
+                    <td class="name"><code>proxy</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">String</span>
+|
+
+<span class="param-type">Object</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>Proxy Value as &quot;https://www.goggle.com:456&quot; or { host: &quot;www.google.com&quot;, port: 456 } as Value</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>headers</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">object</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>headers Value for Axios Get and Post Request | Default -&gt; { &quot;User-Agent&quot;: &quot;Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/78.0&quot;, }</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>cookie</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">String</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>Youtube Cookie Vlaue in string as 1 line if possible | Cookie Session Value can be collected after inspecting network packets in youtube Homepage</p></td>
+            </tr>
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="types_interfaces.js.html">types/interfaces.js</a>, <a href="types_interfaces.js.html#line55">line 55</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+<hr>
+            
+                
+<h4 class="name" id="searchOptions">searchOptions</h4>
+
+
+
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<div class="table-box">
+    <table class="props">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
+                
+                    <td class="name"><code>type</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">string</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>Search Options Filter Type</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>safeSearchMode</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">boolean</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>Safe Search Mode for Search Query Filter</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>limit</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">string</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>Limit Count Number for fetch Data in Array</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>AxiosHttpRequestConfigs</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type"><a href="global.html#httpRequestOptions">httpRequestOptions</a></span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>Axios Config Options like 'headers' and many more...</p></td>
+            </tr>
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="types_interfaces.js.html">types/interfaces.js</a>, <a href="types_interfaces.js.html#line84">line 84</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+<hr>
+            
+                
+<h4 class="name" id="youtubeUrlParseHtmlSearchData">youtubeUrlParseHtmlSearchData</h4>
+
+
+
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<div class="table-box">
+    <table class="props">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
+                
+                    <td class="name"><code>parsedData</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">String</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>Parsed Ids Data from URls or Raw Ids</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>parsedUrl</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">String</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>Parsed Urls from Raw Data</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>searchQueryUrl</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">String</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>Search Query Url for HTML Request on Youtube</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>contentType</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">String</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>raw Data validation checks Type as -&gt; 'video' | 'channel' | 'playlist' | 'query' | 'videoId' | 'playlistId'</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>rawMatchData</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">Array.&lt;String></span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>Raw Data on Regex testing</p></td>
+            </tr>
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="types_interfaces.js.html">types/interfaces.js</a>, <a href="types_interfaces.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+<hr>
+            
+                
+<h4 class="name" id="youtubeValidateData">youtubeValidateData</h4>
+
+
+
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<div class="table-box">
+    <table class="props">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
+                
+                    <td class="name"><code>Id</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">string</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>Validata fetched Id Data</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>url</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">string</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>Type Based Parsed Url</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>type</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">string</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>Data validation Type | like -&gt; 'video' , 'channel' . 'playlist' , 'query'</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>isSafeCheck</code></td>
+                
+
+                <td class="type">
+                
+                    
+<span class="param-type">boolean</span>
+
+
+                
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>Safety Checks for Videos Only if Safe Search Mode is enabled</p></td>
+            </tr>
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="types_interfaces.js.html">types/interfaces.js</a>, <a href="types_interfaces.js.html#line69">line 69</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+<hr>
+            
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Thu Jan 20 2022 16:42:31 GMT+0000 (Coordinated Universal Time) using <a href="https://github.com/zyrouge/jsdoc-skyceil">Skyceil Theme</a>
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+
+</body>
+</html>

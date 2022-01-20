@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Home</title>
+    <title>Source: Structures/Youtube-Elements/thumbnail-element.js</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -27,238 +27,150 @@
         <div class="burger-line-3"></div>
     </div>
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Structures/Youtube-Elements/thumbnail-element.js</h1>
 
     
 
 
 
     
-
-
-    <h3>jericho-api 1.0.0</h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
     <section>
-        <article><div align="center">
-  <br />
-  <p>
-    <a href="https://github.com/SidisLiveYT/jericho-api"><img src="https://raw.githubusercontent.com/SidisLiveYT/jericho-api/main/.github/asserts/logo.svg" width="546" alt="jericho-api" /></a>
-  </p>
-  <br />
-<p>
-<a href="https://discord.gg/MfME24sJ2a"><img src="https://img.shields.io/discord/795434308005134406?color=5865F2&logo=discord&logoColor=white" alt="Discord server" /></a>
-<a href="https://www.npmjs.com/package/jericho-api"><img src="https://img.shields.io/npm/v/jericho-api.svg?maxAge=3600" alt="npm version" /></a>
-<a href="https://www.npmjs.com/package/jericho-api"><img src="https://img.shields.io/npm/dt/jericho-api.svg?maxAge=3600" alt="npm downloads" /></a>
-<a href="https://github.com/SidisLiveYT/jericho-api/actions"><img src="https://github.com/discordjs/discord.js/workflows/Testing/badge.svg" alt="Tests status" /></a>
-</p>
-</div>
-<p>Multi-Node-Api for Community Based Projects includes Custom-YoutubeApi and Many More Api's Wrappers and Many more will be included if you contact us and suggest us some great apis</p>
-<h2>Installation</h2>
-<h3>Install <strong><a href="https://npmjs.com/package/jericho-api">jericho-api</a></strong></h3>
-<pre class="prettyprint source lang-sh"><code>$ npm install --save jericho-api
-</code></pre>
-<h1>Features</h1>
-<ul>
-<li>Soft and Hard fetch methods Integrated with YoutubeApiLTE Class</li>
-<li>Package can be used with Commonjs or ES6 Type of Javascript and typings included</li>
-<li>Added getHomepage() and getTrending() Function and returns Youtube Video Arrays</li>
-<li>Added <YoutubeVideo>.fetch() method for Hard Fetch Type</li>
-<li>Custom Youtube Wrapper and have many functions to fetch data</li>
-<li>Better Event Handlers and Request Handlers</li>
-<li>Better Body Parsing for Incomplete request ( HTTP Post Request )</li>
-</ul>
-<h3>Schemes :</h3>
-<h4>Youtube Video Scheme :</h4>
-<pre class="prettyprint source lang-js"><code>YoutubeVideo {
-  Id: 1,
-  videoId: '9UMxZofMNbA',
-  title: 'Chillout Lounge - Calm & Relaxing Background Music | Study, Work, Sleep, Meditation, Chill',
-  description: 'Short Description here [Edited for Scheme]',
-  duration_raw: '00:00',
-  duration: 0,
-  url: 'https://www.youtube.com/watch?v=9UMxZofMNbA',
-  uploadedAt: 'Started streaming on Jun 13, 2021',
-  views: 12902240,
-  thumbnail: YoutubeThumbnail {
-    thumbnailId: '9UMxZofMNbA',
-    width: 1920,
-    height: 1080,
-    url: 'https://i.ytimg.com/vi/9UMxZofMNbA/maxresdefault.jpg?v=60c5e7c1'
-  },
-  channel: YoutubeChannel {
-    name: 'The Good Life Radio x Sensual Musique',
-    verified: false,
-    channelId: 'UChs0pSaEoNLV4mevBFGaoKA',
-    icon: {
-      url: 'https://yt3.ggpht.com/ytc/AKedOLRolK5uaMIsmYQV2cHzxxC8qSCH5aQ18O3_PMJHwQ=s48-c-k-c0x00ffffff-no-rj',
-      width: 48,
-      height: 48
-    },
-    subscribers: '674K',
-    url: 'https://www.youtube.com/channel/UChs0pSaEoNLV4mevBFGaoKA'
-  },
-  likes: 109710,
-  dislikes: 0,
-  islive: true,
-  isprivate: false,
-  tags: [
-    'chill-out music',
-    'chill music',
-    'chillout',
-    'chill house',
-    'chill',
-    'out',
-    'music',
-    'deep house',
-    'deep',
-    'house',
-    'house music',
-    'dance music',
-    'edm',
-    'electronic dance music',
-    'the good life radio',
-    'the good life'
-  ],
-  suggestionVideos: [ ...YoutubeVideo[] ]
-  // Here Recommendation Videos will be spotted But with soft fetch only | But you can fetch its total data by indivually -> &lt;YoutubeVideo>.fetch() or fetch together by ->  &lt;YoutubeApiLTE>.getVideo(Url , searchOptions , true) and it will return hard fetch videos
-}
-</code></pre>
-<h3>Examples :</h3>
-<h4>YoutubeApiLTE Class Example :</h4>
-<pre class="prettyprint source lang-js"><code>const { YoutubeApiLTE } = require(&quot;jericho-api&quot;);
+        <article>
+            <pre class="prettyprint source linenums"><code>const { enumData } = require('../../types/interfaces')
 
 /**
- * searchOptions -> Search Options for &lt;YoutubeApiLTE>.search() method
- *
- * (@) We are giving headers for &quot;User-Agent&quot; But you can also give other or left it as undefined or enable &quot;randomUserAgents&quot;: true
- * (@) Search Options helps to filter the search results for Search Query URL and Axios get Response
- */
-var searchOptions = {
-  AxiosHttpRequestConfigs: {
-    headers: {
-      &quot;User-Agent&quot;:
-        &quot;Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/78.0&quot;,
-    },
-  },
-};
-
-/**
- * YoutubeInstance -> YoutubeInstance has been been created and all methods of Api calls will be used with it
+ * @class YoutubeThumbnail -> Youtube Thumbnail based Class
  */
 
-var YoutubeInstance = new YoutubeApiLTE(searchOptions);
-
-/**
- * Youtube_Video -> Fetching Video Metadata from Search Result and also added &lt;YoutubeVideo>.fetch() to get all exact Hard fetched Data (&quot;You can ignore fetch if you are okay with search results or Soft Data&quot;)
- */
-var Youtube_Video = new Promise(async (resolve) => {
+class YoutubeThumbnail {
   /**
-   * &lt;YoutubeApiLTE>.search() function has been called here to fetch Search Results Data
-   *
-   * (@) Added Default &quot;searchOptions&quot; But its choice based
-   * (@) Added limit : 2 , To make only 2 Data or else you can give 1 and 0 for Infinty
-   * (@) Added type : 'video' , Filter Parsing in &lt;Axios>.get() Search Query URL | Choices -> &quot;channel&quot;,&quot;playlist&quot;,&quot;video&quot;,&quot;all&quot;
+   * @constructor
+   * @param {JSON} cookedHtmlData Cooked Json formated Data for parsing into instance
    */
-  var Youtube_Video_Data = await YoutubeInstance.search(`Despacito`, {
-    ...searchOptions,
-    type: &quot;all&quot;,
-    limit: 2,
-  });
-
-  /**
-   * Youtube_Video_Data -> Checking for its validity as a Data because Search Result will give usually you search for it in Youtube
-   */
-  if (!(Youtube_Video_Data?.[0] && Youtube_Video_Data?.[0]?.type === &quot;video&quot;))
-    resolve(undefined);
-  else {
+  constructor(cookedHtmlData) {
     /**
-     * &lt;YoutubeVideo>.fetch()
-     *
-     * (@) Hard Fetching Data and parse it on same Instance to avoid buffer overflow and memory leaks
-     * (@) if you encounter &quot;429&quot; Erros , you can use cookies and proxies or diffrent user-agent to fetch data through 'Axios'
+     * @type {string}
+     * @readonly
+     * Youtube Thumbnail's Id
      */
-    await Youtube_Video_Data[0].fetch(searchOptions?.AxiosHttpRequestConfigs);
+    this.thumbnailId = undefined
+
+    /**
+     * @type {number}
+     * @readonly
+     * Youtube Thumbnail's width
+     */
+    this.width = 0
+
+    /**
+     * @type {number}
+     * @readonly
+     * Youtube Thumbnail's height
+     */
+    this.height = 0
+
+    /**
+     * @type {string}
+     * @readonly
+     * Youtube Thumbnail's Url
+     */
+    this.url = undefined
+
+    this.#__parse(cookedHtmlData)
   }
 
-  resolve(Youtube_Video_Data);
-});
+  /**
+   * @private
+   * #__parse() -> Parsing Raw Json Formated Given Value to YoutubeThmbnail Instance
+   * @param {JSON} cookedHtmlData Cooked Json formated Data for parsing into instance
+   * @returns {void} Returns undefined after Parsing
+   */
+  #__parse(cookedHtmlData) {
+    if (!cookedHtmlData) return undefined
 
-/**
- * Youtube_Video -> Fetched &lt;YoutubeVideo> Class Instance
- */
-console.log(Youtube_Video);
-</code></pre>
-<h4>Cookies with YoutubeApiLTE :</h4>
-<pre class="prettyprint source lang-js"><code>var searchOptions = {
-  AxiosHttpRequestConfigs: {
-    cookie:
-      &quot;xxxx=xyz-secret-youtube-cookie-browser-network-inspect-as-string-xxxx=xyznc&quot;,
-  },
-};
+    this.thumbnailId = cookedHtmlData.thumbnailId ?? undefined
+    this.width = cookedHtmlData.width ?? 0
+    this.height = cookedHtmlData.height ?? 0
+    this.url = cookedHtmlData.url ?? undefined
 
-// OR
+    return undefined
+  }
 
-var searchOptions = {
-  AxiosHttpRequestConfigs: {
-    cookies:
-      &quot;xxxx=xyz-secret-youtube-cookie-browser-network-inspect-as-string-xxxx=xyznc&quot;,
-  },
-};
-</code></pre>
-<h4>Proxy with YoutubeApiLTE :</h4>
-<pre class="prettyprint source lang-js"><code>var searchOptions = {
-  AxiosHttpRequestConfigs: {
-    proxy: &quot;https://www.goggle.com:456&quot;,
-  },
-};
+  /**
+   * displayThumbnailURL() -> parsing to Custom Display Thumbnail Url
+   * @param {string | void | "ultrares"} thumbnailType Youtube Thumbnail Type for Display Thumbnail Url
+   * @returns {void | string} Returns Custom Display Thumbnail Url
+   */
 
-// OR
+  displayThumbnailURL(thumbnailType = 'ultrares') {
+    if (!this.thumbnailId) return undefined
+    if (
+      ![
+        'default',
+        'hqdefault',
+        'mqdefault',
+        'sddefault',
+        'maxresdefault',
+        'ultrares',
+      ].includes(thumbnailType)
+    )
+      throw new Error(`Invalid Thumbnail Type is Detected: "${thumbnailType}"`)
+    if (thumbnailType === 'ultrares') return this.url
+    return `${enumData.HTML_YOUTUBE_THUMBNAIL_BASE_URL}${this.thumbnailId}/${thumbnailType}.jpg`
+  }
 
-var searchOptions = {
-  AxiosHttpRequestConfigs: {
-    proxy: { host: &quot;www.google.com&quot;, port: 456 },
-  },
-};
+  /**
+   * defaultThumbnailURL() -> parsing to Custom Default Thumbnail Url
+   * @param {string | void | "0"} thumbnailId Youtube Thumbnail Type for Default Thumbnail Url
+   * @returns {void | string} Returns Custom Default Thumbnail Url
+   */
+
+  defaultThumbnailURL(thumbnailId = '0') {
+    if (!thumbnailId) thumbnailId = '0'
+    if (!['0', '1', '2', '3', '4'].includes(thumbnailId))
+      throw new Error(`Invalid Thumbnail Id is Detected: "${thumbnailId}"`)
+    return `${enumData.HTML_YOUTUBE_THUMBNAIL_BASE_URL}${this.thumbnailId}/${thumbnailId}.jpg`
+  }
+
+  /**
+   * toString() -> String value of instance's Thumbnail url
+   * @returns {string} returns string url
+   */
+
+  toString() {
+    return this.url ? `${this.url}` : undefined
+  }
+
+  /**
+   * toJSON() -> JSON Formated from raw instance properties
+   * @returns {JSON} Returns Json Formated Value
+   */
+
+  toJSON() {
+    if (!this.thumbnailId) return undefined
+    return {
+      thumbnailId: this.thumbnailId,
+      width: this.width,
+      height: this.height,
+      url: this.url,
+    }
+  }
+
+  /**
+   * @type {string | void}
+   * @readonly
+   * return type of instance
+   */
+  get type() {
+    if (!this.thumbnailId) return undefined
+    return 'thumbnail'
+  }
+}
+
+module.exports = YoutubeThumbnail
 </code></pre>
-<h4>User-Agents with YoutubeApiLTE :</h4>
-<pre class="prettyprint source lang-js"><code>var searchOptions = {
-  AxiosHttpRequestConfigs: {
-    headers: {
-      &quot;User-Agent&quot;:
-        &quot;Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/78.0&quot;,
-    },
-  },
-};
-</code></pre>
-<h4>AxiosHTTPConfigs with YoutubeApiLTE :</h4>
-<pre class="prettyprint source lang-js"><code>var searchOptions = {
-  AxiosHttpRequestConfigs: {},
-};
-</code></pre>
-<h2>Links</h2>
-<ul>
-<li><a href="https://github.com/SidisLiveYT/jericho-api.git">Source Code</a></li>
-<li><a href="https://github.com/SidisLiveYT/jericho-api">GitHub Repo Link</a></li>
-<li><a href="https://www.npmjs.com/package/jericho-api">NPM Package</a></li>
-<li><a href="https://yarn.pm/jericho-api">Yarn Package</a></li>
-</ul></article>
+        </article>
     </section>
-
-
 
 
 

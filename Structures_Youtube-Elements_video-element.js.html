@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Source: Structures/Youtube-Elements/video-element.js</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <script src="scripts/nav.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/skyceil.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+</head>
+
+<body>
+
+<nav class="navbar">
+    <h4><a href="index.html">Home</a></h4><h5 class="no-bottom must-underline">Classes</h5><ul><li><span class="small-icon C">C</span><b><a href="YoutubeApiLTE.html">YoutubeApiLTE</a></b><ul class="has-class-methods"><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#getHomepage">getHomepage</a></li><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#getPlaylist">getPlaylist</a></li><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#getTrending">getTrending</a></li><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#getVideo">getVideo</a></li><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#innerTubeApikey">innerTubeApikey</a></li><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#isSafeCheck">isSafeCheck</a></li><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#safeSearch">safeSearch</a></li><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#safeSearchOne">safeSearchOne</a></li><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#search">search</a></li><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#searchOne">searchOne</a></li><li><span class="small-icon F">F</span><a href="YoutubeApiLTE.html#validate">validate</a></li><li><span class="small-icon M">M</span><a href="YoutubeApiLTE.html#searchOptions">searchOptions</a></li></ul></li><li><span class="small-icon C">C</span><b><a href="YoutubeChannel.html">YoutubeChannel</a></b><ul class="has-class-methods"><li><span class="small-icon F">F</span><a href="YoutubeChannel.html#iconURL">iconURL</a></li><li><span class="small-icon F">F</span><a href="YoutubeChannel.html#toJSON">toJSON</a></li><li><span class="small-icon F">F</span><a href="YoutubeChannel.html#toString">toString</a></li><li><span class="small-icon M">M</span><a href="YoutubeChannel.html#channelId">channelId</a></li><li><span class="small-icon M">M</span><a href="YoutubeChannel.html#icon">icon</a></li><li><span class="small-icon M">M</span><a href="YoutubeChannel.html#name">name</a></li><li><span class="small-icon M">M</span><a href="YoutubeChannel.html#subscribers">subscribers</a></li><li><span class="small-icon M">M</span><a href="YoutubeChannel.html#type">type</a></li><li><span class="small-icon M">M</span><a href="YoutubeChannel.html#url">url</a></li><li><span class="small-icon M">M</span><a href="YoutubeChannel.html#verified">verified</a></li></ul></li><li><span class="small-icon C">C</span><b><a href="YoutubePlaylist.html">YoutubePlaylist</a></b><ul class="has-class-methods"><li><span class="small-icon F">F</span><a href="YoutubePlaylist.html#fetchAll">fetchAll</a></li><li><span class="small-icon F">F</span><a href="YoutubePlaylist.html#next">next</a></li><li><span class="small-icon F">F</span><a href="YoutubePlaylist.html#toJSON">toJSON</a></li><li><span class="small-icon M">M</span><a href="YoutubePlaylist.html#channel">channel</a></li><li><span class="small-icon M">M</span><a href="YoutubePlaylist.html#lastUpdate">lastUpdate</a></li><li><span class="small-icon M">M</span><a href="YoutubePlaylist.html#name">name</a></li><li><span class="small-icon M">M</span><a href="YoutubePlaylist.html#playlistId">playlistId</a></li><li><span class="small-icon M">M</span><a href="YoutubePlaylist.html#previewLink">previewLink</a></li><li><span class="small-icon M">M</span><a href="YoutubePlaylist.html#thumbnail">thumbnail</a></li><li><span class="small-icon M">M</span><a href="YoutubePlaylist.html#type">type</a></li><li><span class="small-icon M">M</span><a href="YoutubePlaylist.html#url">url</a></li><li><span class="small-icon M">M</span><a href="YoutubePlaylist.html#videoCount">videoCount</a></li><li><span class="small-icon M">M</span><a href="YoutubePlaylist.html#videos">videos</a></li><li><span class="small-icon M">M</span><a href="YoutubePlaylist.html#views">views</a></li></ul></li><li><span class="small-icon C">C</span><b><a href="YoutubeThumbnail.html">YoutubeThumbnail</a></b><ul class="has-class-methods"><li><span class="small-icon F">F</span><a href="YoutubeThumbnail.html#defaultThumbnailURL">defaultThumbnailURL</a></li><li><span class="small-icon F">F</span><a href="YoutubeThumbnail.html#displayThumbnailURL">displayThumbnailURL</a></li><li><span class="small-icon F">F</span><a href="YoutubeThumbnail.html#toJSON">toJSON</a></li><li><span class="small-icon F">F</span><a href="YoutubeThumbnail.html#toString">toString</a></li><li><span class="small-icon M">M</span><a href="YoutubeThumbnail.html#height">height</a></li><li><span class="small-icon M">M</span><a href="YoutubeThumbnail.html#thumbnailId">thumbnailId</a></li><li><span class="small-icon M">M</span><a href="YoutubeThumbnail.html#type">type</a></li><li><span class="small-icon M">M</span><a href="YoutubeThumbnail.html#url">url</a></li><li><span class="small-icon M">M</span><a href="YoutubeThumbnail.html#width">width</a></li></ul></li><li><span class="small-icon C">C</span><b><a href="YoutubeVideo.html">YoutubeVideo</a></b><ul class="has-class-methods"><li><span class="small-icon F">F</span><a href="YoutubeVideo.html#embedHTML">embedHTML</a></li><li><span class="small-icon F">F</span><a href="YoutubeVideo.html#fetch">fetch</a></li><li><span class="small-icon F">F</span><a href="YoutubeVideo.html#toJSON">toJSON</a></li><li><span class="small-icon F">F</span><a href="YoutubeVideo.html#toString">toString</a></li><li><span class="small-icon M">M</span><a href="YoutubeVideo.html#channel">channel</a></li><li><span class="small-icon M">M</span><a href="YoutubeVideo.html#description">description</a></li><li><span class="small-icon M">M</span><a href="YoutubeVideo.html#dislikes">dislikes</a></li><li><span class="small-icon M">M</span><a href="YoutubeVideo.html#duration">duration</a></li><li><span class="small-icon M">M</span><a href="YoutubeVideo.html#duration_raw">duration_raw</a></li><li><span class="small-icon M">M</span><a href="YoutubeVideo.html#embedURL">embedURL</a></li><li><span class="small-icon M">M</span><a href="YoutubeVideo.html#Id">Id</a></li><li><span class="small-icon M">M</span><a href="YoutubeVideo.html#islive">islive</a></li><li><span class="small-icon M">M</span><a href="YoutubeVideo.html#isprivate">isprivate</a></li><li><span class="small-icon M">M</span><a href="YoutubeVideo.html#likes">likes</a></li><li><span class="small-icon M">M</span><a href="YoutubeVideo.html#suggestionVideos">suggestionVideos</a></li><li><span class="small-icon M">M</span><a href="YoutubeVideo.html#tags">tags</a></li><li><span class="small-icon M">M</span><a href="YoutubeVideo.html#thumbnail">thumbnail</a></li><li><span class="small-icon M">M</span><a href="YoutubeVideo.html#title">title</a></li><li><span class="small-icon M">M</span><a href="YoutubeVideo.html#type">type</a></li><li><span class="small-icon M">M</span><a href="YoutubeVideo.html#uploadedAt">uploadedAt</a></li><li><span class="small-icon M">M</span><a href="YoutubeVideo.html#url">url</a></li><li><span class="small-icon M">M</span><a href="YoutubeVideo.html#videoId">videoId</a></li><li><span class="small-icon M">M</span><a href="YoutubeVideo.html#views">views</a></li></ul></li></ul><h4><a href="global.html">Global</a></h4>
+</nav>
+
+<div id="main">
+    <div class="burger">
+        <div class="burger-line-1"></div>
+        <div class="burger-line-2"></div>
+        <div class="burger-line-3"></div>
+    </div>
+
+    <h1 class="page-title">Source: Structures/Youtube-Elements/video-element.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const YoutubeChannel = require('./channel-element')
+const YoutubeThumbnail = require('./thumbnail-element')
+const { enumData, searchOptions } = require('../../types/interfaces')
+const Utils = require('../../utils/Youtube-Utils')
+
+/**
+ * @class YoutubeVideo -> Class for Youtube Video Instance
+ */
+
+class YoutubeVideo {
+  /**
+   * @private
+   * @property {boolean} fetchedData Fetched Data to be checked to avoid un-neccassay data fetching
+   */
+  #fetchedData = false
+
+  /**
+   * @constructor
+   * @param {JSON} cookedHtmlData Cooked Json formated Data for parsing into instance
+   * @param {number | void | "0"} initialIndex Initial index for video as Id
+   * @param {boolean | void} fetchedDataBoolean if its fetched Data
+   */
+  constructor(cookedHtmlData, initialIndex = 0, fetchedDataBoolean = false) {
+    /**
+     * @type {number}
+     * @readonly
+     * Youtube Index Value in Accordance
+     */
+    this.Id = undefined
+
+    /**
+     * @type {string}
+     * @readonly
+     * Youtube Video Id in Accordance
+     */
+    this.videoId = undefined
+
+    /**
+     * @type {string}
+     * @readonly
+     * Youtube Video Title
+     */
+    this.title = undefined
+
+    /**
+     * @type {string}
+     * @readonly
+     * Youtube Video Description Data
+     */
+    this.description = undefined
+
+    /**
+     * @type {string}
+     * @readonly
+     * Youtube Video Duration in Raw Format | Human Readable Format
+     */
+    this.duration_raw = undefined
+
+    /**
+     * @type {number}
+     * @readonly
+     * Youtube Video Duration in Parsed Format | Duration in Milli-Seconds
+     */
+    this.duration = 0
+
+    /**
+     * @type {string}
+     * @readonly
+     * Youtube Video's Url
+     */
+    this.url = undefined
+
+    /**
+     * @type {string}
+     * @readonly
+     * Youtube Video's Uploaded Data in the form onf Huma Readable Format
+     */
+    this.uploadedAt = undefined
+
+    /**
+     * @type {number}
+     * @readonly
+     * Youtube Video's Views Count
+     */
+    this.views = undefined
+
+    /**
+     * @type {YoutubeThumbnail}
+     * @readonly
+     * Youtube Video's Thumbnail Data
+     */
+    this.thumbnail = undefined
+
+    /**
+     * @type {YoutubeChannel}
+     * @readonly
+     * Youtube Video's Channel Data
+     */
+    this.channel = undefined
+
+    /**
+     * @type {number}
+     * @readonly
+     * Youtube Video's Likes Count
+     */
+    this.likes = undefined
+
+    /**
+     * @type {number}
+     * @readonly
+     * Youtube Video's Dislikes Count
+     */
+    this.dislikes = undefined
+
+    /**
+     * @type {Boolean}
+     * @readonly
+     * Youtube Video's Live Content check as Boolean (true | false)
+     */
+    this.islive = false
+
+    /**
+     * @type {Boolean}
+     * @readonly
+     * Youtube Video's Private Content check as Boolean (true | false)
+     */
+    this.isprivate = false
+
+    /**
+     * @type {string[]}
+     * @readonly
+     * Youtube Video's Tags or Keywords
+     */
+    this.tags = undefined
+
+    /**
+     * @type {YoutubeVideo[]}
+     * @readonly
+     * Youtube Video's Recommendation Videos on Video Watch page
+     */
+    this.suggestionVideos = undefined
+
+    this.#__parse(cookedHtmlData, initialIndex, fetchedDataBoolean)
+  }
+
+  /**
+   * @private
+   * #__parse() -> Youtube Video Parsing method for Raw Json to indiviual data properties
+   * @param {JSON} cookedHtmlData Cooked Json formated Data for parsing into instance
+   * @param {number | void | "0"} initialIndex Initial index for video as Id
+   * @param {boolean | void} fetchedDataBoolean Boolean Value for Giving Checks for Fetched Data
+   * @returns {void} Returns undefined on completion
+   */
+  #__parse(cookedHtmlData, initialIndex, fetchedDataBoolean = false) {
+    if (!cookedHtmlData) return undefined
+    this.Id = parseInt(
+      initialIndex !== 0
+        ? initialIndex
+        : undefined ?? cookedHtmlData?.Id !== 0
+          ? cookedHtmlData?.Id
+          : undefined ?? 0,
+    )
+    this.videoId = cookedHtmlData.videoId ?? undefined
+    this.title = cookedHtmlData.title ?? cookedHtmlData.name ?? undefined
+    this.description = cookedHtmlData.description ?? undefined
+    this.duration_raw = cookedHtmlData.duration_raw ?? '0:00'
+    this.duration =
+      (cookedHtmlData.duration &lt; 0 ? 0 : cookedHtmlData.duration) ?? 0
+    this.url = `${enumData.HTML_YOUTUBE_VIDEO_BASE_URL}${this.videoId}`
+    this.uploadedAt = cookedHtmlData.uploadedAt ?? undefined
+    this.views = parseInt(cookedHtmlData.views ?? 0) ?? 0
+    this.thumbnail =
+      cookedHtmlData.thumbnail instanceof YoutubeThumbnail
+        ? cookedHtmlData.thumbnail
+        : new YoutubeThumbnail(cookedHtmlData.thumbnail ?? undefined)
+    this.channel =
+      cookedHtmlData.channel instanceof YoutubeChannel
+        ? cookedHtmlData.channel
+        : new YoutubeChannel(cookedHtmlData.channel ?? undefined)
+    this.likes = cookedHtmlData?.ratings?.likes ?? cookedHtmlData?.likes ?? 0
+    this.dislikes =
+      cookedHtmlData?.ratings?.dislikes ?? cookedHtmlData?.dislikes ?? 0
+    this.islive =
+      !!cookedHtmlData.islive ?? !!cookedHtmlData.live ?? !!cookedHtmlData.Live
+    this.isprivate =
+      !!cookedHtmlData.isprivate ??
+      !!cookedHtmlData.private ??
+      !!cookedHtmlData.Private
+    this.tags = cookedHtmlData.tags ?? []
+    this.suggestionVideos =
+      cookedHtmlData?.videos ?? cookedHtmlData?.suggestionVideos ?? []
+
+    this.#fetchedData = !!fetchedDataBoolean
+    return undefined
+  }
+
+  /**
+   * embedHTML() -> Parsing Data for Embed HTML URL
+   * @param {Object} options embedHTML Options for creating the URL
+   * @returns {string | void} Return embed Url on success or undefined on failure
+   */
+
+  embedHTML(options = { id: 'ytplayer', width: 640, height: 360 }) {
+    if (!this.videoId) return undefined
+    return `&lt;iframe title="__youtube_wrapper_frame__" id="${
+      options.id ?? 'ytplayer'
+    }" type="text/html" width="${options.width ?? 640}" height="${
+      options.height ?? 360
+    }" src="${this.embedURL}" frameborder="0">&lt;/iframe>`
+  }
+
+  /**
+   * fetch() -> Fetch Method to fetch Youtube Data Completely
+   * @param {searchOptions} searchOptions Search Options for HTTP Request Options and limit
+   * @param {number | void | "0"} initialIndex Initial index for video as Id
+   * @returns {Promise&lt;this>} Returns Instance but with altered and modified Data
+   */
+
+  async fetch(searchOptions = { limit: 1, type: 'video' }, initialIndex = 1) {
+    if (!this.url) return undefined
+    if (this.#fetchedData) return this
+    searchOptions = { ...searchOptions, limit: 1 }
+
+    const rawHtmlData = await Utils.getHtmlData(
+      `${this.url}&amp;hl=en`,
+      searchOptions?.AxiosHttpRequestConfigs,
+    )
+
+    let rawJson
+    let nextJsonData = {}
+    try {
+      const rawParsedJson = JSON.parse(
+        rawHtmlData.split('var ytInitialData = ')[1].split(';&lt;/script>')[0],
+      )
+      rawJson =
+        rawParsedJson.contents.twoColumnWatchNextResults.results.results
+          .contents
+
+      try {
+        nextJsonData =
+          rawParsedJson.contents.twoColumnWatchNextResults.secondaryResults
+            .secondaryResults.results
+      } catch {}
+    } catch {
+      throw new Error('Could not parse video metadata!')
+    }
+
+    const rawCachedData = {
+      primary: rawJson.find((section) => 'videoPrimaryInfoRenderer' in section)
+        ?.videoPrimaryInfoRenderer,
+      secondary: rawJson.find(
+        (section) => 'videoSecondaryInfoRenderer' in section,
+      )?.videoSecondaryInfoRenderer,
+    }
+
+    let cookedJson
+
+    try {
+      cookedJson = JSON.parse(
+        rawHtmlData
+          .split('var ytInitialPlayerResponse = ')[1]
+          .split(';&lt;/script>')[0],
+      ).videoDetails
+    } catch {
+      cookedJson = JSON.parse(
+        rawHtmlData
+          .split('var ytInitialPlayerResponse = ')[1]
+          .split(';var meta')[0],
+      ).videoDetails
+    }
+
+    cookedJson = {
+      ...rawCachedData.primary,
+      ...rawCachedData.secondary,
+      ...cookedJson,
+    }
+    if (!cookedJson?.videoId) return undefined
+    this.#__parse(
+      {
+        videoId: cookedJson?.videoId,
+        title: cookedJson?.title,
+        views: parseInt(cookedJson?.viewCount) ?? 0,
+        tags: cookedJson?.keywords,
+        isprivate: cookedJson?.isPrivate,
+        islive: cookedJson?.isLiveContent,
+        duration: parseInt(cookedJson?.lengthSeconds) * 1000,
+        duration_raw: Utils.parseDurationToString(
+          parseInt(cookedJson?.lengthSeconds ?? 0) * 1000,
+        ),
+        channel: {
+          name: cookedJson?.author,
+          channelId: cookedJson?.channelId,
+          url: `https://www.youtube.com${cookedJson?.owner?.videoOwnerRenderer?.title?.runs?.[0]?.navigationEndpoint?.browseEndpoint?.canonicalBaseUrl}`,
+          icon:
+            cookedJson?.owner?.videoOwnerRenderer?.thumbnail?.thumbnails?.[0],
+          subscribers: cookedJson?.owner?.videoOwnerRenderer?.subscriberCountText?.simpleText?.replace(
+            ' subscribers',
+            '',
+          ),
+        },
+        description: cookedJson?.shortDescription,
+        thumbnail: {
+          ...cookedJson?.thumbnail?.thumbnails?.pop(),
+          thumbnailId: cookedJson?.videoId,
+        },
+        uploadedAt: cookedJson?.dateText?.simpleText,
+        likes:
+          parseInt(
+            cookedJson?.videoActions?.menuRenderer?.topLevelButtons
+              ?.find(
+                (button) => button?.toggleButtonRenderer?.defaultIcon?.iconType ===
+                  'LIKE',
+              )
+              ?.toggleButtonRenderer?.defaultText?.accessibility?.accessibilityData?.label?.split(
+                ' ',
+              )?.[0]
+              ?.replace(/,/g, '') ?? 0,
+          ) ?? 0,
+        dislikes: 0,
+        videos: Utils.parseExtraHtmlVideos(nextJsonData ?? {}) ?? [],
+      },
+      initialIndex ?? 1,
+      true,
+    )
+    return this
+  }
+
+  /**
+   * toString() -> String value of instance's Video URL
+   * @returns {string} returns string URL
+   */
+
+  toString() {
+    return this.url ?? undefined
+  }
+
+  /**
+   * toJSON() -> JSON Formated from raw instance properties
+   * @returns {JSON} Returns Json Formated Value
+   */
+
+  toJSON() {
+    if (!this.videoId) return undefined
+    return {
+      Id: this.Id,
+      videoId: this.videoId,
+      url: this.url,
+      title: this.title,
+      description: this.description,
+      duration: this.duration,
+      duration_formatted: this.durationFormatted,
+      uploadedAt: this.uploadedAt,
+      thumbnail: this.thumbnail.toJSON(),
+      channel: this.channel.toJSON(),
+      views: this.views,
+      type: this.type,
+      tags: this.tags,
+      likes: this.likes,
+      dislikes: this.dislikes,
+      islive: this.islive,
+      isprivate: this.isprivate,
+      suggestionVideos: this.suggestionVideos,
+    }
+  }
+
+  /**
+   * @type {string | void}
+   * @readonly
+   * return Embed URL
+   */
+
+  get embedURL() {
+    if (!this.videoId) return undefined
+    return `https://www.youtube.com/embed/${this.videoId}`
+  }
+
+  /**
+   * @type {string | void}
+   * @readonly
+   * return type of instance
+   */
+
+  get type() {
+    if (!this.videoId) return undefined
+    return 'video'
+  }
+}
+
+module.exports = YoutubeVideo
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Thu Jan 20 2022 16:42:31 GMT+0000 (Coordinated Universal Time) using <a href="https://github.com/zyrouge/jsdoc-skyceil">Skyceil Theme</a>
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+
+</body>
+</html>
