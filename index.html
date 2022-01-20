@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Home</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <script src="scripts/nav.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/skyceil.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+</head>
+
+<body>
+
+<nav class="navbar">
+    <h4><a href="index.html">Home</a></h4><h5 class="no-bottom must-underline">Classes</h5><ul><li><span class="small-icon C">C</span><b><a href="YoutubeApiLTE.html">YoutubeApiLTE</a></b><ul class="has-class-methods"><li><span class="small-icon M">M</span><a href="YoutubeApiLTE.html#searchOptions">searchOptions</a></li></ul></li></ul><h4>Global</h4><ul><li><a href="global.html#getHomepage()-%253EFetchesHomepageVideoDataintoYoutubeVideoFormated">getHomepage() -> Fetches Homepage Video Data into Youtube Video Formated</a></li><li><a href="global.html#getPlaylist()-%253EFetchesPlaylistDatafromPlaylistUrlorIdandFetchesDatafromActualPlaylistPage">getPlaylist() -> Fetches Playlist Data from Playlist Url or Id and Fetches Data from Actual Playlist Page</a></li><li><a href="global.html#getTrending()-%253EFetchesTrendingPageDataintoYoutubeVideoFormated">getTrending() -> Fetches Trending Page Data into Youtube Video Formated</a></li><li><a href="global.html#getVideo()-%253EFetchesOnlyVideoandFetchesDatafromVideo'sOfficialPageforcorrectandmorevaluableDatatoFetch">getVideo() -> Fetches Only Video and Fetches Data from Video's Official Page for correct and more valuable Data to Fetch</a></li><li><a href="global.html#InnerTube()-%253EFetchesInnerAPIKeyDatafromYoutubeHomePage">InnerTube() -> Fetches Inner API Key Data from Youtube HomePage</a></li><li><a href="global.html#isSafeCheck()-%253ESafeFunctioncheckforYoutubeVideoasitsprimaryscopeandreturnsbooleanas%2522true%2522or%2522false%2522">isSafeCheck() -> Safe Function check for Youtube Video as its primary scope and returns boolean as "true" or "false"</a></li><li><a href="global.html#safeSearch()-%253ESafeSearchModeFunctionwhere%2522safeSearchMode%2522willbeenabledbydefault">safeSearch() -> Safe Search Mode Function where "safeSearchMode" will be enabled by default</a></li><li><a href="global.html#safeSearchOne()-%253ESafeSearchModeFunctionwhere%2522safeSearchMode%2522willbeenabledbydefaultandFetches1ValueasitsAnswer">safeSearchOne() -> Safe Search Mode Function where "safeSearchMode" will be enabled by default and Fetches 1 Value as its Answer</a></li><li><a href="global.html#search()-%253ENormalSearchMethodforYoutubewith%2522https://www.youtube.com/results%2522asBaseSearchQueryUrlandfetchesdatagivenbyYoutube">search() -> Normal Search Method for Youtube with "https://www.youtube.com/results" as Base Search Query Url and fetches data given by Youtube</a></li><li><a href="global.html#searchOne()-%253ESearchOneSpecificDatainSearchQueryResult">searchOne() -> Search One Specific Data in Search Query Result</a></li></ul>
+</nav>
+
+<div id="main">
+    <div class="burger">
+        <div class="burger-line-1"></div>
+        <div class="burger-line-2"></div>
+        <div class="burger-line-3"></div>
+    </div>
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3>jericho-api 1.0.0</h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><div align="center">
+  <br />
+  <p>
+    <a href="https://github.com/SidisLiveYT/jericho-api"><img src="https://raw.githubusercontent.com/SidisLiveYT/jericho-api/main/.github/asserts/logo.svg" width="546" alt="jericho-api" /></a>
+  </p>
+  <br />
+<p>
+<a href="https://discord.gg/MfME24sJ2a"><img src="https://img.shields.io/discord/795434308005134406?color=5865F2&logo=discord&logoColor=white" alt="Discord server" /></a>
+<a href="https://www.npmjs.com/package/jericho-api"><img src="https://img.shields.io/npm/v/jericho-api.svg?maxAge=3600" alt="npm version" /></a>
+<a href="https://www.npmjs.com/package/jericho-api"><img src="https://img.shields.io/npm/dt/jericho-api.svg?maxAge=3600" alt="npm downloads" /></a>
+<a href="https://github.com/SidisLiveYT/jericho-api/actions"><img src="https://github.com/discordjs/discord.js/workflows/Testing/badge.svg" alt="Tests status" /></a>
+</p>
+</div>
+<p>Multi-Node-Api for Community Based Projects includes Custom-YoutubeApi and Many More Api's Wrappers and Many more will be included if you contact us and suggest us some great apis</p>
+<h2>Installation</h2>
+<h3>Install <strong><a href="https://npmjs.com/package/jericho-api">jericho-api</a></strong></h3>
+<pre class="prettyprint source lang-sh"><code>$ npm install --save jericho-api
+</code></pre>
+<h1>Features</h1>
+<ul>
+<li>Soft and Hard fetch methods Integrated with YoutubeApiLTE Class</li>
+<li>Package can be used with Commonjs or ES6 Type of Javascript and typings included</li>
+<li>Added getHomepage() and getTrending() Function and returns Youtube Video Arrays</li>
+<li>Added <YoutubeVideo>.fetch() method for Hard Fetch Type</li>
+<li>Custom Youtube Wrapper and have many functions to fetch data</li>
+<li>Better Event Handlers and Request Handlers</li>
+<li>Better Body Parsing for Incomplete request ( HTTP Post Request )</li>
+</ul>
+<h3>Schemes :</h3>
+<h4>Youtube Video Scheme :</h4>
+<pre class="prettyprint source lang-js"><code>YoutubeVideo {
+  Id: 1,
+  videoId: '9UMxZofMNbA',
+  title: 'Chillout Lounge - Calm & Relaxing Background Music | Study, Work, Sleep, Meditation, Chill',
+  description: 'Short Description here [Edited for Scheme]',
+  duration_raw: '00:00',
+  duration: 0,
+  url: 'https://www.youtube.com/watch?v=9UMxZofMNbA',
+  uploadedAt: 'Started streaming on Jun 13, 2021',
+  views: 12902240,
+  thumbnail: YoutubeThumbnail {
+    thumbnailId: '9UMxZofMNbA',
+    width: 1920,
+    height: 1080,
+    url: 'https://i.ytimg.com/vi/9UMxZofMNbA/maxresdefault.jpg?v=60c5e7c1'
+  },
+  channel: YoutubeChannel {
+    name: 'The Good Life Radio x Sensual Musique',
+    verified: false,
+    channelId: 'UChs0pSaEoNLV4mevBFGaoKA',
+    icon: {
+      url: 'https://yt3.ggpht.com/ytc/AKedOLRolK5uaMIsmYQV2cHzxxC8qSCH5aQ18O3_PMJHwQ=s48-c-k-c0x00ffffff-no-rj',
+      width: 48,
+      height: 48
+    },
+    subscribers: '674K',
+    url: 'https://www.youtube.com/channel/UChs0pSaEoNLV4mevBFGaoKA'
+  },
+  likes: 109710,
+  dislikes: 0,
+  islive: true,
+  isprivate: false,
+  tags: [
+    'chill-out music',
+    'chill music',
+    'chillout',
+    'chill house',
+    'chill',
+    'out',
+    'music',
+    'deep house',
+    'deep',
+    'house',
+    'house music',
+    'dance music',
+    'edm',
+    'electronic dance music',
+    'the good life radio',
+    'the good life'
+  ],
+  suggestionVideos: [ ...YoutubeVideo[] ]
+  // Here Recommendation Videos will be spotted But with soft fetch only | But you can fetch its total data by indivually -> &lt;YoutubeVideo>.fetch() or fetch together by ->  &lt;YoutubeApiLTE>.getVideo(Url , searchOptions , true) and it will return hard fetch videos
+}
+</code></pre>
+<h3>Examples :</h3>
+<h4>YoutubeApiLTE Class Example :</h4>
+<pre class="prettyprint source lang-js"><code>const { YoutubeApiLTE } = require(&quot;jericho-api&quot;);
+
+/**
+ * searchOptions -> Search Options for &lt;YoutubeApiLTE>.search() method
+ *
+ * (@) We are giving headers for &quot;User-Agent&quot; But you can also give other or left it as undefined or enable &quot;randomUserAgents&quot;: true
+ * (@) Search Options helps to filter the search results for Search Query URL and Axios get Response
+ */
+var searchOptions = {
+  AxiosHttpRequestConfigs: {
+    headers: {
+      &quot;User-Agent&quot;:
+        &quot;Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/78.0&quot;,
+    },
+  },
+};
+
+/**
+ * YoutubeInstance -> YoutubeInstance has been been created and all methods of Api calls will be used with it
+ */
+
+var YoutubeInstance = new YoutubeApiLTE(searchOptions);
+
+/**
+ * Youtube_Video -> Fetching Video Metadata from Search Result and also added &lt;YoutubeVideo>.fetch() to get all exact Hard fetched Data (&quot;You can ignore fetch if you are okay with search results or Soft Data&quot;)
+ */
+var Youtube_Video = new Promise(async (resolve) => {
+  /**
+   * &lt;YoutubeApiLTE>.search() function has been called here to fetch Search Results Data
+   *
+   * (@) Added Default &quot;searchOptions&quot; But its choice based
+   * (@) Added limit : 2 , To make only 2 Data or else you can give 1 and 0 for Infinty
+   * (@) Added type : 'video' , Filter Parsing in &lt;Axios>.get() Search Query URL | Choices -> &quot;channel&quot;,&quot;playlist&quot;,&quot;video&quot;,&quot;all&quot;
+   */
+  var Youtube_Video_Data = await YoutubeInstance.search(`Despacito`, {
+    ...searchOptions,
+    type: &quot;all&quot;,
+    limit: 2,
+  });
+
+  /**
+   * Youtube_Video_Data -> Checking for its validity as a Data because Search Result will give usually you search for it in Youtube
+   */
+  if (!(Youtube_Video_Data?.[0] && Youtube_Video_Data?.[0]?.type === &quot;video&quot;))
+    resolve(undefined);
+  else {
+    /**
+     * &lt;YoutubeVideo>.fetch()
+     *
+     * (@) Hard Fetching Data and parse it on same Instance to avoid buffer overflow and memory leaks
+     * (@) if you encounter &quot;429&quot; Erros , you can use cookies and proxies or diffrent user-agent to fetch data through 'Axios'
+     */
+    await Youtube_Video_Data[0].fetch(searchOptions?.AxiosHttpRequestConfigs);
+  }
+
+  resolve(Youtube_Video_Data);
+});
+
+/**
+ * Youtube_Video -> Fetched &lt;YoutubeVideo> Class Instance
+ */
+console.log(Youtube_Video);
+</code></pre>
+<h4>Cookies with YoutubeApiLTE :</h4>
+<pre class="prettyprint source lang-js"><code>var searchOptions = {
+  AxiosHttpRequestConfigs: {
+    cookie:
+      &quot;xxxx=xyz-secret-youtube-cookie-browser-network-inspect-as-string-xxxx=xyznc&quot;,
+  },
+};
+
+// OR
+
+var searchOptions = {
+  AxiosHttpRequestConfigs: {
+    cookies:
+      &quot;xxxx=xyz-secret-youtube-cookie-browser-network-inspect-as-string-xxxx=xyznc&quot;,
+  },
+};
+</code></pre>
+<h4>Proxy with YoutubeApiLTE :</h4>
+<pre class="prettyprint source lang-js"><code>var searchOptions = {
+  AxiosHttpRequestConfigs: {
+    proxy: &quot;https://www.goggle.com:456&quot;,
+  },
+};
+
+// OR
+
+var searchOptions = {
+  AxiosHttpRequestConfigs: {
+    proxy: { host: &quot;www.google.com&quot;, port: 456 },
+  },
+};
+</code></pre>
+<h4>User-Agents with YoutubeApiLTE :</h4>
+<pre class="prettyprint source lang-js"><code>var searchOptions = {
+  AxiosHttpRequestConfigs: {
+    headers: {
+      &quot;User-Agent&quot;:
+        &quot;Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/78.0&quot;,
+    },
+  },
+};
+</code></pre>
+<h4>AxiosHTTPConfigs with YoutubeApiLTE :</h4>
+<pre class="prettyprint source lang-js"><code>var searchOptions = {
+  AxiosHttpRequestConfigs: {},
+};
+</code></pre>
+<h2>Links</h2>
+<ul>
+<li><a href="https://github.com/SidisLiveYT/jericho-api.git">Source Code</a></li>
+<li><a href="https://github.com/SidisLiveYT/jericho-api">GitHub Repo Link</a></li>
+<li><a href="https://www.npmjs.com/package/jericho-api">NPM Package</a></li>
+<li><a href="https://yarn.pm/jericho-api">Yarn Package</a></li>
+</ul></article>
+    </section>
+
+
+
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Thu Jan 20 2022 12:40:06 GMT+0000 (Coordinated Universal Time) using <a href="https://github.com/zyrouge/jsdoc-skyceil">Skyceil Theme</a>
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+
+</body>
+</html>

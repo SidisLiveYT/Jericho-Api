@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Source: Youtube-API.js</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <script src="scripts/nav.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/skyceil.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+</head>
+
+<body>
+
+<nav class="navbar">
+    <h4><a href="index.html">Home</a></h4><h5 class="no-bottom must-underline">Classes</h5><ul><li><span class="small-icon C">C</span><b><a href="YoutubeApiLTE.html">YoutubeApiLTE</a></b><ul class="has-class-methods"><li><span class="small-icon M">M</span><a href="YoutubeApiLTE.html#searchOptions">searchOptions</a></li></ul></li></ul><h4>Global</h4><ul><li><a href="global.html#getHomepage()-%253EFetchesHomepageVideoDataintoYoutubeVideoFormated">getHomepage() -> Fetches Homepage Video Data into Youtube Video Formated</a></li><li><a href="global.html#getPlaylist()-%253EFetchesPlaylistDatafromPlaylistUrlorIdandFetchesDatafromActualPlaylistPage">getPlaylist() -> Fetches Playlist Data from Playlist Url or Id and Fetches Data from Actual Playlist Page</a></li><li><a href="global.html#getTrending()-%253EFetchesTrendingPageDataintoYoutubeVideoFormated">getTrending() -> Fetches Trending Page Data into Youtube Video Formated</a></li><li><a href="global.html#getVideo()-%253EFetchesOnlyVideoandFetchesDatafromVideo'sOfficialPageforcorrectandmorevaluableDatatoFetch">getVideo() -> Fetches Only Video and Fetches Data from Video's Official Page for correct and more valuable Data to Fetch</a></li><li><a href="global.html#InnerTube()-%253EFetchesInnerAPIKeyDatafromYoutubeHomePage">InnerTube() -> Fetches Inner API Key Data from Youtube HomePage</a></li><li><a href="global.html#isSafeCheck()-%253ESafeFunctioncheckforYoutubeVideoasitsprimaryscopeandreturnsbooleanas%2522true%2522or%2522false%2522">isSafeCheck() -> Safe Function check for Youtube Video as its primary scope and returns boolean as "true" or "false"</a></li><li><a href="global.html#safeSearch()-%253ESafeSearchModeFunctionwhere%2522safeSearchMode%2522willbeenabledbydefault">safeSearch() -> Safe Search Mode Function where "safeSearchMode" will be enabled by default</a></li><li><a href="global.html#safeSearchOne()-%253ESafeSearchModeFunctionwhere%2522safeSearchMode%2522willbeenabledbydefaultandFetches1ValueasitsAnswer">safeSearchOne() -> Safe Search Mode Function where "safeSearchMode" will be enabled by default and Fetches 1 Value as its Answer</a></li><li><a href="global.html#search()-%253ENormalSearchMethodforYoutubewith%2522https://www.youtube.com/results%2522asBaseSearchQueryUrlandfetchesdatagivenbyYoutube">search() -> Normal Search Method for Youtube with "https://www.youtube.com/results" as Base Search Query Url and fetches data given by Youtube</a></li><li><a href="global.html#searchOne()-%253ESearchOneSpecificDatainSearchQueryResult">searchOne() -> Search One Specific Data in Search Query Result</a></li></ul>
+</nav>
+
+<div id="main">
+    <div class="burger">
+        <div class="burger-line-1"></div>
+        <div class="burger-line-2"></div>
+        <div class="burger-line-3"></div>
+    </div>
+
+    <h1 class="page-title">Source: Youtube-API.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const Utils = require('../Utils/Youtube-Utils.js')
+const {
+  enumData,
+  searchOptions,
+  youtubeValidateData,
+} = require('../types/interfaces.js')
+const YoutubeVideo = require('../Structures/Youtube-Elements/video-element')
+const YoutubeChannel = require('../Structures/Youtube-Elements/channel-element.js')
+const YoutubePlaylist = require('../Structures/Youtube-Elements/playlist-element.js')
+
+/**
+ * @class YoutubeApiLTE -> Custom Youtube API and not related to Official Youtube API | Though &lt;Class>.&lt;methods> fetches from Actual Youtube Page and Parses the Whole HTML Source Code from Request and returns Value .
+ *  ### We Developers are not Responsible for the Data used by Someone else for any legal/illegal means returned by our Package/Repo
+ */
+
+class YoutubeApiLTE {
+  /**
+   * @constructor
+   * @param {searchOptions} searchOptions -> Youtube Search Options for Request Module and Filter Parsing Sections
+   */
+
+  constructor(searchOptions) {
+    /**
+     * @type {searchOptions}
+     * @readonly
+     * searchOptions -> Youtube Search Options for Request Module and Filter Parsing Sections
+     */
+    this.searchOptions = { type: 'all', ...searchOptions }
+  }
+
+  /**
+   * @method search() -> Normal Search Method for Youtube with "https://www.youtube.com/results" as Base Search Query Url and fetches data given by Youtube
+   * @param {string | YoutubeChannel | YoutubePlaylist | YoutubeVideo} rawQuery Raw Query like Url , Youtube Ids or instance of YoutubeVideo | &lt;YoutubeApiLTE>.validate() will Validate the value to Request
+   * @param {searchOptions} searchOptions Youtube Search Options for Request Module and Filter Parsing Sections
+   * @returns {Promise&lt;YoutubeVideo[] | YoutubePlaylist[] | YoutubeChannel[] | void>} Returns Array of Youtube Video/Playlist/Channel Based on Client's requested searchOptions.type> value
+   */
+
+  async search(rawQuery, searchOptions = this.searchOptions) {
+    const validationData = await this.validate(rawQuery)
+    if (!rawQuery || !validationData)
+      throw TypeError(
+        'Invalid Query is Detected for Safe Check: "Only needs Youtube URLs or Ids for: &lt;YoutubeApiLTE>.search()"',
+      )
+
+    return await this.#htmlSearchResultFetch(
+      validationData?.type === 'query' ? rawQuery : validationData?.url,
+      {
+        ...this.searchOptions,
+        ...searchOptions,
+      },
+    )
+      .then(async (cookedData) => {
+        if (!cookedData?.length &amp;&amp; validationData?.type === 'video')
+          return [await this.getVideo(validationData?.url, searchOptions)]
+        else if (!cookedData?.length &amp;&amp; validationData?.type === 'playlist')
+          return [await this.getPlaylist(validationData?.url, searchOptions)]
+        else if (!cookedData?.length) return []
+        return cookedData
+      })
+      .catch(() => undefined)
+  }
+
+  /**
+   * @method searchOne() -> Search One Specific Data in Search Query Result
+   * @param {string | YoutubeChannel | YoutubePlaylist | YoutubeVideo } rawQuery Raw Query like Url , Youtube Ids or instance of YoutubeVideo | &lt;YoutubeApiLTE>.validate() will Validate the value to Request
+   * @param {searchOptions} searchOptions Youtube Search Options for Request Module and Filter Parsing Sections
+   * @returns {Promise&lt;YoutubeVideo | YoutubePlaylist | YoutubeChannel | void>} Returns  Youtube Video/Playlist/Channel Based on Client's requested searchOptions.type> value
+   */
+
+  async searchOne(rawQuery, searchOptions = this.searchOptions) {
+    if (!rawQuery) return undefined
+    return await this.search(rawQuery, {
+      type: searchOptions?.type ?? 'video',
+      limit: 1,
+      AxiosHttpRequestConfigs: searchOptions?.AxiosHttpRequestConfigs,
+      safeSearchMode: searchOptions?.safeSearchMode ?? false,
+    })
+      .then((cookedData) => {
+        if (!cookedData?.length) return undefined
+        return cookedData[0]
+      })
+      .catch(() => undefined)
+  }
+
+  /**
+   * @method safeSearch() -> Safe Search Mode Function where "safeSearchMode" will be enabled by default
+   * @param {string | YoutubeChannel | YoutubePlaylist | YoutubeVideo } rawQuery Raw Query like Url , Youtube Ids or instance of YoutubeVideo | &lt;YoutubeApiLTE>.validate() will Validate the value to Request
+   * @param {searchOptions} searchOptions Youtube Search Options for Request Module and Filter Parsing Sections
+   * @returns {Promise&lt;YoutubeVideo[] | YoutubePlaylist[] | YoutubeChannel[] | void>} Returns Array of Youtube Video/Playlist/Channel Based on Client's requested searchOptions.type> value
+   */
+
+  async safeSearch(rawQuery, searchOptions = this.searchOptions) {
+    if (!rawQuery) return undefined
+    return await this.search(rawQuery, {
+      type: searchOptions?.type ?? 'video',
+      limit: searchOptions?.limit ?? 1,
+      AxiosHttpRequestConfigs: searchOptions?.AxiosHttpRequestConfigs,
+      safeSearchMode: true,
+    })
+      .then((cookedData) => {
+        if (!cookedData?.length) return undefined
+        return cookedData
+      })
+      .catch(() => undefined)
+  }
+
+  /**
+   * @method safeSearchOne() -> Safe Search Mode Function where "safeSearchMode" will be enabled by default and Fetches 1 Value as its Answer
+   * @param {string | YoutubeChannel | YoutubePlaylist | YoutubeVideo } rawQuery Raw Query like Url , Youtube Ids or instance of YoutubeVideo | &lt;YoutubeApiLTE>.validate() will Validate the value to Request
+   * @param {searchOptions} searchOptions Youtube Search Options for Request Module and Filter Parsing Sections
+   * @returns {Promise&lt;YoutubeVideo | YoutubePlaylist | YoutubeChannel | void>} Returns  Youtube Video/Playlist/Channel Based on Client's requested searchOptions.type> value
+   */
+
+  async safeSearchOne(rawQuery, searchOptions = this.searchOptions) {
+    if (!rawQuery) return undefined
+    return await this.search(rawQuery, {
+      type: searchOptions?.type ?? 'video',
+      limit: 1,
+      AxiosHttpRequestConfigs: searchOptions?.AxiosHttpRequestConfigs,
+      safeSearchMode: true,
+    })
+      .then((cookedData) => {
+        if (!cookedData?.length) return undefined
+        return cookedData[0]
+      })
+      .catch(() => undefined)
+  }
+
+  /**
+   * @method isSafeCheck() -> Safe Function check for Youtube Video as its primary scope and returns boolean as "true" or "false"
+   * @param {string | YoutubeChannel | YoutubePlaylist | YoutubeVideo } rawUrl Raw Query like Url , Youtube Ids or instance of YoutubeVideo | &lt;YoutubeApiLTE>.validate() will Validate the value to Request
+   * @param {searchOptions} searchOptions Youtube Search Options for Request Module and Filter Parsing Sections
+   * @returns {Promise&lt;Boolean | void> | void} Returns Boolean Value for if its safe to use or not
+   */
+
+  async isSafeCheck(rawUrl, searchOptions = this.searchOptions) {
+    let cookedUrl
+    if (rawUrl instanceof YoutubeVideo) cookedUrl = rawUrl.url
+    else if (typeof rawUrl === 'string') cookedUrl = rawUrl
+    else
+      throw TypeError(
+        'Invalid rawUrl is Detected for Safe Check: "Only needs Video URls to check"',
+      )
+    if (
+      Utils.youtubeUrlParseHtmlSearch(cookedUrl)?.contentType !== 'video' &amp;&amp;
+      Utils.youtubeUrlParseHtmlSearch(cookedUrl)?.contentType !== 'videoId'
+    )
+      throw TypeError(
+        'Invalid rawUrl is Detected for Safe Check: "Only needs Video URls to check"',
+      )
+    return await this.safeSearchOne(
+      Utils.youtubeUrlParseHtmlSearch(cookedUrl)?.parsedUrl,
+      {
+        type: 'video',
+        AxiosHttpRequestConfigs: searchOptions?.AxiosHttpRequestConfigs,
+      },
+    )
+      .then((cookedData) => {
+        if (cookedData || (Array.isArray(cookedData) &amp;&amp; cookedData?.[0]))
+          return true
+        else return false
+      })
+      .catch(() => false)
+  }
+
+  /**
+   * @method getVideo() -> Fetches Only Video and Fetches Data from Video's Official Page for correct and more valuable Data to Fetch
+   * @param {string | YoutubeChannel | YoutubePlaylist | YoutubeVideo } rawUrl Raw Query like Url , Youtube Ids or instance of YoutubeVideo | &lt;YoutubeApiLTE>.validate() will Validate the value to Request
+   * @param {searchOptions} searchOptions Youtube Search Options for Request Module and Filter Parsing Sections
+   * @param {boolean | void} hardFetchMode hard Fetch method to fetch everything aggressively
+   * @returns {Promise&lt;YoutubeVideo | void> | void} Returns Youtube Video Data or undefined on failure
+   */
+
+  async getVideo(
+    rawUrl,
+    searchOptions = this.searchOptions,
+    hardFetchMode = false,
+  ) {
+    const validationData = await this.validate(
+      rawUrl,
+      searchOptions?.safeSearchMode,
+    )
+    if (
+      !rawUrl ||
+      !validationData ||
+      validationData?.type !== 'video' ||
+      (validationData?.type === 'video' &amp;&amp;
+        searchOptions?.safeSearchMode &amp;&amp;
+        !validationData?.isSafeCheck)
+    )
+      throw TypeError(
+        'Invalid rawUrl is Detected for Safe Check: "Only needs Video URls or Video IDs to check"',
+      )
+
+    const fetchedVideo =
+      rawUrl instanceof YoutubeVideo
+        ? rawUrl.fetch(searchOptions)
+        : Utils.hardHTMLSearchparse(
+          await Utils.getHtmlData(
+            `${validationData.url}&amp;hl=en`,
+            searchOptions?.AxiosHttpRequestConfigs,
+          ),
+          'video',
+        )
+    if (!hardFetchMode) return fetchedVideo
+
+    fetchedVideo.suggestionVideos = (
+      await Promise.all(
+        fetchedVideo?.suggestionVideos?.map(async (suggestionVideo, Id) => {
+          if (!(Id >= (searchOptions?.limit ?? Infinity))) {
+            const cachedVideo = await suggestionVideo.fetch(
+              searchOptions,
+              Id + 1,
+            )
+            if (!cachedVideo) return undefined
+            else return cachedVideo
+          } else return undefined
+        }),
+      )
+    )?.filter(Boolean)
+    return fetchedVideo
+  }
+
+  /**
+   * @method getPlaylist() -> Fetches Playlist Data from Playlist Url or Id and Fetches Data from Actual Playlist Page
+   * @param {string | YoutubeChannel | YoutubePlaylist | YoutubeVideo } rawUrl Raw Query like Url , Youtube Ids or instance of YoutubeVideo | &lt;YoutubeApiLTE>.validate() will Validate the value to Request
+   * @param {searchOptions} searchOptions Youtube Search Options for Request Module and Filter Parsing Sections
+   * @param {boolean | void} hardPlaylistfetchMode hard Fetch method to fetch Playlist Video Data aggressively
+   * @param {boolean | void} hardVideofetchMode hard Fetch method to fetch every Suggestion Videos in Youtube Video aggressively
+   * @returns {Promise&lt;YoutubePlaylist | void> | void} Returns Youtube Playlist Data or undefined on failure
+   */
+
+  async getPlaylist(
+    rawUrl,
+    searchOptions = this.searchOptions,
+    hardPlaylistfetchMode = false,
+    hardVideofetchMode = false,
+  ) {
+    const validationData = await this.validate(
+      rawUrl,
+      searchOptions?.safeSearchMode,
+    )
+    if (
+      validationData?.type !== 'playlist' ||
+      (validationData?.type === 'playlist' &amp;&amp;
+        searchOptions?.safeSearchMode &amp;&amp;
+        !validationData?.isSafeCheck)
+    )
+      throw TypeError(
+        'Invalid rawUrl is Detected for Safe Check: "Only needs Playlist URls or Playlist IDs to check"',
+      )
+
+    const fetchedData = Utils.hardHTMLSearchparse(
+      await Utils.getHtmlData(
+        `${validationData.url}&amp;hl=en`,
+        searchOptions?.AxiosHttpRequestConfigs,
+      ),
+      'playlist',
+      searchOptions?.limit ?? 0,
+    )
+    if (!hardPlaylistfetchMode) return fetchedData
+
+    await fetchedData.fetchAll()
+
+    fetchedData.videos = (
+      await Promise.all(
+        fetchedData?.videos?.map(async (video, Id) => {
+          if (!(Id >= (searchOptions?.limit ?? Infinity))) {
+            const cachedVideo = await this.getVideo(
+              video,
+              searchOptions,
+              hardVideofetchMode ?? false,
+            )
+            cachedVideo.Id = Id + 1
+            return cachedVideo
+          } else return undefined
+        }),
+      )
+    )?.filter(Boolean)
+    return fetchedData
+  }
+
+  /**
+   * @method validate() -> Validation of Urls or strings for Query , Video , Playlist and Channel
+   * @param {string | YoutubeChannel | YoutubePlaylist | YoutubeVideo } rawUrl Raw Query like Url , Youtube Ids or instance of YoutubeVideo | &lt;YoutubeApiLTE>.validate() will Validate the value to Request
+   * @param {string | void} safeSearchMode Youtube Search Safe Mode if to check
+   * @returns {Promise&lt;youtubeValidateData> | void} Returns Parsed Data of Url and Id after validate of Data
+   */
+
+  async validate(rawData, safeSearchMode = false) {
+    let cookedUrl
+    if (!rawData) return undefined
+    else if (
+      rawData instanceof YoutubeVideo ||
+      rawData instanceof YoutubeChannel ||
+      rawData instanceof YoutubePlaylist
+    )
+      cookedUrl = rawData.url
+    else if (typeof rawData === 'string') cookedUrl = rawData.trim()
+    else return undefined
+
+    const cookedData = Utils.youtubeUrlParseHtmlSearch(cookedUrl)
+    if (typeof cookedUrl === 'string' &amp;&amp; cookedData?.contentType === 'query') {
+      return {
+        Id: cookedUrl,
+        url: cookedData.parsedUrl,
+        type: 'query',
+        isSafeCheck: true,
+      }
+    } else if (
+      (typeof cookedUrl === 'string' &amp;&amp; cookedData?.contentType === 'video') ||
+      cookedData?.contentType === 'videoId'
+    ) {
+      return {
+        Id: cookedData?.parsedData?.trim(),
+        url: cookedData?.parsedUrl,
+        type: 'video',
+        isSafeCheck: safeSearchMode
+          ? await this.isSafeCheck(cookedData.parsedUrl)
+          : undefined,
+      }
+    } else if (
+      (typeof cookedUrl === 'string' &amp;&amp;
+        cookedData?.contentType === 'playlist') ||
+      cookedData?.contentType === 'playlistId'
+    ) {
+      return {
+        Id: cookedData?.parsedData?.trim(),
+        url: cookedData?.parsedUrl,
+        type: 'playlist',
+        isSafeCheck: true,
+      }
+    } else if (
+      typeof cookedUrl === 'string' &amp;&amp;
+      cookedData?.contentType === 'channel'
+    ) {
+      return {
+        Id: cookedData?.parsedData?.trim(),
+        url: cookedData?.parsedUrl,
+        type: 'channel',
+        isSafeCheck: true,
+      }
+    } else return undefined
+  }
+
+  /**
+   * @method getHomepage() -> Fetches Homepage Video Data into Youtube Video Formated
+   * @param {searchOptions} searchOptions Search Options for HTTP Request Options
+   * @returns {Promise&lt;YoutubeVideo[] | void>} Returns Youtube Video Array or undefined on failure
+   */
+
+  async getHomepage(searchOptions = this.searchOptions) {
+    return (
+      Utils.parseHtmlHomepage(
+        await Utils.getHtmlData(
+          enumData?.HTML_YOUTUBE_HOMEPAGE_BASE_URL,
+          searchOptions?.AxiosHttpRequestConfigs,
+        ),
+      ) ?? []
+    )
+  }
+
+  /**
+   * @method getTrending() -> Fetches Trending Page Data into Youtube Video Formated
+   * @param {searchOptions} searchOptions Search Options for HTTP Request Options
+   * @returns {Promise&lt;YoutubeVideo[] | void>} Returns Youtube Video Array or [] or undefined on failure
+   */
+
+  async getTrending(searchOptions = this.searchOptions) {
+    return (
+      Utils.parseHTMLTrendingPage(
+        await Utils.getHtmlData(
+          enumData.HTML_YOUTUBE_TRENDING_PAGE_BASE_URL,
+          searchOptions?.AxiosHttpRequestConfigs,
+        ),
+      ) ?? []
+    )
+  }
+
+  /**
+   * @method InnerTube() -> Fetches Inner API Key Data from Youtube HomePage
+   * @param {searchOptions | void} searchOptions Search Options for HTTP Request Options
+   * @returns {string | void} Returns Youtube Inner Tube API Key or undefined on failure
+   */
+
+  async innerTubeApikey(searchOptions = this.searchOptions) {
+    const rawHTMLData = await Utils.getHtmlData(
+      enumData.HTML_YOUTUBE_HOMEPAGE_BASE_URL,
+      searchOptions?.AxiosHttpRequestConfigs,
+    )
+    if (!rawHTMLData) return undefined
+    const apiKey =
+      rawHTMLData?.split('INNERTUBE_API_KEY":"')?.[1]?.split('"')?.[0] ??
+      rawHTMLData?.split('innertubeApiKey":"')?.[1]?.split('"')?.[0]
+    return apiKey ?? undefined
+  }
+
+  /**
+   * @private
+   * @method #htmlSearchResultFetch() -> HTML Search Result private Fetch Function for public search method
+   * @param {string | YoutubeChannel | YoutubePlaylist | YoutubeVideo } rawQuery Raw Query like Url , Youtube Ids or instance of YoutubeVideo | &lt;YoutubeApiLTE>.validate() will Validate the value to Request
+   * @param {searchOptions} searchOptions Youtube Search Options for Request Module and Filter Parsing Sections
+   * @returns {Promise&lt;YoutubeVideo[] | YoutubePlaylist[] | YoutubeChannel[] | void>} Returns Array of Youtube Video/Playlist/Channel Based on Client's requested searchOptions.type> value
+   */
+
+  async #htmlSearchResultFetch(rawQuery, searchOptions) {
+    if (!rawQuery) return undefined
+    if (
+      !['all', 'channel', 'video', 'playlist', 'query'].includes(
+        searchOptions?.type?.toLowerCase()?.trim(),
+      )
+    )
+      return undefined
+    const cookedQuery = Utils.youtubeUrlParseHtmlSearch(rawQuery)
+    if (!cookedQuery?.parsedData || !cookedQuery.searchQueryUrl)
+      return undefined
+
+    const htmlgetUrl =
+      `${cookedQuery?.searchQueryUrl}` +
+      '&amp;hl=en' +
+      `${Utils.htmlSearchrawFilterParser(
+        searchOptions?.type?.toLowerCase()?.trim(),
+      )}`
+
+    const htmlOptions = searchOptions?.safeSearchMode
+      ? {
+        ...searchOptions.AxiosHttpRequestConfigs,
+        headers: { cookie: enumData?.HTML_SAFE_SEARCH_COOKIE_VALUE },
+      }
+      : {
+        headers: enumData.HTML_YOUTUBE_HEADER_DATA,
+        ...searchOptions.AxiosHttpRequestConfigs,
+      }
+    return Utils.parseHtmlSearchResults(
+      await Utils.getHtmlData(htmlgetUrl, htmlOptions),
+      searchOptions,
+    )
+  }
+}
+
+module.exports = YoutubeApiLTE
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Thu Jan 20 2022 12:40:06 GMT+0000 (Coordinated Universal Time) using <a href="https://github.com/zyrouge/jsdoc-skyceil">Skyceil Theme</a>
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+
+</body>
+</html>
