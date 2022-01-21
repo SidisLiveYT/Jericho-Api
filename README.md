@@ -32,6 +32,7 @@ $ npm install --save jericho-api
 - Better Event Handlers and Request Handlers
 - Better Body Parsing for Incomplete request ( HTTP Post Request )
 
+### [Documentation](https://jericho-api.js.org/)
 ### Schemes :
 
 #### Youtube Video Scheme :
