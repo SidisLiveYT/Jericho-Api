@@ -1,6 +1,6 @@
 {
   "name": "jericho-api",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Multi-Node-Api for Community Based Projects includes Custom-YoutubeApi and Many More Api's Wrappers",
   "main": "./src/index.js",
   "module": "./src/index.mjs",
